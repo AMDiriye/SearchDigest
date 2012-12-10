@@ -17,12 +17,13 @@ public class WebPageMiner {
 	
 	public static void main(String args[]) throws IOException{
 		
+		Stemmer stemmer = new Stemmer();
 		
-		
+		System.out.println(stemmer.stripAffixes("testing"));
 		
 		Document doc;
 		try {
-			doc = Jsoup.connect("http://google.com/").get();
+			doc = Jsoup.connect("http://research.microsoft.com/en-us/um/people/ryenw/index.html").get();
 			String title = doc.title();
 			String body = doc.body().text();
 			NamedEntityExtractor nee = new NamedEntityExtractor();
