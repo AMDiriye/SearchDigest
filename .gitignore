@@ -1,2 +1,4 @@
 # Eclipse files
 *.class
+.classpath
+.project
