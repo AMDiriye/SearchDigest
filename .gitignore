@@ -1,4 +1,7 @@
 # Eclipse files
 *.class
-*.buildpath
-*.project
+.buildpath
+.classpath
+.project
+bin/
+bin/**
