@@ -17,40 +17,31 @@ import org.jsoup.nodes.TextNode;
  */
 public class WebPageMiner {
 
+	Stemmer stemmer;
+	StopWordCollection stopWordCollection;
+	final static NamedEntityExtractor namedEntityExtractor  = new NamedEntityExtractor();;
 	
+	public WebPageMiner(){
+		stemmer  = new Stemmer();
+		stopWordCollection = StopWordCollection.getInstance();
+	}
+
 
 	public WebPage mine(String url){
-		WebPage webPage = new WebPage(url);
-		Stemmer stemmer = new Stemmer();
 
-		System.out.println(stemmer.stripAffixes("testing"));
+		WebPage webPage = null;
+		Document doc;
 
-		
 		try {
-			Document doc = Jsoup.connect("http://research.microsoft.com/en-us/um/people/ryenw/index.html").get();
-			List<Node> tx = doc.childNodes();
 
-			for(Node tn:tx){
+			webPage = new WebPage(url);
+			doc = Jsoup.connect(url).get();
 
-				int size = tn.childNodes().size();
+			List<Node> nodes = doc.childNodes();
 
-				for(Node tn1: tn.childNodes()){
-					System.out.println("--"+tn1.toString());
-					for(Node tn2: tn1.childNodes()){
-						System.out.println("--"+tn2.);
-					}
-				}
-
-
-			}
-
-			String title = doc.title();
-			String body = doc.body().text();
-			NamedEntityExtractor nee = new NamedEntityExtractor();
-			ArrayList<NamedEntity> listNamedEntities = nee.findNamedEntities(body);
-
-			for(NamedEntity ne:listNamedEntities){
-				System.out.println(ne.getEntityValue()+"-"+ne.getType());
+			for(Node node:nodes){
+				webPage.addWebPageEntity(getWebPageEntity(node));
+				
 			}
 
 		} catch (IOException e) {
@@ -62,11 +53,49 @@ public class WebPageMiner {
 	}
 
 
-	public static void main(String args[]) throws IOException{
+
+	/*
+	 * Returns list of web page elements 
+	 */
+	private WebPageEntity getWebPageEntity(Node node) throws IOException{
+
+		WebPageEntity webPageParentEntity = new WebPageEntity(node.toString());
+		
+		if (node instanceof TextNode) {
+			String nodeText = ((TextNode) node).text();
+			
+			if(nodeText.trim().replaceAll("[^a-zA-Z]", "").length()>0){
+				webPageParentEntity.text = nodeText;
+				webPageParentEntity.stemmedText = stemmer.stripAffixes(nodeText);
+				webPageParentEntity.stopWordLessText = stopWordCollection.removeStopWords(nodeText);
+				webPageParentEntity.addTerms(stopWordCollection.removeStopWords(stemmer.stripAffixes(nodeText)));		
+				webPageParentEntity.setNamedEntity(namedEntityExtractor.findNamedEntities(nodeText));
+				
+				for(NamedEntity entity:webPageParentEntity.namedEntities)
+					System.out.println(entity.getEntityValue()+" - "+entity.getType());
+				//System.out.println("------------------------");
+				//System.out.println(webPageParentEntity.text);
+				//System.out.println(webPageParentEntity.stemmedText);
+				//System.out.println(webPageParentEntity.stopWordLessText);
+			}
+		}
 
 
+		if(node.childNodes().size()>0){
 
+			for(Node childNode: node.childNodes()){
+				WebPageEntity webPageChildEntity = new WebPageEntity(childNode.toString());
+				//System.out.println("--"+childNode.toString());
 
+				if(childNode != null){
+
+					webPageChildEntity.addChild(getWebPageEntity(childNode));
+				}
+
+				webPageParentEntity.addChild(webPageChildEntity);
+			}
+		}
+		return webPageParentEntity;
 	}
 
 }

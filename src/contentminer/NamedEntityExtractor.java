@@ -32,9 +32,11 @@ public class NamedEntityExtractor {
        * Constructor for a NamedEntity Extractor
        * @throws IOException
        */
-      public NamedEntityExtractor() throws IOException 
+      public NamedEntityExtractor() 
       {
-              englishSentenceDetector = new SentenceDetectorME((SentenceModel) loadTrainnedModel("./data/de-sent.bin"));
+              try {
+				englishSentenceDetector = new SentenceDetectorME((SentenceModel) loadTrainnedModel("./data/de-sent.bin"));
+
               finders = new NameFinderME[NAME_TYPES.length];
               
               //Set up entity finders... need one for each 'type' of entity.
@@ -45,6 +47,10 @@ public class NamedEntityExtractor {
               //location type
               finders[2] = new NameFinderME(new TokenNameFinderModel(new FileInputStream("./data/en-ner-location.bin")));
               
+              } catch (IOException e) {
+  				// TODO Auto-generated catch block
+  				e.printStackTrace();
+  			}
       }
       /**
        * Find entities using the passed in finder

@@ -3,9 +3,3 @@
 .buildpath
 .classpath
 .project
-../bin/
-./bin/
-bin/contentminer/*.class
-bin/**
-**/bin
-**/bin/**

@@ -2,31 +2,35 @@ package contentminer;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class StopWordReader {
 
-	
-	public static void read(String filePath){
-	
-		  try 
-          {
-                  Scanner s = new Scanner(new File(filePath));
-                  while(s.hasNext())
-                  {
-                          String next = s.next();
-                          if(!next.equals(""))
-                          {
-                                  StopWordCollection.addStopWord(next);
-                          }
-                  }
-          } catch (FileNotFoundException e) 
-          {
-                  // TODO Auto-generated catch block
-                  e.printStackTrace();
-          }
-	
-		  
+
+	public static ArrayList<String> read(String filePath){
+		
+		ArrayList<String> stopWords = new ArrayList<String>();
+		
+		try 
+		{
+			Scanner s = new Scanner(new File(filePath));
+			while(s.hasNext())
+			{
+				String next = s.next();
+				if(!next.equals(""))
+				{
+					stopWords.add(next);
+				}
+			}
+			s.close();
+		} catch (FileNotFoundException e) 
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return stopWords;
 	}
-	
+
 }

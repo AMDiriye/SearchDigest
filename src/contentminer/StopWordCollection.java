@@ -4,32 +4,43 @@ import java.util.ArrayList;
 
 public class StopWordCollection {
 
-	public static ArrayList<String> stopWords = new ArrayList<String>();
+	private static final StopWordCollection stopWordCollection = new StopWordCollection();
+	private static ArrayList<String> stopWords;
 	
 	
-	public StopWordCollection(){
-		
+	private StopWordCollection(){
+		loadStopWords();
 	}
 	
-	public static void addStopWord(String stopWord){
-		stopWords.add(stopWord);
+	
+	public static StopWordCollection getInstance(){
+		return stopWordCollection;
 	}
 	
-	public static String[] removeStopWords(String _words){
+
+	private void loadStopWords(){
+		stopWords = StopWordReader.read("./data/stopwords.txt");
+	}
+	
+	public String removeStopWords(String _words){
 		
 		if(stopWords.size() == 0){
 			throw new IllegalStateException("Object not initialised");
 		}
 			
-		ArrayList<String> cleanedWords = new ArrayList<String>();
+		String cleanedWords = "";
 		String[] words = _words.split(" ");
 		
 		for(String word:words){
-			if(!stopWords.contains(word)){
-				cleanedWords.add(word);
+			String lowerCasedWord = word.toLowerCase().replaceAll("[^A-Za-z0-9/s/']*", "");
+			
+			if(!stopWords.contains(lowerCasedWord)){
+				cleanedWords +=" "+ lowerCasedWord;
 			}
 		}
-		return (String[]) cleanedWords.toArray();
+		return cleanedWords;
 	}
+	
+	
 	
 }
