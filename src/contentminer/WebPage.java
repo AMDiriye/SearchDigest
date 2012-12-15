@@ -35,7 +35,7 @@ public class WebPage {
 		return allPageEntities;
 	}
 	
-	public ArrayList<String> getAllPageNamedEntities(){
+	public ArrayList<NamedEntity> getAllPageNamedEntities(){
 		ArrayList<NamedEntity> allPageNamedEntities = new ArrayList<NamedEntity>();
 		
 		
@@ -48,13 +48,7 @@ public class WebPage {
 						 
 		}
 		
-		ArrayList<String> allPageNamedEntitiesToString = new ArrayList<String>();
-		
-		for(NamedEntity namedEntity : allPageNamedEntities){
-			allPageNamedEntitiesToString.add(namedEntity.getEntityValue());
-		}
-		
-		return allPageNamedEntitiesToString;
+		return allPageNamedEntities;
 	}
 	
 	

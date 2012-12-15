@@ -26,10 +26,15 @@ public class WebPageEntity {
 	
 	public void addChild(WebPageEntity childEntity){
 		children.add(childEntity);
+		namedEntities.addAll(childEntity.namedEntities);
 	}
 
 	public void addChildren(ArrayList<WebPageEntity> webPageEntities) {
 		children = webPageEntities;
+		
+		for(WebPageEntity childEntity: webPageEntities){
+			namedEntities.addAll(childEntity.namedEntities);
+		}
 	}
 	
 	public void addTerms(String entityTerms){

@@ -14,10 +14,11 @@ public class Programme {
 	
 		ComparisonEngine compEngine = new ComparisonEngine();
 		
-		ArrayList<WebPageEntity> allPageEntities = webPage1.getAllPageEntities();
+		ArrayList<WebPageEntity> allPageEntities = webPage1.getAllNamedPageEntities();
 		
 		for(WebPageEntity webPageEntity : allPageEntities){
 			WebPageEntity relatedPageEntity = compEngine.findMatchingContent(webPageEntity, webPage2,0.25);
+			//WebPageEntity relatedPageEntity = compEngine.findSimilarContent(webPageEntity, webPage2,0.25);
 			
 			if(relatedPageEntity != null)
 				System.out.println(webPageEntity.text+" \n---> "+relatedPageEntity.toString());

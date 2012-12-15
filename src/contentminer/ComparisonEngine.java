@@ -32,7 +32,7 @@ public class ComparisonEngine {
 		double highestSim = 0.0;
 		WebPageEntity relatedEntity = null;
 		ArrayList<String> allPageNamedEntities = webPage.getAllPageNamedEntities();
-		ArrayList<WebPageEntity> allPageEntities = webPage.getAllPageEntities();
+		//ArrayList<WebPageEntity> allPageEntities = webPage.getAllPageEntities();
 		
 		for(WebPageEntity tempWebPageEntity : allPageEntities){
 			
