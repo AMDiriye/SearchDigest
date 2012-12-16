@@ -14,7 +14,7 @@ public class Programme {
 	
 		ComparisonEngine compEngine = new ComparisonEngine();
 		
-		ArrayList<WebPageEntity> allPageEntities = webPage1.getAllNamedPageEntities();
+		ArrayList<WebPageEntity> allPageEntities = webPage1.getAllPageEntities();
 		
 		for(WebPageEntity webPageEntity : allPageEntities){
 			WebPageEntity relatedPageEntity = compEngine.findMatchingContent(webPageEntity, webPage2,0.25);

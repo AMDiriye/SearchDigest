@@ -31,12 +31,11 @@ public class ComparisonEngine {
 	public WebPageEntity findMatchingContent(WebPageEntity webPageEntity, WebPage webPage,double threshold){
 		double highestSim = 0.0;
 		WebPageEntity relatedEntity = null;
-		ArrayList<String> allPageNamedEntities = webPage.getAllPageNamedEntities();
-		//ArrayList<WebPageEntity> allPageEntities = webPage.getAllPageEntities();
+		ArrayList<WebPageEntity> allPageEntities = webPage.getAllPageEntities();
 		
 		for(WebPageEntity tempWebPageEntity : allPageEntities){
 			
-			double tempSim = overlapSimilarity(tempWebPageEntity.terms,allPageNamedEntities);
+			double tempSim = overlapSimilarity(tempWebPageEntity.terms,webPageEntity.getNamedEntities());
 			
 			if(tempSim >= highestSim){
 				relatedEntity = tempWebPageEntity;
