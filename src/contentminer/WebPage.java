@@ -42,7 +42,7 @@ public class WebPage {
 		for(WebPageEntity webPageEntity: webPageEntities){
 			
 			if(webPageEntity.namedEntities != null && webPageEntity.namedEntities.size() != 0){
-				allPageNamedEntities.addAll(webPageEntity.getNamedEntities());
+				allPageNamedEntities.addAll(webPageEntity.namedEntities);
 				
 			}
 						 

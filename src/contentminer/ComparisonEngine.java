@@ -35,8 +35,13 @@ public class ComparisonEngine {
 		
 		for(WebPageEntity tempWebPageEntity : allPageEntities){
 			
-			double tempSim = overlapSimilarity(tempWebPageEntity.terms,webPageEntity.getNamedEntities());
+			if(webPageEntity.stemmedText.contains("senior research")){
+				System.out.println(webPageEntity.stemmedText+"-------------");
+				System.out.println("-------------");
+			}
 			
+			double tempSim = jaccardSimilarity(tempWebPageEntity.terms,webPageEntity.getNamedEntities());
+						
 			if(tempSim >= highestSim){
 				relatedEntity = tempWebPageEntity;
 				highestSim = tempSim;
@@ -55,8 +60,16 @@ public class ComparisonEngine {
 		double similarity = 0.0;
 	
 		for(String term : entity1) {
-			if (term != "" && entity2.contains(term))
+			
+			//System.out.println(containsTerm(term,entity2));
+			//System.out.println(entity2.toString());
+			//System.out.println(term);
+			
+			if (term != "" && containsTerm(term,entity2)){
 				similarity++;
+				//System.out.println(entity2.toString());
+				//System.out.println(term);
+			}
 		}
 		return similarity/Math.min(entity1.size(),entity2.size());
 	}
@@ -67,7 +80,7 @@ public class ComparisonEngine {
 		
 		for(String category : entity1)
 		{
-			if (category != "" && entity2.contains(category))
+			if (category != "" && containsTerm(category,entity2))
 			{
 				similarity++;
 			}
@@ -81,7 +94,7 @@ public class ComparisonEngine {
 		
 		for(String category : entity1)
 		{
-			if (category != "" && entity2.contains(category))
+			if (category != "" && containsTerm(category,entity2))
 				similarity++;
 		}
 		return similarity / (entity1.size() +entity2.size() - similarity);
@@ -92,10 +105,31 @@ public class ComparisonEngine {
 
 		for(String category : entity1)
 		{
-			if(category != "" && entity2.contains(category))
+			if(category != "" && containsTerm(category,entity2))
 				similarity++;
 		}
 		return similarity / (entity1.size() + entity2.size());
 	}
 
+	private boolean containsTerm(String str1, ArrayList<String> terms){
+		String[] allTerms = terms.toString().split(" ");		
+		
+		
+		for(String term : allTerms){
+			term = Utilities.stem(Utilities.removeStopWords(term.toLowerCase())).trim();
+			
+			if(str1.contains("ryen") && term.equals(str1)){
+				System.out.println(str1+" "+term);
+			
+			}
+
+			
+			
+			if(term.equals(str1)){
+				
+				return true;
+			}
+		}
+		return false;
+	}
 }

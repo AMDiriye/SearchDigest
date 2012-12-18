@@ -121,10 +121,10 @@ public class NamedEntityExtractor {
               }
               
               //TODO erase: **Debugging**
-              for(NamedEntity entity: entities)
-              {
-                      System.out.println(entity.getEntityValue() + " " + entity.getType());
-              }
+             // for(NamedEntity entity: entities)
+             // {
+             //         System.out.println(entity.getEntityValue() + " " + entity.getType());
+             // }
               
               return entities;
       }

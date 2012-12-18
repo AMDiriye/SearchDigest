@@ -11,7 +11,6 @@ public class WebPageEntity {
 	
 	ArrayList<String> terms;
 	ArrayList<NamedEntity> namedEntities;
-	ArrayList<String> namedEntityTerms;
 	ArrayList<WebPageEntity> children;
 	
 	
@@ -20,7 +19,6 @@ public class WebPageEntity {
 		children = new ArrayList<WebPageEntity>();
 		terms = new ArrayList<String>();
 		namedEntities = new ArrayList<NamedEntity>();
-		namedEntityTerms = new ArrayList<String>();
 	}
 	
 	public String getText(){
@@ -32,13 +30,6 @@ public class WebPageEntity {
 		namedEntities.addAll(childEntity.namedEntities);
 	}
 
-	public void addChildren(ArrayList<WebPageEntity> webPageEntities) {
-		children = webPageEntities;
-		
-		for(WebPageEntity childEntity: webPageEntities){
-			namedEntities.addAll(childEntity.namedEntities);
-		}
-	}
 	
 	public void addTerms(String entityTerms){
 		String[] _entityTerms = entityTerms.split(" ");
@@ -58,12 +49,7 @@ public class WebPageEntity {
 	
 	
 	public void setNamedEntity(ArrayList<NamedEntity> namedEntities){
-		this.namedEntities = namedEntities;
-		
-		for(NamedEntity namedEntity : namedEntities){
-			namedEntityTerms.add(namedEntity.getEntityValue());
-		}
-		
+		this.namedEntities = namedEntities;	
 	}
 	
 	public 	ArrayList<String> getNamedEntities(){
@@ -75,7 +61,11 @@ public class WebPageEntity {
 				_namedEntities.addAll(webPageEntity.getNamedEntities());
 			}		
 		}
-		_namedEntities.addAll(namedEntityTerms);
+		
+		for(NamedEntity nameEntity : namedEntities){
+			_namedEntities.add(nameEntity.getEntityValue());
+		}
+		
 		return _namedEntities;
 	} 
 	

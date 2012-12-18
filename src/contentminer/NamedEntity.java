@@ -22,4 +22,8 @@ public class NamedEntity {
 	public void setEntityValue(String entityValue) {
 		this.entityValue = entityValue;
 	}
+	
+	public String toString(){
+		return entityValue+" - "+type;
+	}
 }
