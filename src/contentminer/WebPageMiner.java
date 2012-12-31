@@ -41,7 +41,10 @@ public class WebPageMiner {
 			doc = Jsoup.connect(url).get();
 			Elements docElements = doc.select("body");
 			
-			System.out.println(doc.select(":containsOwn(Jeff Huang University of Washington )").text());
+			System.out.println(doc.text());
+			
+			EntityFinder ef = new EntityFinder();
+			ef.getEntities("test", docElements.text());
 			
 			for(Element element:docElements){
 				webPageEntity = getWebPageEntity(element);
