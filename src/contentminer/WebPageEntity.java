@@ -15,7 +15,7 @@ public class WebPageEntity {
 	
 	
 	public WebPageEntity(String text){
-		this.text = text;
+		this.text = "";
 		children = new ArrayList<WebPageEntity>();
 		terms = new ArrayList<String>();
 		namedEntities = new ArrayList<NamedEntity>();

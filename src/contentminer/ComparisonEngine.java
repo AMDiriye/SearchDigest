@@ -28,19 +28,22 @@ public class ComparisonEngine {
 	}
 	
 	
-	public WebPageEntity findMatchingContent(WebPageEntity webPageEntity, WebPage webPage,double threshold){
+	public WebPageEntity findMatchingContent(String entity, WebPage webPage, double threshold){
+		
+		
+		if(entity.trim().equalsIgnoreCase("Computer Systems Science")){
+			System.out.println("here");
+		}
+		
 		double highestSim = 0.0;
 		WebPageEntity relatedEntity = null;
 		ArrayList<WebPageEntity> allPageEntities = webPage.getAllPageEntities();
+		ArrayList<String> loneEntity = new ArrayList<String>();
+		loneEntity.add(entity);
 		
 		for(WebPageEntity tempWebPageEntity : allPageEntities){
 			
-			if(webPageEntity.stemmedText.contains("senior research")){
-				System.out.println(webPageEntity.stemmedText+"-------------");
-				System.out.println("-------------");
-			}
-			
-			double tempSim = jaccardSimilarity(tempWebPageEntity.terms,webPageEntity.getNamedEntities());
+			double tempSim = cosineSimilarity(tempWebPageEntity.terms,loneEntity);
 						
 			if(tempSim >= highestSim){
 				relatedEntity = tempWebPageEntity;
@@ -61,14 +64,9 @@ public class ComparisonEngine {
 	
 		for(String term : entity1) {
 			
-			//System.out.println(containsTerm(term,entity2));
-			//System.out.println(entity2.toString());
-			//System.out.println(term);
 			
 			if (term != "" && containsTerm(term,entity2)){
 				similarity++;
-				//System.out.println(entity2.toString());
-				//System.out.println(term);
 			}
 		}
 		return similarity/Math.min(entity1.size(),entity2.size());
@@ -117,13 +115,6 @@ public class ComparisonEngine {
 		
 		for(String term : allTerms){
 			term = Utilities.stem(Utilities.removeStopWords(term.toLowerCase())).trim();
-			
-			if(str1.contains("ryen") && term.equals(str1)){
-				System.out.println(str1+" "+term);
-			
-			}
-
-			
 			
 			if(term.equals(str1)){
 				

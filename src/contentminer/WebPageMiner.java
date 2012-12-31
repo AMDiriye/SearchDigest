@@ -6,8 +6,10 @@ import java.util.List;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.jsoup.nodes.Node;
 import org.jsoup.nodes.TextNode;
+import org.jsoup.select.Elements;
 
 
 
@@ -19,7 +21,7 @@ public class WebPageMiner {
 
  
 	StopWordCollection stopWordCollection;
-	final static NamedEntityExtractor namedEntityExtractor  = new NamedEntityExtractor();;
+	final static NamedEntityExtractor namedEntityExtractor  = new NamedEntityExtractor();
 	
 	public WebPageMiner(){
 		
@@ -31,16 +33,21 @@ public class WebPageMiner {
 
 		WebPage webPage = null;
 		Document doc;
-
+		WebPageEntity webPageEntity;
+		
 		try {
 
 			webPage = new WebPage(url);
 			doc = Jsoup.connect(url).get();
-
-			List<Node> nodes = doc.childNodes();
+			Elements docElements = doc.select("body");
 			
-			for(Node node:nodes){
-				webPage.addWebPageEntity(getWebPageEntity(node));
+			System.out.println(doc.select(":containsOwn(Jeff Huang University of Washington )").text());
+			
+			for(Element element:docElements){
+				webPageEntity = getWebPageEntity(element);
+				
+				if(!webPageEntity.text.equals("") )
+					webPage.addWebPageEntity(webPageEntity);
 				
 			}
 
@@ -62,12 +69,7 @@ public class WebPageMiner {
 		
 		if (node instanceof TextNode) {
 			String nodeText = ((TextNode) node).text();
-			
-			
-			if(nodeText.contains("Ryen White"))
-					System.out.println("XXXXXXXXXXXXX");
-			
-			
+			System.out.println(((TextNode) node).text());
 			
 			if(nodeText.trim().replaceAll("[^a-zA-Z]", "").length()>0){
 				webPageParentEntity.text = nodeText;
@@ -76,12 +78,8 @@ public class WebPageMiner {
 				webPageParentEntity.addTerms(stopWordCollection.removeStopWords(Utilities.stem(nodeText)));						
 				webPageParentEntity.setNamedEntity(namedEntityExtractor.findNamedEntities(nodeText));
 				
-				//for(NamedEntity entity:webPageParentEntity.namedEntities)
-				//	System.out.println(entity.getEntityValue()+" - "+entity.getType());
-				//System.out.println("------------------------");
-				//System.out.println(webPageParentEntity.text);
-				//System.out.println(webPageParentEntity.stemmedText);
-				//System.out.println(webPageParentEntity.stopWordLessText);
+				//System.out.println("----------------------------------------------");
+				//System.out.println(nodeText);
 			}
 		}
 
@@ -94,13 +92,40 @@ public class WebPageMiner {
 
 				if(childNode != null){
 
-					webPageChildEntity.addChild(getWebPageEntity(childNode));
+					//webPageChildEntity.addChild(getText(childNode));
+					webPageParentEntity.text += getText(childNode);
 				}
 
-				webPageParentEntity.addChild(webPageChildEntity);
+				
 			}
+			
+			webPageParentEntity.stemmedText = Utilities.stem(webPageParentEntity.text);
+			webPageParentEntity.stopWordLessText = stopWordCollection.removeStopWords(webPageParentEntity.text);
+			webPageParentEntity.addTerms(stopWordCollection.removeStopWords(Utilities.stem(webPageParentEntity.text)));						
+			webPageParentEntity.setNamedEntity(namedEntityExtractor.findNamedEntities(webPageParentEntity.text));
 		}
 		return webPageParentEntity;
+	}
+	
+	
+	private String getText(Node node){
+		String text = "";
+		
+		if(node.childNodes().size() > 0){
+			for(Node childNode: node.childNodes()){
+				text += getText(childNode);
+			}
+			return text;
+		}
+		else{
+			if(node != null && node instanceof TextNode && ((TextNode)node).text() != null && !((TextNode)node).text().equals(" ") ){
+				return ((TextNode)node).text()+" ";
+			}
+			
+		}
+		return "";
+		
+		
 	}
 
 }

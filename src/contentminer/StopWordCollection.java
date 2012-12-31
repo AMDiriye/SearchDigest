@@ -41,6 +41,4 @@ public class StopWordCollection {
 		return cleanedWords;
 	}
 	
-	
-	
 }
