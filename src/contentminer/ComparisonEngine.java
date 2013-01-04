@@ -14,7 +14,7 @@ public class ComparisonEngine {
 		
 		for(WebPageEntity tempWebPageEntity : allPageEntities){
 			
-			double tempSim = overlapSimilarity(tempWebPageEntity.terms,webPageEntity.terms);
+			double tempSim = Utilities.overlapSimilarity(tempWebPageEntity.terms,webPageEntity.terms);
 			
 			if(tempSim >= highestSim){
 				relatedEntity = tempWebPageEntity;
@@ -43,7 +43,7 @@ public class ComparisonEngine {
 		
 		for(WebPageEntity tempWebPageEntity : allPageEntities){
 			
-			double tempSim = cosineSimilarity(tempWebPageEntity.terms,loneEntity);
+			double tempSim = Utilities.cosineSimilarity(tempWebPageEntity.terms,loneEntity);
 						
 			if(tempSim >= highestSim){
 				relatedEntity = tempWebPageEntity;
@@ -57,70 +57,5 @@ public class ComparisonEngine {
 		else return null;
 		
 	}
-		
 
-	private double overlapSimilarity(ArrayList<String> entity1, ArrayList<String> entity2) {
-		double similarity = 0.0;
-	
-		for(String term : entity1) {
-			
-			
-			if (term != "" && containsTerm(term,entity2)){
-				similarity++;
-			}
-		}
-		return similarity/Math.min(entity1.size(),entity2.size());
-	}
-
-	private double cosineSimilarity(ArrayList<String> entity1, ArrayList<String> entity2){
-		double similarity = 0.0;
-
-		
-		for(String category : entity1)
-		{
-			if (category != "" && containsTerm(category,entity2))
-			{
-				similarity++;
-			}
-		}
-
-		return 1-Math.cos(similarity / Math.sqrt((entity1.size() * entity2.size())));
-	}
-
-	private double jaccardSimilarity(ArrayList<String> entity1, ArrayList<String> entity2){
-		double similarity = 0.0;
-		
-		for(String category : entity1)
-		{
-			if (category != "" && containsTerm(category,entity2))
-				similarity++;
-		}
-		return similarity / (entity1.size() +entity2.size() - similarity);
-	}
-
-	private double diceSimilarity(ArrayList<String> entity1, ArrayList<String> entity2){
-		double similarity = 0.0;
-
-		for(String category : entity1)
-		{
-			if(category != "" && containsTerm(category,entity2))
-				similarity++;
-		}
-		return similarity / (entity1.size() + entity2.size());
-	}
-
-	private boolean containsTerm(String str1, ArrayList<String> terms){
-		String[] allTerms = terms.toString().split(" ");		
-		
-		
-		for(String term : allTerms){
-			term = Utilities.stem(Utilities.removeStopWords(term.toLowerCase())).trim();
-			
-			if(term.equals(str1)){
-				
-				return true;
-			}
-		}
-		return false;
-	}
 }

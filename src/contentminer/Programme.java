@@ -9,12 +9,19 @@ public class Programme {
 	@SuppressWarnings("unused")
 	public static void main(String args[]) throws IOException{
 
+		
+		
 		WebPageMiner webPageMiner = new WebPageMiner();
-		WebPage webPage1 = webPageMiner.mine("http://jeffhuang.com/");
+		//WebPage webPage1 = webPageMiner.mine("http://jeffhuang.com/");
 		WebPage webPage2 = webPageMiner.mine("http://en.wikipedia.org/wiki/Euclidean_norm#Euclidean_norm");
 
 		ComparisonEngine compEngine = new ComparisonEngine();
 
+		ArrayList<String> allPageEntities = removeDuplicates(webPage2.getAllPageNamedEntities());
+		
+		for(String ent : allPageEntities){			
+			System.out.println(ent);
+		}
 		/*
 		ArrayList<WebPageEntity> allPageEntities = webPage1.getAllPageEntities();
 
@@ -24,7 +31,7 @@ public class Programme {
 			if(relatedPageEntity != null)
 				System.out.println(webPageEntity.namedEntities.toString()+" \n---> "+relatedPageEntity.toString());
 		}
-		 */
+		 
 
 		ArrayList<String> allPageEntities = removeDuplicates(webPage1.getAllPageNamedEntities());
 
@@ -36,6 +43,7 @@ public class Programme {
 			if(relatedPageEntity != null)
 				System.out.println(namedEntity +" \n---> "+relatedPageEntity.toString());
 		}
+		*/
 	}
 	
 	private static ArrayList<String> removeDuplicates(ArrayList<NamedEntity> allPageEntities){

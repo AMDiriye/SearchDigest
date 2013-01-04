@@ -394,7 +394,7 @@ public class Stemmer {
 			stemmedWords +=" "+word;
 		}
 
-		return stemmedWords;
+		return stemmedWords.replaceFirst("[\\s]", "");
 	} //stripAffixes
 
 } 

@@ -9,6 +9,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.nodes.Node;
 import org.jsoup.nodes.TextNode;
+import org.jsoup.safety.Whitelist;
 import org.jsoup.select.Elements;
 
 
@@ -39,19 +40,20 @@ public class WebPageMiner {
 
 			webPage = new WebPage(url);
 			doc = Jsoup.connect(url).get();
-			Elements docElements = doc.select("body");
-			
 			System.out.println(doc.text());
+			Elements docElements = doc.select("body");
+			docElements.select("a").unwrap();
+			System.out.println(docElements.text());
+			Utilities.extractEntities(docElements.text());
 			
-			EntityFinder ef = new EntityFinder();
-			ef.getEntities("test", docElements.text());
+			EntityFinder ef = new EntityFinder(docElements);
+			ef.getEntities("norm", docElements.text());
 			
 			for(Element element:docElements){
 				webPageEntity = getWebPageEntity(element);
 				
 				if(!webPageEntity.text.equals("") )
 					webPage.addWebPageEntity(webPageEntity);
-				
 			}
 
 		} catch (IOException e) {
