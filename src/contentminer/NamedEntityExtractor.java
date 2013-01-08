@@ -119,12 +119,7 @@ public class NamedEntityExtractor {
                               findNamesInSentence(entities, tokens, finders[i], ENTITY_TYPES[i]);
                       }
               }
-              
-              //TODO erase: **Debugging**
-             // for(NamedEntity entity: entities)
-             // {
-             //         System.out.println(entity.getEntityValue() + " " + entity.getType());
-             // }
+ 
               
               return entities;
       }

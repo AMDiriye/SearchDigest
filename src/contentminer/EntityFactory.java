@@ -24,8 +24,6 @@ public class EntityFactory {
 				System.out.println(ent.getEntityValue() + " -- "+ent.getType());
 			}
 		}
-		
-		
 		return entities;
 	}
 

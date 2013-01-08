@@ -19,7 +19,7 @@ public class NounExtractor {
 	        String tagged = tagger.tagString(text);
 	 
 	        // Output the result
-	        System.out.println(tagged);
+	       // System.out.println(tagged);
 	        
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block

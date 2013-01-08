@@ -30,11 +30,6 @@ public class ComparisonEngine {
 	
 	public WebPageEntity findMatchingContent(String entity, WebPage webPage, double threshold){
 		
-		
-		if(entity.trim().equalsIgnoreCase("Computer Systems Science")){
-			System.out.println("here");
-		}
-		
 		double highestSim = 0.0;
 		WebPageEntity relatedEntity = null;
 		ArrayList<WebPageEntity> allPageEntities = webPage.getAllPageEntities();
