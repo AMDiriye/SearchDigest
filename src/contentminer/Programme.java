@@ -13,6 +13,24 @@ public class Programme {
 	
 	public static void main(String args[]) throws IOException{
 
+		//comparePages();
+		augmentPage();
+	}
+	
+	private static void augmentPage(){
+		
+		System.out.println("Enter a URL");
+		String pageURL=readLine();
+		
+		WebPageMiner webPageMiner = new WebPageMiner();	
+		
+		WebPage webPage = webPageMiner.mine(pageURL,false);
+		webPage = HtmlProcessor.addDOMHighlighting(webPage);
+		DataWriter.writeFile("../html/jhuang.html", webPage.doc.toString());
+		Utilities.openFileInBrowser("html/jhuang.html");
+		
+	}
+	private static void comparePages(){
 		System.out.println("Please enter URL for page1");
 		String page1URL=readLine();
 		
@@ -90,7 +108,6 @@ public class Programme {
 
 				//if a web browser is the default HTML handler, this might work too
 				//Desktop.getDesktop().open(htmlFile);
-
 	}
 	
 	private static ArrayList<String> removeDuplicates(ArrayList<NamedEntity> allPageEntities){
