@@ -15,19 +15,7 @@ public static void main(String args[]){
 		
 		
 		System.out.println("Please enter text you want to align with");
-		String text = "Publications
-
-Books
-
-2013
-
-2	 	
-Human-Computer Information Retrieval (Working Title) 
-Ryen W. White 
-Cambridge University Press - Publication date TBC 
-
-
-2009 Exploratory Search: Beyond the Query-Response Paradigm  Ryen W. White and Resa A. Roth  Morgan & Claypool Series on Information Concepts, Retrieval, and Services [Morgan & Claypool website] Book Chapter 2010 Interactive Techniques  Ryen W. White  Chapter in Interactive Information Retrieval (Ian Ruthven and Diane Kelly, editors)  [Facet Publishing website] Editor";//readLine();
+		String text = "Publications Editor";//readLine();
 		Segment segment = new Segment(text);
 		AlignmentEngine alignmentEngine = new AlignmentEngine(segment);
 		
