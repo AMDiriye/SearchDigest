@@ -89,7 +89,7 @@ public class SegmentationFactory {
 						textNodes.add(childNode.parent());
 					}
 				}
-			}
+			} 
 		}
 		catch(Exception e)
 		{
