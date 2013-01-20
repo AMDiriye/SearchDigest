@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import contentminer.InverseSegmentFreq;
 import contentminer.Utilities;
 
 import JavaMI.MutualInformation;
@@ -40,6 +41,13 @@ public class AlignmentEngine {
 		{
 			List<Segment> tempPageSegments = webPages[i].segments;
 			
+			//need to create new idf for each segment
+			InverseSegmentFreq isf;
+			isf = new InverseSegmentFreq(tempPageSegments);
+			Utilities.isf = isf;
+			
+			
+			
 			for(int j=0; j < webpage.segments.size(); j++){
 				
 				double highestMIScore = Double.NEGATIVE_INFINITY;
@@ -52,7 +60,8 @@ public class AlignmentEngine {
 					
 					double tempMIScore = Utilities.cosineSimilarity(tempPageSegments.get(k).cleanTextList,webpage.segments.get(j).cleanTextList);//
 					//MutualInformation.calculateMutualInformation(segmentDistribs.get(0),segmentDistribs.get(1));
-					
+							//Utilities.klDivergence(segmentDistribs.get(0),segmentDistribs.get(1));
+				
 					if(tempMIScore > highestMIScore)
 					{
 						highestMIScore = tempMIScore;

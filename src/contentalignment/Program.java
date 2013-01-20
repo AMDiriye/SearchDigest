@@ -6,6 +6,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map.Entry;
 
+import contentminer.InverseSegmentFreq;
+import contentminer.Utilities;
+
 import JavaMI.MutualInformation;
 
 public class Program {
@@ -15,14 +18,15 @@ public static void main(String args[]){
 		
 		
 		System.out.println("Please enter text you want to align with");
-		String text = "Publications Editor";//readLine();
-		Segment segment = new Segment(text);
+		String text = "I am a Senior Researcher at Microsoft Research, Redmond. I am a member of the CLUES group.";//readLine();
+		Segment segment = new Segment(text, null);
 		AlignmentEngine alignmentEngine = new AlignmentEngine(segment);
 		
 		System.out.println("Enter related URLs");
 		String[] relatedURLs = "http://research.microsoft.com/en-us/um/people/sdumais/,http://research.microsoft.com/en-us/um/people/pauben/".split("[,]");//readLine().split("[,]");
 		WebPage[] webPages = new WebPage[relatedURLs.length];
-		SegmentationFactory segmentFactory;
+		SegmentationFactory segmentFactory = null;
+		
 		
 		for(int i=0; i<relatedURLs.length; i++)
 		{
@@ -31,6 +35,8 @@ public static void main(String args[]){
 			webPage.addAllSegments(segmentFactory.getSegments());
 			webPages[i] = webPage;
 		}
+		
+		
 		
 		alignmentEngine.alignWebPages(webPages);
 		

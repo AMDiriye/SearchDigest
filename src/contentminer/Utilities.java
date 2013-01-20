@@ -23,6 +23,7 @@ public class Utilities {
 
 	static Stemmer stemmer  = new Stemmer();
 	static StopWordCollection stopWordCollection = StopWordCollection.getInstance();
+	public static InverseSegmentFreq isf;
 
 	public static String[] getTopKTerms(String text){
 		ArrayList<String> entities = new ArrayList<String>();
@@ -93,7 +94,7 @@ public class Utilities {
 
 		for(String term : entity1)
 		{
-			similarity += count(term, entity2.toString());
+			similarity += getTFIDF(term, entity2.toString());
 		}
 
 		return 1-Math.cos(similarity / Math.sqrt((entity1.size() * entity2.size())));
@@ -132,6 +133,23 @@ public class Utilities {
 		return counter;
 
 	}
+	
+	
+	//can sometimes find terms inside the middle of words
+	private static double getTFIDF(String term, String line){
+
+		Pattern pattern = Pattern.compile(" "+term);
+		Matcher matcher = pattern.matcher(" "+line.trim());
+		int tf= 0;
+
+		while (matcher.find())
+			tf++;
+
+		double idf = isf.getTermFreq(term);
+		return tf * idf;
+
+	}
+	
 	
 	public double compareDocs()
 	{
@@ -196,6 +214,31 @@ public class Utilities {
 		return distribution;
 	}
 	
+	public static final double log2 = Math.log(2);
+    /**
+     * Returns the KL divergence, K(p1 || p2).
+     *
+     * The log is w.r.t. base 2. <p>
+     *
+     * *Note*: If any value in <tt>p2</tt> is <tt>0.0</tt> then the KL-divergence
+     * is <tt>infinite</tt>. Limin changes it to zero instead of infinite. 
+     * 
+     */
+    public static double klDivergence(double[] p1, double[] p2) {
+
+
+      double klDiv = 0.0;
+
+      for (int i = 0; i < p1.length; ++i) {
+        if (p1[i] == 0) { continue; }
+        if (p2[i] == 0.0) { continue; } // Limin
+
+      klDiv += p1[i] * Math.log( p1[i] / p2[i] );
+      }
+
+      return klDiv / log2; // moved this division out of the loop -DM
+    }
+	
 	public static double calculateKLD(List<String> values,List<String> value2)   
 	{  
 
@@ -231,7 +274,8 @@ public class Utilities {
 	            frequency2 = (double) map2.get(sequence) / value2.size();                
 	        }
 	        result += frequency1 * (Math.log(frequency1/frequency2) / Math.log(2));         
-	    }  
+	    }
+	    
 	    return result/2.4;  
 	}    
 
@@ -248,11 +292,13 @@ public class Utilities {
 
 		for(String term : allTermDocs)
 		{
-			similarity += Math.pow(Math.abs(count(term, entity1.toString())-count(term, entity2.toString())),2);
+			similarity += Math.pow(Math.abs(getTFIDF(term, entity1.toString())-count(term, entity2.toString())),2);
 		}
 
 		return Math.sqrt(similarity);
 	}
+	
+ 
 }
 
 

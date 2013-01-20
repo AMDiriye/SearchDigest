@@ -5,19 +5,24 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 
+import org.jsoup.nodes.Node;
+
 import contentminer.Utilities;
 
 public class Segment {
+	
 	String text;
 	String stopWordLessText;
 	String processedTerms;
 	int size;
 	int uniqueTerms;
 	List<String> cleanTextList;
+	Node node;
 	
-	public Segment(String text)
+	public Segment(String text, Node node)
 	{
 		this.text = text;
+		this.node = node;
 		stopWordLessText = Utilities.removeStopWords(text);
 		size = stopWordLessText.split("[\\s]").length;
 		
@@ -28,6 +33,7 @@ public class Segment {
 		HashSet set = new HashSet();
 		set.add(stopWordLessText);
 		uniqueTerms = set.size();
+		
 	}
 	
 	public String getText()

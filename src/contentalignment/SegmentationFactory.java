@@ -40,7 +40,7 @@ public class SegmentationFactory {
 
 	private void makeSegments()
 	{
-		Set<Node> nodes = new HashSet<Node>();
+		List<Node> nodes = new ArrayList<Node>();
 
 		for(Element node : docElements)
 		{
@@ -55,12 +55,13 @@ public class SegmentationFactory {
 		{
 			if(node instanceof Element)
 			{
-				segments.add(new Segment(((Element) node).text()));			
+				segments.add(new Segment(((Element) node).text(), node));			
 				System.out.println((((Element) node).text()));
 			}
 		}
 
 		System.out.println("Done");
+		System.out.println("***************************");
 	}
 
 	private List<Node> getTextNodes(Node parentNode)
@@ -89,7 +90,7 @@ public class SegmentationFactory {
 						textNodes.add(childNode.parent());
 					}
 				}
-			} 
+			}
 		}
 		catch(Exception e)
 		{

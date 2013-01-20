@@ -28,7 +28,5 @@ public class WebPage {
 	{
 		segments.addAll(_segments);
 	}
-
-
 	
 }
