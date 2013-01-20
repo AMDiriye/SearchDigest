@@ -11,6 +11,6 @@
 	<classpathentry kind="lib" path="lib/opennlp-tools-1.5.0.jar"/>
 	<classpathentry kind="lib" path="lib/OpenNLP.jar"/>
 	<classpathentry kind="lib" path="lib/stanford-postagger.jar"/>
-	<classpathentry kind="lib" path="lib/JavaMI.jar"/>
+	<classpathentry kind="lib" path="E:/Users/Rupert/workspace/SearchDigest/lib/JavaMI.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
