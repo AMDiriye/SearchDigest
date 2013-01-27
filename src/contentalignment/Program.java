@@ -39,7 +39,7 @@ public static void main(String args[]){
 		
 		
 		alignmentEngine.alignWebPages(webPages);
-		
+		System.out.println(webPages[0].segments.get(0).node.nodeName());
 		
 		for (Entry<Segment, List<Segment>> entry : alignmentEngine.alignments.entrySet()) {
 		    Segment key = entry.getKey();
