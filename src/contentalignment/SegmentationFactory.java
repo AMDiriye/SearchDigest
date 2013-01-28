@@ -26,6 +26,9 @@ public class SegmentationFactory {
 	public SegmentationFactory(String url)
 	{ 
 		Document doc = Utilities.getDoc(url);
+		
+		Elements _elements = doc.select("h1,h2,h3,h4,h5,h6");
+		_elements.size();
 		docElements = doc.select("body");
 		docElements.select("a").unwrap();
 		docElements.select("b").unwrap();
