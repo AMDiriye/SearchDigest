@@ -36,6 +36,8 @@ public static void main(String args[]){
 			webPages[i] = webPage;
 		}
 		
+		EntityExtractor entityExtractor = new EntityExtractor(webPages[0].segments, webPages[0].doc);
+		
 		
 		
 		alignmentEngine.alignWebPages(webPages);
