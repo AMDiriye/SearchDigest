@@ -17,14 +17,19 @@ public class EntityExtractor {
 	public EntityExtractor(List<Segment> webPageSegments, Document doc){
 		this.webPageSegments = webPageSegments;
 		this.webPageHeadings = new ArrayList<String>();
-		Elements elements = doc.select("h1,h2,h3,h4,h5,h6");
+		this.sectionHeadings = new ArrayList<Node>();
+		
 		findHeadings(doc);
 	}
 	 
 	
 	
 	private void findHeadings(Document doc) {
+		Elements heading = doc.select("h1, h2, h3, h4, h5, h6");
 		
+		for(Node node : heading){
+			sectionHeadings.add(node);
+		}
 		
 	}
 
