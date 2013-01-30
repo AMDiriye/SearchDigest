@@ -18,14 +18,14 @@ public class SegmentationFactory {
 
 	List<Segment> segments;
 	Elements docElements;
-
+	Document doc;
 	int pos = 0;
 
 	
 	
 	public SegmentationFactory(String url)
 	{ 
-		Document doc = Utilities.getDoc(url);
+		doc = Utilities.getDoc(url);
 		
 		Elements _elements = doc.select("h1,h2,h3,h4,h5,h6");
 		_elements.size();

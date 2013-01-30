@@ -11,15 +11,15 @@ public class EntityExtractor {
 
 	
 	List<Segment> webPageSegments;
-	List<String> webPageHeadings;
-	List<Node> sectionHeadings;
+	List<Node> webPageHeadings;
+	List<Cluster> clusters;
 	
 	public EntityExtractor(List<Segment> webPageSegments, Document doc){
 		this.webPageSegments = webPageSegments;
-		this.webPageHeadings = new ArrayList<String>();
-		this.sectionHeadings = new ArrayList<Node>();
-		
+		this.webPageHeadings = new ArrayList<Node>();
+		this.clusters = new ArrayList<Cluster>();
 		findHeadings(doc);
+		segmentContent();
 	}
 	 
 	
@@ -28,7 +28,7 @@ public class EntityExtractor {
 		Elements heading = doc.select("h1, h2, h3, h4, h5, h6");
 		
 		for(Node node : heading){
-			sectionHeadings.add(node);
+			webPageHeadings.add(node);
 		}
 		
 	}
@@ -42,18 +42,14 @@ public class EntityExtractor {
 	*/
 	private void segmentContent(){
 		
-		Cluster cluster = null;
-		List<Cluster> clusters = new ArrayList<Cluster>();
+		Cluster cluster = new Cluster();;
+		
 		
 		for(int i=0; i < webPageSegments.size(); i++){
 
-			if(sectionHeadings.contains(webPageSegments.get(i))){
+			if(webPageHeadings.contains(webPageSegments.get(i).node)){
 				
-				 if(cluster != null)
-				 {
-					 clusters.add(cluster);
-				 }
-				 
+				clusters.add(cluster);
 				 cluster = new Cluster();
 			}
 			

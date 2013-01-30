@@ -33,11 +33,11 @@ public static void main(String args[]){
 			WebPage webPage = new WebPage();
 			segmentFactory = new SegmentationFactory(relatedURLs[i]);
 			webPage.addAllSegments(segmentFactory.getSegments());
+			webPage.doc = segmentFactory.doc;
 			webPages[i] = webPage;
 		}
 		
-		EntityExtractor entityExtractor = new EntityExtractor(webPages[0].segments, webPages[0].doc);
-		
+		EntityExtractor entityExtractor = new EntityExtractor(webPages[1].segments, webPages[1].doc);
 		
 		
 		alignmentEngine.alignWebPages(webPages);
