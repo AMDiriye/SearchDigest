@@ -17,31 +17,35 @@ public class Program {
 public static void main(String args[]){
 		
 		
-		System.out.println("Please enter text you want to align with");
+	/*	System.out.println("Please enter text you want to align with");
 		String text = "I am a Senior Researcher at Microsoft Research, Redmond. I am a member of the CLUES group.";//readLine();
 		Segment segment = new Segment(text, null);
 		AlignmentEngine alignmentEngine = new AlignmentEngine(segment);
 		
 		System.out.println("Enter related URLs");
-		String[] relatedURLs = "http://research.microsoft.com/en-us/um/people/sdumais/,http://research.microsoft.com/en-us/um/people/pauben/".split("[,]");//readLine().split("[,]");
+		String[] relatedURLs = "http://www.amazon.com/, http://research.microsoft.com/en-us/um/people/sdumais/,http://research.microsoft.com/en-us/um/people/pauben/".split("[,]");//readLine().split("[,]");
 		WebPage[] webPages = new WebPage[relatedURLs.length];
 		SegmentationFactory segmentFactory = null;
 		
-		
+	
 		for(int i=0; i<relatedURLs.length; i++)
 		{
-			WebPage webPage = new WebPage();
+			
 			segmentFactory = new SegmentationFactory(relatedURLs[i]);
+			
+			WebPage webPage = new WebPage(segmentFactory.getDoc());
 			webPage.addAllSegments(segmentFactory.getSegments());
-			webPage.doc = segmentFactory.doc;
 			webPages[i] = webPage;
 		}
 		
-		EntityExtractor entityExtractor = new EntityExtractor(webPages[1].segments, webPages[1].doc);
 		
-		
+		EntityExtractor entityExtractor = new EntityExtractor(webPages[0].segments, webPages[0].doc);
 		alignmentEngine.alignWebPages(webPages);
 		System.out.println(webPages[0].segments.get(0).node.nodeName());
+		
+		//SegmentExtractor segExt = new SegmentExtractor();
+		//segExt.extractSegments(webPages[0].doc);
+
 		
 		for (Entry<Segment, List<Segment>> entry : alignmentEngine.alignments.entrySet()) {
 		    Segment key = entry.getKey();
@@ -55,7 +59,8 @@ public static void main(String args[]){
 		    	System.out.println("--------------");
 		    	System.out.println(seg.text);
 		    }
-		}
+		    
+		}*/
 		
 	}
 

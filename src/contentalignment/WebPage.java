@@ -10,21 +10,22 @@ import contentminer.Utilities;
 public class WebPage {
 
 	Document doc;
-	List<Segment> segments;
+	List<Cluster> segments;
 	
-	public WebPage()
+	public WebPage(Document doc)
 	{
-		segments = new ArrayList<Segment>();
+		this.doc = doc;
+		segments = new ArrayList<Cluster>();
 	}
 	
 	
-	public void addSegment(Segment segment)
+	public void addSegment(Cluster segment)
 	{
 		segments.add(segment);
 	}
 	
 	
-	public void addAllSegments(List<Segment> _segments)
+	public void addAllSegments(List<Cluster> _segments)
 	{
 		segments.addAll(_segments);
 	}

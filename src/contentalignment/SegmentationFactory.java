@@ -59,12 +59,12 @@ public class SegmentationFactory {
 			if(node instanceof Element)
 			{
 				segments.add(new Segment(((Element) node).text(), node));			
-				System.out.println((((Element) node).text()));
+				//System.out.println((((Element) node).text()));
 			}
 		}
 
-		System.out.println("Done");
-		System.out.println("***************************");
+		//System.out.println("Done");
+		//System.out.println("***************************");
 	}
 
 	private List<Node> getTextNodes(Node parentNode)
@@ -120,4 +120,9 @@ public class SegmentationFactory {
 	{
 		return segments;
 	}
+
+	public Document getDoc() {
+		return doc;
+	}
+
 }

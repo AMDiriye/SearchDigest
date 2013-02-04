@@ -16,6 +16,7 @@ import java.util.regex.Pattern;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
+import contentalignment.Cluster;
 import contentalignment.Segment;
 
 
@@ -180,7 +181,7 @@ public class Utilities {
 	}
 
 
-	public static List<double[]> getDistributions(Segment segment, Segment segment2) {
+	public static List<double[]> getDistributions(Cluster segment, Cluster segment2) {
 		List<double[]> distributions = new ArrayList<double[]>();
 		
 		List<String> termsDoc = new ArrayList<String>(); 
@@ -200,7 +201,7 @@ public class Utilities {
 	}
 	
 	
-	private static double[] computeDistribution(List<String> termDoc, Segment segment)
+	private static double[] computeDistribution(List<String> termDoc, Cluster segment)
 	{
 		double[] distribution = new double[termDoc.size()];
 		String segmentText = segment.getProcessedText();

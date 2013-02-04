@@ -8,6 +8,7 @@ import java.util.List;
 import org.jsoup.nodes.Node;
 
 import contentminer.EntityFactory;
+import contentminer.NamedEntity;
 import contentminer.Utilities;
 
 public class Segment {
@@ -18,7 +19,6 @@ public class Segment {
 	int size;
 	int uniqueTerms;
 	List<String> cleanTextList;
-	List<String> entities;
 	Node node;
 	
 	public Segment(String text, Node node)
@@ -32,13 +32,11 @@ public class Segment {
 		cleanTextList = new ArrayList<String>();
 		cleanTextList.addAll(Arrays.asList(processedTerms.split("[\\s]")));
 		
-		entities = EntityFactory.generateEntities(text);
-		
 		HashSet set = new HashSet();
 		set.add(stopWordLessText);
 		uniqueTerms = set.size();
-		
 	}
+
 	
 	public String getText()
 	{
@@ -50,14 +48,16 @@ public class Segment {
 		return cleanTextList;
 	}
 	
-	public String toString()
-	{
-		return text;
-	}
 
 	public String getProcessedText() 
 	{
 		return  processedTerms;
 	}
 	
+
+	
+	@Override
+	public String toString(){
+		return node.toString();
+	}
 }

@@ -18,19 +18,19 @@ import JavaMI.MutualInformation;
 public class AlignmentEngine { 
 
 	WebPage webpage;
-	Map<Segment, List<Segment>> alignments;
+	Map<Cluster, List<Cluster>> alignments;
 	
 	
 	public AlignmentEngine(WebPage webpage){
 		this.webpage = webpage;
-		alignments = new HashMap<Segment, List<Segment>>();
+		alignments = new HashMap<Cluster, List<Cluster>>();
 	}
 	
 	
-	public AlignmentEngine(Segment segment){
-		webpage = new WebPage();
+	public AlignmentEngine(Cluster segment){
+		webpage = new WebPage(null);
 		webpage.addSegment(segment);
-		alignments = new HashMap<Segment,  List<Segment>>();
+		alignments = new HashMap<Cluster,  List<Cluster>>();
 	}
 	
 	
@@ -39,7 +39,7 @@ public class AlignmentEngine {
 		
 		for(int i=0; i<webPages.length;i++)
 		{
-			List<Segment> tempPageSegments = webPages[i].segments;
+			List<Cluster> tempPageSegments = webPages[i].segments;
 			
 			//need to create new idf for each segment
 			InverseSegmentFreq isf;
@@ -51,14 +51,14 @@ public class AlignmentEngine {
 			for(int j=0; j < webpage.segments.size(); j++){
 				
 				double highestMIScore = Double.NEGATIVE_INFINITY;
-				Segment bestSegment = null;
+				Cluster bestSegment = null;
 				
 				for(int k=0; k < tempPageSegments.size(); k++)
 				{
 
 					List<double[]> segmentDistribs = Utilities.getDistributions(tempPageSegments.get(k),webpage.segments.get(j));
 					
-					double tempMIScore = Utilities.cosineSimilarity(tempPageSegments.get(k).cleanTextList,webpage.segments.get(j).cleanTextList);//
+					double tempMIScore = Utilities.cosineSimilarity(tempPageSegments.get(k).getCleanTextList(),webpage.segments.get(j).getCleanTextList());//
 					//MutualInformation.calculateMutualInformation(segmentDistribs.get(0),segmentDistribs.get(1));
 							//Utilities.klDivergence(segmentDistribs.get(0),segmentDistribs.get(1));
 				
@@ -68,33 +68,37 @@ public class AlignmentEngine {
 						bestSegment = tempPageSegments.get(k);
 					}
 				}
-				System.out.println("score: "+highestMIScore );
+				//System.out.println("score: "+highestMIScore );
 				tempPageSegments.remove(bestSegment);
 				addAlignment(webpage.segments.get(j),bestSegment);				
 			}
 		}
 	}
 	
-	private void addAlignment(Segment segment, Segment bestSegment) {
+	private void addAlignment(Cluster segment, Cluster bestSegment) {
 		if(alignments.containsKey(segment))
 		{
-			List<Segment> segments = alignments.get(segment);
+			List<Cluster> segments = alignments.get(segment);
 			segments.add(bestSegment);
 			alignments.put(segment, segments);
 		}
 		else
 		{
-			List<Segment> segments = new ArrayList<Segment>();
+			List<Cluster> segments = new ArrayList<Cluster>();
 			segments.add(bestSegment);
 			alignments.put(segment, segments);
 		}
 	}
 
 
-	public List<Segment> getAlignedSegments(Segment segment)
+	public List<Cluster> getAlignedSegments(Segment segment)
 	{
 		return alignments.get(segment);
 	}
 	
+	
+	public Map<Cluster, List<Cluster>> getAlignments(){
+		return alignments;
+	}
 
 }

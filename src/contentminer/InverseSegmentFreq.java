@@ -3,8 +3,9 @@ package contentminer;
 import java.util.ArrayList;
 import java.util.List;
 
+import contentalignment.Cluster;
 import contentalignment.Segment;
-
+;
 public class InverseSegmentFreq {
 
 	
@@ -12,7 +13,7 @@ public class InverseSegmentFreq {
 	List<Integer> termFreq;
 	int totalNumSegments;
 	
-	public InverseSegmentFreq(List<Segment> segments)
+	public InverseSegmentFreq(List<Cluster> segments)
 	{
 		terms = new ArrayList<String>();
 		termFreq = new ArrayList<Integer>();
@@ -22,8 +23,8 @@ public class InverseSegmentFreq {
 	}
 	
 	
-	public void addAllSegments(List<Segment> segments){
-		for(Segment segment : segments){
+	public void addAllSegments(List<Cluster> segments){
+		for(Cluster segment : segments){
 			
 			totalNumSegments++;
 			
