@@ -4,12 +4,14 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -34,41 +36,32 @@ public class Utilities {
 
 		String[] terms = text.split("[\\s]");
 
-		for(String term : terms){
-			if(!entities.contains(term.trim())){
-				entities.add(term.trim());
-				entityCount.add("1");
-			}
-			else{
-				int count = Integer.parseInt(entityCount.get(entities.indexOf(term.trim())));
-				count++;
-				entityCount.set(entities.indexOf(term.trim()),count+"");
-			}
-		}
-		int count = 0;
+		
+		//Count occurrences
+		    Map<String, Integer> map = new HashMap<String, Integer>();
 
-		String[] finalList = new String[entityCount.size()];
+		    for (String s : terms) {
+		        if (map.containsKey(s)) {
+		            map.put(s, map.get(s) + 1);
+		        } else {
+		            map.put(s, 1);
+		        }
+		    }
 
-		for(String str : entityCount){
-			int occurrences = Integer.parseInt(str);
-			int pos = 0;
+		    ValueComparator<String, Integer> comparator = new ValueComparator<String, Integer> (map);
+		    Map<String, Integer> sortedMap = new TreeMap<String, Integer> (comparator);
+		    sortedMap.putAll(map);
 
-			for(String finalListEntities : entityCount){
-				if(Integer.parseInt(finalListEntities) >= occurrences){
-					pos++; 
-				}
-			}
+		    List<String> sortedList = new ArrayList<String> (sortedMap.keySet());
 
-			count++;
-			
-			finalList[pos] = entities.get(count);
-			
-			}
-
-		int max = finalList.length < 6? finalList.length:6;
-		return Arrays.copyOfRange(finalList,0, max);
+		    return sortedList.toArray(new String[]{});
+		    //System.out.println(sortedList);
+	
 	} 
+	
+	
 
+	    
 
 	public static String stem(String terms){
 		return stemmer.stripAffixes(terms);
@@ -297,6 +290,21 @@ public class Utilities {
 		}
 
 		return Math.sqrt(similarity);
+	}
+	
+	
+	private static class ValueComparator<K, V extends Comparable<V>> implements Comparator<K> {
+
+	    Map<K, V> map;
+
+	    public ValueComparator(Map<K, V> base) {
+	        this.map = base;
+	    }
+
+	    @Override
+	    public int compare(K o1, K o2) {
+	         return map.get(o2).compareTo(map.get(o1));
+	    }
 	}
 	
  

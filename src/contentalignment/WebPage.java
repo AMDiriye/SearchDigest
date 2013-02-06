@@ -25,9 +25,17 @@ public class WebPage {
 	}
 	
 	
-	public void addAllSegments(List<Cluster> _segments)
+	public void addAllClusters(List<Cluster> _segments)
 	{
 		segments.addAll(_segments);
 	}
 	
+	public void addAllSegments(List<Segment> _segments)
+	{
+		for(Segment segment : _segments){
+			Cluster cluster = new Cluster();
+			cluster.addSegment(segment);
+			segments.add(cluster);
+		}
+	}
 }

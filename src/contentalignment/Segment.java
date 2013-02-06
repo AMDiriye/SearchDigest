@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 
+import org.jsoup.nodes.Element;
 import org.jsoup.nodes.Node;
 
 import contentminer.EntityFactory;
@@ -58,6 +59,6 @@ public class Segment {
 	
 	@Override
 	public String toString(){
-		return node.toString();
+		return ((Element) node).text();
 	}
 }
