@@ -245,7 +245,7 @@ public class NodeFeature {
      * @param ele
      * @return
      */
-    public boolean isVirtualTextNode(IElement ele) {
+    public boolean isVirtualTextNode(Node ele) {
         if (!isInlineNode(ele) && !isTextNode(ele)) {
             return false;
         } else {
