@@ -45,19 +45,19 @@ public class EntityExtractor {
 
 		Cluster cluster = new Cluster();
 		boolean isSameCluster;
-		
+
 		for(int i=0; i < webPageSegments.size(); i++){
 
 			isSameCluster = cluster.isSameCluster(webPageSegments.get(i));
-			
+
 			if(!isSameCluster){
-				
+
 				if(cluster.segments.size() != 0)
 					clusters.add(cluster);
-				
+
 				cluster = new Cluster();
 			}
-			
+
 			cluster.addSegment(webPageSegments.get(i));
 		}
 
@@ -81,7 +81,7 @@ public class EntityExtractor {
 	public List<String> getLabels(){
 		return null;
 	}
-	
+
 	public List<Cluster> getCluster(){
 		return clusters;
 	}

@@ -17,13 +17,13 @@ import opennlp.tools.util.Span;
 
 public class NamedEntityExtractor {
 
-	  public static String[] NAME_TYPES = { "person", "organization", "location"
-      , "date", "time", "percentage", "money" };
+	  public static String[] NAME_TYPES = { "person", "organization"};/*, "location",
+      , "date", "time", "percentage", "money" };*/
       public static NamedEntityType[] ENTITY_TYPES = { NamedEntityType.PERSON,
-                      NamedEntityType.ORGANIZATION, NamedEntityType.LOCATION,
+                      NamedEntityType.ORGANIZATION};/*, NamedEntityType.LOCATION,
       NamedEntityType.DATE, NamedEntityType.TIME, NamedEntityType.PERCENTAGE,
         NamedEntityType.MONEY
-       };
+       };*/
 
       NameFinderME[] finders = null;
       SentenceDetectorME englishSentenceDetector;
@@ -44,15 +44,15 @@ public class NamedEntityExtractor {
               //organization type
               finders[1] = new NameFinderME(new TokenNameFinderModel(new FileInputStream("./data/en-ner-organization.bin")));
               //location type
-              finders[2] = new NameFinderME(new TokenNameFinderModel(new FileInputStream("./data/en-ner-location.bin")));
+             // finders[2] = new NameFinderME(new TokenNameFinderModel(new FileInputStream("./data/en-ner-location.bin")));
               //date type
-              finders[3] = new NameFinderME(new TokenNameFinderModel(new FileInputStream("./data/en-ner-date.bin")));
+             // finders[3] = new NameFinderME(new TokenNameFinderModel(new FileInputStream("./data/en-ner-date.bin")));
               //time type
-              finders[4] = new NameFinderME(new TokenNameFinderModel(new FileInputStream("./data/en-ner-time.bin")));
+             // finders[4] = new NameFinderME(new TokenNameFinderModel(new FileInputStream("./data/en-ner-time.bin")));
               //percentage type
-              finders[5] = new NameFinderME(new TokenNameFinderModel(new FileInputStream("./data/en-ner-percentage.bin")));
+             // finders[5] = new NameFinderME(new TokenNameFinderModel(new FileInputStream("./data/en-ner-percentage.bin")));
               //money type
-              finders[6] = new NameFinderME(new TokenNameFinderModel(new FileInputStream("./data/en-ner-money.bin")));
+             // finders[6] = new NameFinderME(new TokenNameFinderModel(new FileInputStream("./data/en-ner-money.bin")));
               
               
               } catch (IOException e) {
