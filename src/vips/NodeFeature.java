@@ -1,11 +1,18 @@
 package vips;
 
-public class NodeFeature {
+import java.util.List;
+import java.util.Set;
 
+import org.apache.log4j.Logger;
+import org.jsoup.nodes.Element;
+import org.jsoup.nodes.Node;
+import org.jsoup.nodes.TextNode;
+
+public class NodeFeature {
+	
+	//TODO remove line-breaks
+	
     Logger l = Logger.getRootLogger();
-    static final Set<String> inlineNodeSet = BrowserContext.getConfigure().getSetProperty("VIPS", "InlineNodeName");
-    static final RectangleFactory rectangleFactory = new RectangleFactory();
-    static final StyleSheetFactory styleSheetFactory = new StyleSheetFactory();
     static final NodeFeature instance = new NodeFeature();
 
     public static NodeFeature getInstance() {
@@ -13,51 +20,16 @@ public class NodeFeature {
     }
 
     /**
-     * Inline Node: The DOM node with inline text HTML tags, which affect the appearance of text <br/>
-     * and can be applied to string of characters without introducing line break.<br/>
-     * Such tags include: B, BIG, EM, FONT, I, STRONG, U, etc.<br/>
-     * Line-Break Node: The node with tag other than inline text tags.<br/>
-     * Such tags := !isInlineNode(ele);
-     * @param ele
-     * @return
-     */
-    public boolean isInlineNode(IElement ele) {
-        if (null != ele) {
-            return inlineNodeSet.contains(ele.getTagName());
-        } else {
-            return false;
-        }
-    }
-
-    /**
      * A node that can be seen through the browser. The node's width and height are not equal to zero.
      * @param ele
      * @return
      */
-    public boolean isValidNode(IElement ele) {
-        if (ele.isTextNode()) {
-            return null != ele.getTextNodeText() && ele.getTextNodeText().trim().length() > 0;
+    public boolean isValidNode(Node ele) {
+        if (ele instanceof TextNode) {
+            return null != ((TextNode) ele).text() && ((TextNode) ele).text().trim().length() > 0;
         } else {
-            Rectangle rect = rectangleFactory.create(ele);
-            return rect.getHeight() != 0 || rect.getWidth() != 0;
+            return ele.childNodes().size() > 0;
         }
-    }
-
-    /**
-     * A node that height is smaller than 30 and width is smaller than 400.
-     * @param ele
-     * @return
-     */
-    public boolean isSmallNode(IElement ele) {
-        Rectangle rect = rectangleFactory.create(ele);
-        if (rect.getHeight() != 0 || rect.getWidth() != 0) {
-            if (rect.getHeight() <= 40 && rect.getWidth() <= 500) {
-                return true;
-            } else {
-                return false;
-            }
-        }
-        return true;
     }
 
     /**
@@ -65,11 +37,11 @@ public class NodeFeature {
      * @param ele
      * @return
      */
-    public boolean hasValidChildren(IElement ele) {
-        IElementCollection children = ele.getChildElements();
-        if (null != children && children.length() > 0) {
-            for (int i = 0; i < children.length(); i++) {
-                if (isValidNode(children.item(i))) {
+    public boolean hasValidChildren(Node ele) {
+        List<Node> children = ele.childNodes();
+        if (null != children && children.size() > 0) {
+            for (int i = 0; i < children.size(); i++) {
+                if (isValidNode(children.get(i))) {
                     return true;
                 }
             }
@@ -82,11 +54,11 @@ public class NodeFeature {
      * @param ele
      * @return
      */
-    public boolean areChildrenVirtualTextNode(IElement ele) {
-        IElementCollection children = ele.getChildElements();
-        if (null != children && children.length() > 0) {
-            for (int i = 0; i < children.length(); i++) {
-                if (!isVirtualTextNode(children.item(i))) {
+    public boolean areChildrenVirtualTextNode(Node ele) {
+        List<Node> children = ele.childNodes();
+        if (null != children && children.size() > 0) {
+            for (int i = 0; i < children.size(); i++) {
+                if (!isVirtualTextNode(children.get(i))) {
                     return false;
                 }
             }
@@ -95,51 +67,17 @@ public class NodeFeature {
         return false;
     }
 
-    /**
-     * Does all of child node are small node?
-     * @param ele
-     * @return
-     */
-    public boolean areChildrenSmallNode(IElement ele) {
-        IElementCollection children = ele.getChildElements();
-        if (null != children && children.length() > 0) {
-            for (int i = 0; i < children.length(); i++) {
-                if (!isSmallNode(children.item(i))) {
-                    return false;
-                }
-            }
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * Return true if one of the child nodes of the DOM node is line-break node.
-     * @param ele
-     * @return
-     */
-    public boolean hasLineBreakChildNode(IElement ele) {
-        IElementCollection children = ele.getChildElements();
-        if (null != children && children.length() > 0) {
-            for (int i = 0; i < children.length(); i++) {
-                if (!isInlineNode(children.item(i))) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
 
     /**
      * Return true if one of the child nodes of the DOM node is text node or virtual text node.
      * @param ele
      * @return
      */
-    public boolean hasTextOrVirtualTextNode(IElement ele) {
-        IElementCollection children = ele.getChildElements();
-        if (null != children && children.length() > 0) {
-            for (int i = 0; i < children.length(); i++) {
-                if (isTextNode(children.item(i)) || isVirtualTextNode(children.item(i))) {
+    public boolean hasTextOrVirtualTextNode(Node ele) {
+        List<Node> children = ele.childNodes();
+        if (null != children && children.size()> 0) {
+            for (int i = 0; i < children.size(); i++) {
+                if (isTextNode(children.get(i)) || isVirtualTextNode(children.get(i))) {
                     return true;
                 }
             }
@@ -152,12 +90,12 @@ public class NodeFeature {
      * @param ele
      * @return
      */
-    public boolean isChildNodeHRTag(IElement ele) {
-        IElementCollection children = ele.getChildElements();
-        if (null != children && children.length() > 0) {
-            for (int i = 0; i < children.length(); i++) {
-                IElement child = children.item(i);
-                if (!isTextNode(child) && "HR".equalsIgnoreCase(child.getTagName())) {
+    public boolean isChildNodeHRTag(Node ele) {
+        List<Node> children = ele.childNodes();
+        if (null != children && children.size() > 0) {
+            for (int i = 0; i < children.size(); i++) {
+                Node child = children.get(i);
+                if (((Element) child).tagName().toLowerCase().contains("hr")) {
                     return true;
                 }
             }
@@ -165,25 +103,22 @@ public class NodeFeature {
         return false;
     }
 
+    //TODO check classnames and style
     /**
      * Return true if the background color of this node is different from one of its children's.
      * @param ele
      * @return
      */
-    public boolean hasDifferentBackgroundColorWithChild(IElement ele, BrowserContext context, String referrer) {
-        StyleSheet styleSheets = context.getStyleSheet(referrer);
-        CSSProperties css = styleSheetFactory.createCSSProperties(styleSheets, ele);
-        String backgroundColor = css.get("background-color");
-        String background = css.get("background");
-        IElementCollection children = ele.getChildElements();
-        if (null != children && children.length() > 0) {
-            for (int i = 0; i < children.length(); i++) {
-                IElement child = children.item(i);
+    public boolean hasDifferentClassAndStyleWithChild(Node ele) {
+        Set<String> classnames = ((Element)ele).classNames();
+        String style = ele.attr("style");
+        List<Node> children = ele.childNodes();
+        if (null != children && children.size() > 0) {
+            for (int i = 0; i < children.size(); i++) {
+                Node child = children.get(i);
                 if (!isTextNode(child) && isValidNode(child)) {
-                    CSSProperties childCSS = new StyleSheetFactory().createCSSProperties(styleSheets, child);
-                    String backgroundColor1 = childCSS.get("background-color");
-                    String background1 = childCSS.get("background");
-                    if (!equal(backgroundColor, backgroundColor1) || !equal(background, background1)) {
+ 
+                    if (!equal(style, child.attr("style")) || !classnames.equals(((Element)child).classNames())) {
                         return true;
                     }
                 }
@@ -205,26 +140,17 @@ public class NodeFeature {
         }
     }
 
-    /**
-     * return the relative size between element and page.
-     * @param ele
-     * @return
-     */
-    public double getRelativeSize(IElement ele, double pageSize) {
-        Rectangle rect = rectangleFactory.create(ele);
-        double size = rect.getHeight() * rect.getWidth();
-        return size / pageSize;
-    }
+
 
     /**
      * How many children the element has?
      * @param ele
      * @return
      */
-    public int howManyChildren(IElement ele) {
-        IElementCollection children = ele.getChildElements();
-        if (null != children && children.length() > 0) {
-            return children.length();
+    public int howManyChildren(Node ele) {
+        List<Node> children = ele.childNodes();
+        if (null != children && children.size() > 0) {
+            return children.size();
         } else {
             return 0;
         }
@@ -235,8 +161,8 @@ public class NodeFeature {
      * @param ele
      * @return
      */
-    public boolean isTextNode(IElement ele) {
-        return ele.isTextNode();
+    public boolean isTextNode(Node ele) {
+        return ele instanceof TextNode;
     }
 
     /**
@@ -246,17 +172,17 @@ public class NodeFeature {
      * @return
      */
     public boolean isVirtualTextNode(Node ele) {
-        if (!isInlineNode(ele) && !isTextNode(ele)) {
+        if (!isTextNode(ele)) {
             return false;
         } else {
 //            String tagName = ele.getTagName();
 //            Node node = ele.convertToW3CNode();
 //            int nodeType = node.getNodeType();
 //            l.debug(tagName + " - " + nodeType);
-            IElementCollection children = ele.getChildElements();
-            if (null != children && children.length() > 0) {
-                for (int i = 0; i < children.length(); i++) {
-                    if (!isVirtualTextNode(children.item(i))) {
+            List<Node>children = ele.childNodes();
+            if (null != children && children.size() > 0) {
+                for (int i = 0; i < children.size(); i++) {
+                    if (!isVirtualTextNode(children.get(i))) {
                         return false;
                     }
                 }
@@ -267,4 +193,3 @@ public class NodeFeature {
         }
     }
 }
-

@@ -2,6 +2,7 @@ package vips;
 
 import org.apache.log4j.Logger;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Node;
 
 public class VisionBasedPageSegmenter {
 
@@ -10,9 +11,7 @@ public class VisionBasedPageSegmenter {
     BlockPool pool = new BlockPool();
     SeparatorList separatorList = null;
     BlockExtractor extractor = null;
-    VBTreeConstructor constructor = new VBTreeConstructor();
-    int iterateTimes = BrowserContext.getConfigure().getIntProperty("VIPS", "IterateTimes", 5);
-    boolean showsUp = BrowserContext.getConfigure().getBooleanProperty("VIPS", "ShowsUp", true);
+    int iterateTimes = 5;// BrowserContext.getConfigure().getIntProperty("VIPS", "IterateTimes", 5);
 
     public VisionBlock pageSegment(Document document) {
         init(document);
@@ -93,7 +92,7 @@ public class VisionBasedPageSegmenter {
     private void init(Document document) {
         separatorList = new SeparatorList();
 
-        IElement body = document.getBody();
+        Node body = document.getBody();
         VisionBlock block = new VisionBlock();
         block.setEle(body);
         block.setRect(RectangleFactory.getInstance().create(body));
@@ -101,7 +100,7 @@ public class VisionBasedPageSegmenter {
         IDocument[] childFrames = document.getChildFrames();
         if (null != childFrames) {
             for (IDocument doc : childFrames) {
-                IElement ele = doc.getBody();
+                Node ele = doc.getBody();
                 if (null != ele) {
                     if (NodeFeature.getInstance().isValidNode(ele)) {
                         VisionBlock b = new VisionBlock();
@@ -115,13 +114,13 @@ public class VisionBasedPageSegmenter {
         }
     }
 
-    private void divideDomTree(IElement ele, int level, VisionBlock ancestor) {
+    private void divideDomTree(Node ele, int level, VisionBlock ancestor) {
         DivideRule divide = dividable(ele, level);
         if (null != divide) {
             if (BlockExtractor.Dividable == divide.dividable()) {
-                IElementCollection children = ele.getChildElements();
+                NodeCollection children = ele.getChildElements();
                 for (int i = 0; i < children.length(); i++) {
-                    IElement child = children.item(i);
+                    Node child = children.item(i);
                     divideDomTree(child, level + 1, ancestor);
                 }
             } else if (BlockExtractor.UnDividable == divide.dividable()) {
@@ -144,7 +143,7 @@ public class VisionBasedPageSegmenter {
         }
     }
 
-    private DivideRule dividable(IElement ele, int level) {
+    private DivideRule dividable(Node ele, int level) {
         return extractor.dividable(ele, level);
     }
 

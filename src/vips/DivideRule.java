@@ -1,4 +1,5 @@
 package vips;
+import org.jsoup.nodes.Node;
 
 public interface DivideRule {
 
@@ -8,7 +9,7 @@ public interface DivideRule {
      * @param level
      * @return
      */
-    public boolean match(IElement ele, int level);
+    public boolean match(Node ele, int level);
 
     /**
      * Determine whether divide the node if matched this rule.
@@ -22,6 +23,6 @@ public interface DivideRule {
      * @param level
      * @return
      */
-    public int getDoC(IElement ele, int level);
+    public int getDoC(Node ele, int level);
 
 }

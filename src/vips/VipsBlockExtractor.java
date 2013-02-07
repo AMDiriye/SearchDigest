@@ -1,10 +1,17 @@
 package vips;
 
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+
+import org.apache.log4j.Logger;
+import org.jsoup.nodes.Node;
+import org.jsoup.nodes.Element;
+
 public class VipsBlockExtractor implements BlockExtractor {
 
     Logger l = Logger.getRootLogger();
     private NodeFeature nodeFeature = NodeFeature.getInstance();
-    private Configure configure;
     private Map<String, String> rules;
     private Map<String, String> ruleTypes;
     private Set<String> allDividableNode = new HashSet<String>();
@@ -19,14 +26,11 @@ public class VipsBlockExtractor implements BlockExtractor {
         DivideRule matchedRule = null;
 
         if (null != ele) {
-            String xpath = XPathAttrFactory.getInstance().create(ele);
-            String ruleCode = "";
-            if (NodeFeature.getInstance().isInlineNode(ele)) {
-                ruleCode = rules.get("InlineTextNode");
-            } else if (NodeFeature.getInstance().isTextNode(ele)) {
+           String ruleCode = "";
+           if (NodeFeature.getInstance().isTextNode(ele)) {
                 ruleCode = rules.get("TextNode");
             } else {
-                String tagName = ele.getTagName();
+                String tagName = ((Element)ele).tagName();
                 tagName = null != tagName ? tagName.toUpperCase() : "";
                 Set<String> set = rules.keySet();
                 if (set.contains(tagName)) {
@@ -35,33 +39,23 @@ public class VipsBlockExtractor implements BlockExtractor {
                     ruleCode = rules.get("OTHER");
                 }
             }
-
-            if ("/HTML/BODY/DIV[6]/DIV/DIV[3]/text()".equals(xpath)) {
-                String text = ele.getTextNodeText();
-                if (null != text && !"".equals(text)) {
-                    System.out.println("for debug.");
-                }
-            }
+           
             matchedRule = execute(ruleCode, ele, level);
 
+            //TODO make sure this works
 //        l.debug("Rule Code: " + ruleCode);
             if (matchedRule.dividable() == BlockExtractor.Dividable) {
-                allDividableNode.add(xpath);
-                l.trace("Dividable: " + xpath + " -- Element Type: " + ele.getTagName() + " -- Rule: " + matchedRule.getClass());
-            } else if (matchedRule.dividable() == BlockExtractor.UnDividable) {
-                l.trace("Undividable: " + xpath + " -- Element Type: " + ele.getTagName() + " -- Rule: " + matchedRule.getClass());
-            } else {
-                l.trace("Cut: " + xpath + " -- Element Type: " + ele.getTagName() + " -- Rule: " + matchedRule.getClass());
+                allDividableNode.add(ele.baseUri());
             }
         }
         return matchedRule;
     }
 
-    private DivideRule execute(String ruleCode, IElement ele, int level) {
+    private DivideRule execute(String ruleCode, Node ele, int level) {
         return execute(ruleCode.split(","), ele, level);
     }
 
-    private DivideRule execute(String[] ruleCode, IElement ele, int level) {
+    private DivideRule execute(String[] ruleCode, Node ele, int level) {
         for (String rule : ruleCode) {
             DivideRule dr = ruleFactory.create(ruleTypes.get(rule));
             if (dr.match(ele, level)) {
@@ -69,30 +63,6 @@ public class VipsBlockExtractor implements BlockExtractor {
             }
         }
         return null;
-    }
-
-    public void analysisElement(IElement ele) {
-        l.debug("is inline node: " + nodeFeature.isInlineNode(ele));
-        l.debug("is valid node: " + nodeFeature.isValidNode(ele));
-        l.debug("is text node: " + nodeFeature.isTextNode(ele));
-        l.debug("is virtual text node: " + nodeFeature.isVirtualTextNode(ele));
-        l.debug("has valid children: " + nodeFeature.hasValidChildren(ele));
-        l.debug("how many children the element has: " + nodeFeature.howManyChildren(ele));
-        l.debug("Does all of child node are virtual text node?: " + nodeFeature.areChildrenVirtualTextNode(ele));
-        l.debug("one of child node is Line-Break node: " + nodeFeature.hasLineBreakChildNode(ele));
-        l.debug("one of child node is <HR> tag: " + nodeFeature.isChildNodeHRTag(ele));
-        l.debug("has differenc background: " + nodeFeature.hasDifferentBackgroundColorWithChild(ele, getContext(), getReferrer()));
-        l.debug("relative size: " + nodeFeature.getRelativeSize(ele, getPageSize()));
-        l.debug("has text or virtual text node: " + nodeFeature.hasTextOrVirtualTextNode(ele));
-        //hasTextOrVirtualTextNode
-    }
-
-    public BrowserContext getContext() {
-        return ruleFactory.getContext();
-    }
-
-    public void setContext(BrowserContext context) {
-        ruleFactory.setContext(context);
     }
 
     public String getReferrer() {
@@ -119,13 +89,4 @@ public class VipsBlockExtractor implements BlockExtractor {
         ruleFactory.setThreshold(threshold);
     }
 
-    public Configure getConfigure() {
-        return configure;
-    }
-
-    public void setConfigure(Configure configure) {
-        this.configure = configure;
-        rules = configure.getMapProperty("VIPS", "Rules");
-        ruleTypes = configure.getMapProperty("VIPS", "RuleTypes");
-    }
 }

@@ -16,21 +16,8 @@ public abstract class AbstractRule implements DivideRule {
         if (BlockExtractor.Dividable == dividable()
                 || BlockExtractor.Cut == dividable()) {
             return 0;
-        } else {
-            return getDoCBasedTagAndSize(ele, level);
-        }
+        } 
+        return 1;
     }
 
-    private int getDoCBasedTagAndSize(Node ele, int level) {
-        int DoC = 0;
-
-        boolean hasSmallChildren = nodeFeature.areChildrenSmallNode(ele);
-        if (hasSmallChildren) {
-            DoC += 2;
-        }
-        if (nodeFeature.hasLineBreakChildNode(ele)) {
-            DoC -= 1;
-        }
-        return DoC;
-    }
 }

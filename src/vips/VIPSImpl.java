@@ -1,11 +1,13 @@
 package vips;
 
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+
 public class VIPSImpl {
 
     private VisionBasedPageSegmenter segmenter = null;
 
-    public VIPSImpl(BrowserContext context) {
-        this.context = context;
+    public VIPSImpl() {
         init();
     }
 
@@ -13,33 +15,29 @@ public class VIPSImpl {
         return processVIPS(doc, url);
     }
 
+    //TODO set PDoC
     /**
      * Creator VIPS Segmenter
      */
     private void init() {
         segmenter = new VisionBasedPageSegmenter();
-        segmenter.setPDoC(BrowserContext.getConfigure().getIntProperty("VIPS", "PDoC"));
+        //segmenter.setPDoC(BrowserContext.getConfigure().getIntProperty("VIPS", "PDoC"));
     }
 
-    private VisionBlock processVIPS(IDocument doc, String url) {
-        StyleSheet styleSheet = new StyleSheetFactory().createStyleSheet(doc);
-        context.setStyleSheet(url, styleSheet);
-
+    private VisionBlock processVIPS(Document doc, String url) {
+     
         // Create extractor
-        IElement body = doc.getBody();
+        Element body = doc.body();
+        
         if (null != body) {
-            Rectangle rect = RectangleFactory.getInstance().create(body);
-            double pageSize = rect.getHeight() * rect.getWidth();
-            context.getConsole().log("Page: " + rect + " Size: " + pageSize);
-            double threshold = BrowserContext.getConfigure().getDoubleProperty("VIPS", "RelativeSizeThreshold", 0.1);
+            double threshold = 1;
             BlockExtractor extractor =
-                    BlockExtractorFactory.getInstance().create(context, url, standardPageSize, threshold);
+                    BlockExtractorFactory.getInstance().create(url, threshold);
 
             // Set extractor
             segmenter.setExtractor(extractor);
             return segmenter.pageSegment(doc);
         } else {
-            l.info("This is not a HTML page, ignore... " + url);
             return null;
         }
     
