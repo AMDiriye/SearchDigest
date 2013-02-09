@@ -43,7 +43,6 @@ public class VIPSImpl {
     
     }
 
-
     public VisionBasedPageSegmenter getSegmenter() {
         return segmenter;
     }

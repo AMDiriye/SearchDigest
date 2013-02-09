@@ -1,8 +1,12 @@
 package vips;
 
+import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.jsoup.nodes.Node;
+import org.jsoup.select.Elements;
 
 public class VisionBasedPageSegmenter {
 
@@ -11,11 +15,15 @@ public class VisionBasedPageSegmenter {
     BlockPool pool = new BlockPool();
     SeparatorList separatorList = null;
     BlockExtractor extractor = null;
-    int iterateTimes = 5;// BrowserContext.getConfigure().getIntProperty("VIPS", "IterateTimes", 5);
+    VBTreeConstructor constructor = new VBTreeConstructor();
+    int iterateTimes = 5;
+    boolean showsUp = true;
 
+    VisionBasedPageSegmenter() {
+	}
+    
     public VisionBlock pageSegment(Document document) {
         init(document);
-
         int times = 0;
         do {
             l.debug(" ---- ---- iterate time: " + times);
@@ -31,11 +39,11 @@ public class VisionBasedPageSegmenter {
         return blk;
     }
 
+
     private void separatorDetect() {
-        int size = pool.getPool().size();
+        /*int size = pool.getPool().size();
         for (int i = 0; i < size; i++) {
             VisionBlock block = pool.getPool().get(i);
-            separatorList.initPageSize(block.getRect());
         }
 
         for (int i = 0; i < size; i++) {
@@ -49,26 +57,16 @@ public class VisionBasedPageSegmenter {
         separatorList.expandAndRefineSeparator(pool.getLeafNodes());
         separatorList.setRelativeBlocks(pool.getLeafNodes());
         separatorList.removeSeparatorWhichNoRelativeBlocks();
-        separatorList.caculateWeightOfSeparator();
+        separatorList.caculateWeightOfSeparator();*/
     }
 
     private void extractBlock() {
         int size = pool.getPool().size();
         for (int i = 0; i < size; i++) {
             VisionBlock block = pool.getPool().get(i);
-            l.trace(block.getEle() + " Level: " + block.getLevel() + " DoC:" + block.getDoC());
+            l.trace(block.getName() + " Level: " + block.getLevel() + " DoC:" + block.getDoC());
             if (pool.isLeafNode(block) && !meetGranularityNeed(block)) {
-                divideDomTree(block.getEle(), 0, block);
-            }
-        }
-    }
-
-    public void drawBorder() {
-        int size = pool.getPool().size();
-        for (int i = 0; i < size; i++) {
-            VisionBlock block = pool.getPool().get(i);
-            if (pool.isLeafNode(block)) {
-                ElementUtil.getInstance().drawRectangleInPage(block.getEle(), "red");
+                divideDomTree(block.getNode(), 0, block);
             }
         }
     }
@@ -78,7 +76,6 @@ public class VisionBasedPageSegmenter {
         for (int i = 0; i < size; i++) {
             VisionBlock block = pool.getPool().get(i);
             if (pool.isLeafNode(block) && !meetGranularityNeed(block)) {
-                l.trace("doesn't meet granularity need. " + XPathAttrFactory.getInstance().create(block.getEle()));
                 return false;
             }
         }
@@ -92,21 +89,18 @@ public class VisionBasedPageSegmenter {
     private void init(Document document) {
         separatorList = new SeparatorList();
 
-        Node body = document.getBody();
+        Node body = document.body();
         VisionBlock block = new VisionBlock();
-        block.setEle(body);
-        block.setRect(RectangleFactory.getInstance().create(body));
+        block.setNode(body);
         pool.add(block);
-        IDocument[] childFrames = document.getChildFrames();
+        Elements childFrames = document.body().getAllElements();
         if (null != childFrames) {
-            for (IDocument doc : childFrames) {
-                Node ele = doc.getBody();
-                if (null != ele) {
-                    if (NodeFeature.getInstance().isValidNode(ele)) {
+            for (Element doc : childFrames) {
+                if (null != doc) {
+                    if (NodeFeature.getInstance().isValidNode((Node)doc)) {
                         VisionBlock b = new VisionBlock();
-                        b.setEle(ele);
+                        b.setNode((Node)doc);
                         b.setDoC(8);
-                        block.setRect(RectangleFactory.getInstance().create(ele));
                         pool.add(b);
                     }
                 }
@@ -116,17 +110,17 @@ public class VisionBasedPageSegmenter {
 
     private void divideDomTree(Node ele, int level, VisionBlock ancestor) {
         DivideRule divide = dividable(ele, level);
+        
         if (null != divide) {
             if (BlockExtractor.Dividable == divide.dividable()) {
-                NodeCollection children = ele.getChildElements();
-                for (int i = 0; i < children.length(); i++) {
-                    Node child = children.item(i);
+                List<Node> children = ele.childNodes();
+                for (int i = 0; i < children.size(); i++) {
+                    Node child = children.get(i);
                     divideDomTree(child, level + 1, ancestor);
                 }
             } else if (BlockExtractor.UnDividable == divide.dividable()) {
                 VisionBlock block = new VisionBlock();
-                block.setEle(ele);
-                block.setRect(RectangleFactory.getInstance().create(ele));
+                block.setNode(ele);
                 int DoC = divide.getDoC(ele, level);
                 block.setDoC(DoC);
                 block.setLevel(level);
@@ -134,8 +128,6 @@ public class VisionBasedPageSegmenter {
                 ancestor.getChildren().add(block);
                 pool.add(block);
 
-                String xpath = XPathAttrFactory.getInstance().create(block.getEle());
-                l.debug(xpath + " Level: " + block.getLevel() + " DoC:" + block.getDoC());
             } else {
                 // do nothing for cutting node
                 //ElementUtil.getInstance().drawRectangleInPage(ele);
