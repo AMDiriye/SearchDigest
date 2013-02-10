@@ -28,7 +28,6 @@ public class Programme {
 		webPage = HtmlProcessor.addDOMHighlighting(webPage);
 		DataWriter.writeFile("../html/jhuang.html", webPage.doc.toString());
 		Utilities.openFileInBrowser("html/jhuang.html");
-		
 	}
 	private static void comparePages(){
 		System.out.println("Please enter URL for page1");

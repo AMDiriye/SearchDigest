@@ -55,6 +55,9 @@ public class Segment {
 		return  processedTerms;
 	}
 
+	public Node getNode(){
+		return node;
+	}
 
 
 	@Override

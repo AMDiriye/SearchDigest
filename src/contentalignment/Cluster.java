@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.jsoup.nodes.Element;
+import org.jsoup.nodes.Node;
+import org.jsoup.nodes.TextNode;
 
 import contentminer.Utilities;
 
@@ -33,13 +35,22 @@ public class Cluster {
 	
 	public boolean isSameCluster(Segment segment){
 		
-		if(segments.size() < 2)
+		if(segments.size() < 1){
 			return true;
-		else{
+		}
+	else if(segments.size() == 3){
+			
+			if(!isSameType((Element)segment.node,(Element) segments.get(0).node))
+				return false;
+		
+			return true;
+		
+}
+	else{
 			if(segment.node instanceof Element)
 			{
 				//get the first element and see of they are the same
-				if(isSameType((Element) segments.get(1).node, (Element) segment.node))
+				if(isSameType((Element) segment.node,(Element) segments.get(0).node))
 					return true;
 				
 				else return false;
@@ -53,6 +64,10 @@ public class Cluster {
 	
 	private boolean isSameType(Element elem1, Element elem2){
 		
+		if( ((Node) elem1) instanceof TextNode && !isHeading((elem1).tagName())){
+			return true;
+		}
+		
 		if(elem1.tagName() != elem2.tagName())
 			return false;
 		
@@ -60,6 +75,14 @@ public class Cluster {
 			return false;
 		
 		return true;
+	}
+	
+	
+	private boolean isHeading(String tagName){
+		if(tagName.equalsIgnoreCase("h1") ||tagName.equalsIgnoreCase("h2")||tagName.equalsIgnoreCase("h3")||tagName.equalsIgnoreCase("h4")
+				|| tagName.equalsIgnoreCase("h5")||tagName.equalsIgnoreCase("h6"))
+			return false;
+		else return true;
 	}
 	
 	@Override
@@ -77,6 +100,10 @@ public class Cluster {
 	
 	public String getProcessedText(){
 		return processedTerms;
+	}
+	
+	public List<Segment> getSegments(){
+		return segments;
 	}
 	
 }

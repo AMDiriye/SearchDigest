@@ -3,6 +3,8 @@ package vips;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
+import contentalignment.SegmentationFactory;
+
 public class VIPSImpl {
 
     private VisionBasedPageSegmenter segmenter = null;
@@ -49,5 +51,15 @@ public class VIPSImpl {
 
     public void setSegmenter(VisionBasedPageSegmenter segmenter) {
         this.segmenter = segmenter;
+    }
+    
+    
+    public static void main(String args[]){
+    
+    	String url = "http://gigaom.com/2013/02/02/what-i-learned-at-google-and-microsoft-about-building-better-products/";
+    	SegmentationFactory segmentFactory = new SegmentationFactory(url);
+		
+    	VIPSImpl impl = new VIPSImpl();
+    	impl.segment(segmentFactory.getDoc(), url);
     }
 }

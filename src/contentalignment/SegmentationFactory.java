@@ -56,11 +56,11 @@ public class SegmentationFactory {
 
 		for(Node node : nodes)
 		{
-			if(node instanceof Element)
-			{
+			//if(node instanceof Element)
+		//	{
 				segments.add(new Segment(((Element) node).text(), node));			
 				//System.out.println((((Element) node).text()));
-			}
+		//	}
 		}
 
 		//System.out.println("Done");
@@ -69,6 +69,15 @@ public class SegmentationFactory {
 
 	private List<Node> getTextNodes(Node parentNode)
 	{
+		
+		String str = ((Element)parentNode).text();
+		System.out.println(str);
+		
+		if(((Element)parentNode).text() != null && ((Element)parentNode).text().trim().equalsIgnoreCase("Mustafa Bilgic")){
+			System.out.println("Done");
+		}
+		
+		
 		List<Node> textNodes = new ArrayList<Node>();
 
 		try {
@@ -89,7 +98,7 @@ public class SegmentationFactory {
 				else
 				{
 					int length = getText(childNode).replaceAll("[\\s]", "").length() ;
-					if(childNode instanceof TextNode  && length > 15){
+					if(childNode instanceof TextNode  && length > 0){
 						textNodes.add(childNode.parent());
 					}
 				}
