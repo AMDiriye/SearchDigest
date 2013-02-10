@@ -21,12 +21,12 @@ public class SegmentationFactory {
 	Document doc;
 	int pos = 0;
 
-	
-	
+
+
 	public SegmentationFactory(String url)
 	{ 
 		doc = Utilities.getDoc(url);
-		
+
 		Elements _elements = doc.select("h1,h2,h3,h4,h5,h6");
 		_elements.size();
 		docElements = doc.select("body");
@@ -50,34 +50,20 @@ public class SegmentationFactory {
 			nodes.addAll(getTextNodes(node));
 		}
 
-
-
 		segments = new ArrayList<Segment>();
 
 		for(Node node : nodes)
 		{
-			//if(node instanceof Element)
-		//	{
-				segments.add(new Segment(((Element) node).text(), node));			
-				//System.out.println((((Element) node).text()));
-		//	}
+			segments.add(new Segment(((Element) node).text(), node));			
 		}
-
-		//System.out.println("Done");
-		//System.out.println("***************************");
 	}
 
 	private List<Node> getTextNodes(Node parentNode)
 	{
-		
+
 		String str = ((Element)parentNode).text();
 		System.out.println(str);
-		
-		if(((Element)parentNode).text() != null && ((Element)parentNode).text().trim().equalsIgnoreCase("Mustafa Bilgic")){
-			System.out.println("Done");
-		}
-		
-		
+
 		List<Node> textNodes = new ArrayList<Node>();
 
 		try {
