@@ -26,7 +26,6 @@ public class SegmentationFactory {
 	public SegmentationFactory(String url)
 	{ 
 		doc = Utilities.getDoc(url);
-		
 		Elements _elements = doc.select("h1,h2,h3,h4,h5,h6");
 		_elements.size();
 		docElements = doc.select("body");
@@ -37,7 +36,7 @@ public class SegmentationFactory {
 		docElements.select("span").unwrap();
 		docElements.select("em").unwrap();
 		docElements.select("font").unwrap();
-
+		
 		makeSegments();
 	}
 
@@ -97,7 +96,7 @@ public class SegmentationFactory {
 
 				else
 				{
-					int length = getText(childNode).replaceAll("[\\s]", "").length() ;
+					int length = getText(childNode).replaceAll("[^A-Za-z0-9]", "").length();
 					if(childNode instanceof TextNode  && length > 0){
 						textNodes.add(childNode.parent());
 					}
