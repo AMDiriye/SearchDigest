@@ -20,7 +20,7 @@ public class SegmentPage {
 	 */
 	public static void main(String[] args) {
 		
-		SegmentationFactory segmentFactory = new SegmentationFactory("http://research.microsoft.com/en-us/um/people/sdumais/");
+		SegmentationFactory segmentFactory = new SegmentationFactory("http://research.microsoft.com/en-us/um/people/ryenw/index.html");
 		EntityExtractor entityExtractor = new EntityExtractor(segmentFactory.getSegments(), segmentFactory.getDoc());
 		
 		List<Cluster> clusters = entityExtractor.getCluster();
