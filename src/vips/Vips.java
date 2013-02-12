@@ -4,7 +4,7 @@
  * Module - Vips.java
  */
 
-package org.fit.vips;
+package vips;
 
 import java.awt.image.BufferedImage;
 import java.io.File;

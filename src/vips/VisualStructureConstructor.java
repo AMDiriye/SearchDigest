@@ -4,7 +4,7 @@
  * Module - VisualStructureConstructor.java
  */
 
-package org.fit.vips;
+package vips;
 
 import java.util.ArrayList;
 import java.util.Collections;

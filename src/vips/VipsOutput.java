@@ -4,7 +4,7 @@
  * Module - VipsOutput.java
  */
 
-package org.fit.vips;
+package vips;
 
 import java.io.File;
 import java.io.FileWriter;

@@ -4,7 +4,7 @@
  * Module - VipsSeparatorGraphicsDetector.java
  */
 
-package org.fit.vips;
+package vips;
 
 import java.awt.Color;
 import java.awt.Dimension;

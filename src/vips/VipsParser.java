@@ -4,7 +4,7 @@
  * Module - VipsParser.java
  */
 
-package org.fit.vips;
+package vips;
 
 import java.util.ArrayList;
 import java.util.List;

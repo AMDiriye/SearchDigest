@@ -4,7 +4,7 @@
  * Module - Separator.java
  */
 
-package org.fit.vips;
+package vips;
 
 import java.awt.Point;
 

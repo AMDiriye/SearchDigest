@@ -4,7 +4,7 @@
  * Module - VipsSeparatorDetector.java
  */
 
-package org.fit.vips;
+package vips;
 
 import java.util.List;
 /**

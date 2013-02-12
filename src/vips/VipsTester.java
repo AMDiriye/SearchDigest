@@ -4,7 +4,7 @@
  * Module - VipsTester.java
  */
 
-package org.fit.vips;
+package vips;
 
 /**
  * VIPS API example application.
