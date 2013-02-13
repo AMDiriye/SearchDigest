@@ -1040,10 +1040,10 @@ public class VisualStructureConstructor {
 
 			if (separator.weight == 3)
 				separator.normalizedWeight = 11;
-			/*			System.out.println(separator.startPoint + "\t" + separator.endPoint + "\t" +
+						System.out.println(separator.startPoint + "\t" + separator.endPoint + "\t" +
 					(separator.endPoint - separator.startPoint + 1) +
 					"\t" + separator.weight + "\t" + separator.normalizedWeight +
-					"\t" + normalizedValue);*/
+					"\t" + normalizedValue);
 		}
 
 		updateDoC(_visualStructure);
@@ -1073,10 +1073,10 @@ public class VisualStructureConstructor {
 		{
 			double normalizedValue = (separator.weight - minWeight) / (maxWeight - minWeight) * (11 - 1) + 1;
 			separator.normalizedWeight = getDoCValue((int) Math.ceil(normalizedValue));
-			/*		System.out.println(separator.startPoint + "\t" + separator.endPoint + "\t" +
+					System.out.println(separator.startPoint + "\t" + separator.endPoint + "\t" +
 					(separator.endPoint - separator.startPoint + 1) +
 					"\t" + separator.weight + "\t" + separator.normalizedWeight +
-					"\t" + normalizedValue);*/
+					"\t" + normalizedValue);
 		}
 
 		updateDoC(_visualStructure);

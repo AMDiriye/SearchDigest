@@ -45,7 +45,7 @@ public class Vips {
 	private String _filename = "";
 	private	int sizeTresholdWidth = 350;
 	private	int sizeTresholdHeight = 400;
-
+	private VisualStructureConstructor constructor;
 	private PrintStream originalOut = null;
 	long startTime = 0;
 	long endTime = 0;
@@ -204,7 +204,7 @@ public class Vips {
 
 		VipsSeparatorGraphicsDetector detector;
 		VipsParser vipsParser = new VipsParser(_viewport);
-		VisualStructureConstructor constructor = new VisualStructureConstructor(_pDoC);
+		constructor = new VisualStructureConstructor(_pDoC);
 		constructor.setGraphicsOutput(_graphicsOutput);
 
 		for (int iterationNumber = 1; iterationNumber < numberOfIterations+1; iterationNumber++)
@@ -401,5 +401,10 @@ public class Vips {
 		{
 			System.out.println("Invalid filename!");
 		}
+	}
+	
+	
+	public VisualStructureConstructor getVisualStructureConstructor(){
+		return constructor;
 	}
 }
