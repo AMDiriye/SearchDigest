@@ -21,15 +21,15 @@ public class VipsTester {
 	{
  
 
-		String url = "http://www.amazon.co.uk/s/ref=nb_sb_ss_sc_1_6?url=search-alias%3Daps&field-keywords=nintendo%203ds";
+		String url = "http://research.microsoft.com/en-us/um/people/ryenw/index.html";
 
 		try
 		{
 			Vips vips = new Vips();
 			// disable graphics output
-			vips.enableGraphicsOutput(true);
+			vips.enableGraphicsOutput(false);
 			// disable output to separate folder (no necessary, it's default value is false)
-			vips.enableOutputToFolder(true);
+			vips.enableOutputToFolder(false);
 			// set permitted degree of coherence
 			vips.setPredefinedDoC(8);
 			// start segmentation on page

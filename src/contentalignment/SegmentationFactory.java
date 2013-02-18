@@ -13,6 +13,7 @@ import org.jsoup.nodes.TextNode;
 import org.jsoup.select.Elements;
 import contentminer.Utilities;
 import contentminer.WebPage;
+import contentsegmentation.SegmentValidator;
 
 public class SegmentationFactory {
 
@@ -20,7 +21,7 @@ public class SegmentationFactory {
 	Elements docElements;
 	Document doc;
 	int pos = 0;
-
+	
 	
 	
 	public SegmentationFactory(String url)
@@ -68,22 +69,18 @@ public class SegmentationFactory {
 
 	private List<Node> getTextNodes(Node parentNode)
 	{
-		
+		List<Node> textNodes = new ArrayList<Node>();
 		String str = ((Element)parentNode).text();
 		System.out.println(str);
-		
-		if(((Element)parentNode).text() != null && ((Element)parentNode).text().trim().equalsIgnoreCase("Mustafa Bilgic")){
-			System.out.println("Done");
-		}
-		
-		
-		List<Node> textNodes = new ArrayList<Node>();
+	
 
 		try {
 
 			for(Node childNode:parentNode.childNodes())
 			{
-				if(childNode.childNodes().size() > 0)
+				System.out.println();
+				
+				if(SegmentValidator.splitNode(childNode))
 				{
 					List<Node> tempNodes = getTextNodes(childNode);
 
@@ -96,8 +93,8 @@ public class SegmentationFactory {
 
 				else
 				{
-					int length = getText(childNode).replaceAll("[^A-Za-z0-9]", "").length();
-					if(childNode instanceof TextNode  && length > 0){
+					
+					if(SegmentValidator.validText(childNode, getText(childNode))){
 						textNodes.add(childNode.parent());
 					}
 				}

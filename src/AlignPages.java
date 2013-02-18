@@ -24,7 +24,6 @@ public class AlignPages {
 		AlignmentEngine alignmentEngine;
 		EntityExtractor entityExtractor;
 
-
 		for(int i=0; i<args.length; i++)
 		{
 			segmentFactory = new SegmentationFactory(args[i]);

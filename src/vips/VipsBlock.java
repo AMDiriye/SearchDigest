@@ -484,4 +484,9 @@ public class VipsBlock {
 		return _order;
 	}
 
+	
+	@Override
+	public String toString(){
+		return _box.getText();
+	}
 }

@@ -14,7 +14,8 @@ public class Cluster {
 	List<Segment> segments;
 	List<String> terms;
 	String processedTerms;
-
+	int state = 0;
+	
 	public Cluster(){
 		this.segments = new ArrayList<Segment>();
 		this.terms = new ArrayList<String>();
@@ -35,56 +36,102 @@ public class Cluster {
 
 	public boolean isSameCluster(Segment segment){
 
-		if(segments.size() < 3){
-			return true;
-		}
-		else{// if(segments.size() == 3){
-
-			if(!isSameType((Element)segment.node,(Element) segments.get(1).node))
-				return false;
-
+		if(segments.size() < 1)
 			return true;
 
-		}
-		/*else{
-			if(segment.node instanceof Element)
-			{
-				//get the first element and see of they are the same
-				if(isSameType((Element) segment.node,(Element) segments.get(0).node))
-					return true;
-
-				else return false;
-			}
-			else{
-				return true;
-			}
-		}*/
-	}
-
-
-	private boolean isSameType(Element elem1, Element elem2){
-
-		if( ((Node) elem1) instanceof TextNode && !isHeading((elem1).tagName())){
-			return true;
-		}
-
-		if(elem1.tagName() != elem2.tagName())
-			return false;
-
-		else if(!elem1.attr("style").equalsIgnoreCase(elem2.attr("style"))) 
+		else if(!isSameType((Element)segment.node))
 			return false;
 
 		return true;
 	}
 
 
+	private boolean isSameType(Element elem1){
+
+		if(state == 0){
+			
+			Element elem2 = (Element) segments.get(0).node;
+			
+			if(!isHeading((elem2).tagName())){
+				
+				if(isHeading((elem1).tagName())){
+					return false;
+				}				
+				state = 1;
+				return true;
+			
+			}
+			else if(isHeading((elem1).tagName())){
+				return true;
+			
+			}
+			else {
+				state = 1;
+				return true;
+			}
+		}
+		
+		if(state == 1){
+			
+				int pos = segments.size() > 1?segments.size() -1:1;
+
+				Element elem2 = (Element) segments.get(pos).node;
+				
+				if(elem1.attr("style").equalsIgnoreCase(elem2.attr("style")) && elem1.className().equalsIgnoreCase(elem2.className()) ){ 
+
+					System.out.println(elem1.attr("style"));
+					return true;
+				}
+				
+				else{
+					state = 0;
+					return false;
+				}
+			
+		}
+		
+		return false;
+	}
+
+
 	private boolean isHeading(String tagName){
 		if(tagName.equalsIgnoreCase("h1") ||tagName.equalsIgnoreCase("h2")||tagName.equalsIgnoreCase("h3")||tagName.equalsIgnoreCase("h4")
 				|| tagName.equalsIgnoreCase("h5")||tagName.equalsIgnoreCase("h6"))
-			return false;
-		else return true;
+			return true;
+		else return false;
 	}
 
+	
+	private boolean containsTextNode(Node _node){
+		
+		if(_node instanceof TextNode ){
+			int length = ((TextNode) _node).text().replaceAll("[^A-Za-z0-9]", "").length();
+			
+			if(length > 0)
+				return true;
+			
+			else return false;
+		}
+		
+		for(Node childNode : _node.childNodes()){
+			if(childNode.childNodes().size() > 0){
+				if(containsTextNode(childNode))
+					return true;
+			}
+			else{
+				if(childNode instanceof TextNode ){
+					int length = ((TextNode) childNode).text().replaceAll("[^A-Za-z0-9]", "").length();
+					
+					if(length > 0)
+						return true;
+
+				}
+			}
+			
+		}
+		return false;
+	}
+	
 	@Override
 	public String toString(){
 		return segments.toString();
