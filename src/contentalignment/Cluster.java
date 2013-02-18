@@ -77,9 +77,7 @@ public class Cluster {
 
 				Element elem2 = (Element) segments.get(pos).node;
 				
-				if(elem1.attr("style").equalsIgnoreCase(elem2.attr("style")) && elem1.className().equalsIgnoreCase(elem2.className()) ){ 
-
-					System.out.println(elem1.attr("style"));
+				if(elem1.attr("style").equalsIgnoreCase(elem2.attr("style")) && elem1.className().equalsIgnoreCase(elem2.className()) && elem1.tagName().equalsIgnoreCase(elem2.tagName())){ 
 					return true;
 				}
 				
