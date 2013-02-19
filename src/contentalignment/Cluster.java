@@ -39,29 +39,29 @@ public class Cluster {
 		if(segments.size() < 1)
 			return true;
 
-		else if(!isSameType((Element)segment.node))
+		else if(!isSameType(segment.node))
 			return false;
 
 		return true;
 	}
 
 
-	private boolean isSameType(Element elem1){
+	private boolean isSameType(Node node){
 
 		if(state == 0){
 			
-			Element elem2 = (Element) segments.get(0).node;
+			Node node2 =  segments.get(0).node;
 			
-			if(!isHeading((elem2).tagName())){
+			if(!isHeading(getTagName(node2))){
 				
-				if(isHeading((elem1).tagName())){
+				if(isHeading(getTagName(node))){
 					return false;
 				}				
 				state = 1;
 				return true;
 			
 			}
-			else if(isHeading((elem1).tagName())){
+			else if(isHeading(getTagName(node))){
 				return true;
 			
 			}
@@ -75,9 +75,9 @@ public class Cluster {
 			
 				int pos = segments.size() > 1?segments.size() -1:1;
 
-				Element elem2 = (Element) segments.get(pos).node;
+				Node elem2 =  segments.get(pos).node;
 				
-				if(elem1.attr("style").equalsIgnoreCase(elem2.attr("style")) && elem1.className().equalsIgnoreCase(elem2.className()) && elem1.tagName().equalsIgnoreCase(elem2.tagName())){ 
+				if(node.attr("style").equalsIgnoreCase(elem2.attr("style")) && getTagName(node).equalsIgnoreCase(getTagName(elem2))){ 
 					return true;
 				}
 				
@@ -92,6 +92,13 @@ public class Cluster {
 	}
 
 
+	private String getTagName(Node node){
+		if(node instanceof Element)
+			return ((Element)node).tagName();
+		
+		return "";
+	}
+	
 	private boolean isHeading(String tagName){
 		if(tagName.equalsIgnoreCase("h1") ||tagName.equalsIgnoreCase("h2")||tagName.equalsIgnoreCase("h3")||tagName.equalsIgnoreCase("h4")
 				|| tagName.equalsIgnoreCase("h5")||tagName.equalsIgnoreCase("h6"))

@@ -99,8 +99,12 @@ public class HtmlProcessor {
 			
 			if(segments.size() != 0){
 				
-				for(Segment elem : segments)
-				((Element)elem.getNode()).addClass("highlight item"+(count%9));
+				for(Segment elem : segments){
+					
+					if(elem.getNode() instanceof Element)
+						((Element)elem.getNode()).addClass("highlight item"+(count%9));
+					
+				}
 			}
 			
 			count++;

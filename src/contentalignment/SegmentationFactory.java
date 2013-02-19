@@ -6,10 +6,14 @@ import java.util.List;
 import java.util.Set;
 
 import org.jsoup.Jsoup;
+import org.jsoup.nodes.Comment;
+import org.jsoup.nodes.DataNode;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.DocumentType;
 import org.jsoup.nodes.Element;
 import org.jsoup.nodes.Node;
 import org.jsoup.nodes.TextNode;
+import org.jsoup.nodes.XmlDeclaration;
 import org.jsoup.select.Elements;
 import contentminer.Utilities;
 import contentminer.WebPage;
@@ -47,7 +51,9 @@ public class SegmentationFactory {
 
 		for(Element node : docElements)
 		{
-			nodes.addAll(getTextNodes(node));
+
+				nodes.addAll(getTextNodes(node));
+
 		}
 
 
@@ -58,7 +64,7 @@ public class SegmentationFactory {
 		{
 			//if(node instanceof Element)
 		//	{
-				segments.add(new Segment(((Element) node).text(), node));			
+				segments.add(new Segment(getText(node), node));			
 				//System.out.println((((Element) node).text()));
 		//	}
 		}
@@ -69,16 +75,28 @@ public class SegmentationFactory {
 
 	private List<Node> getTextNodes(Node parentNode)
 	{
+		if(!Utilities.isValidNode(parentNode))
+			return null;
+		
 		List<Node> textNodes = new ArrayList<Node>();
-		String str = ((Element)parentNode).text();
-		System.out.println(str);
-	
 
-		try {
+		if(!SegmentValidator.splitNode(parentNode))
+		{
+			textNodes.add(parentNode);
+			
+			return textNodes;		
+		}
+
+
+		else{
+			try {
+		
 
 			for(Node childNode:parentNode.childNodes())
 			{
-				System.out.println();
+				
+				if(!Utilities.isValidNode(childNode))
+					continue;
 				
 				if(SegmentValidator.splitNode(childNode))
 				{
@@ -95,17 +113,18 @@ public class SegmentationFactory {
 				{
 					
 					if(SegmentValidator.validText(childNode, getText(childNode))){
-						textNodes.add(childNode.parent());
+						textNodes.add(childNode);
 					}
 				}
 			}
 		}
 		catch(Exception e)
 		{
-			e.printStackTrace();
+			 System.err.println(e.getStackTrace());
 		}
 
 		return textNodes;
+		}
 	}
 
 	private String getText(Node node)
@@ -129,5 +148,7 @@ public class SegmentationFactory {
 	public Document getDoc() {
 		return doc;
 	}
+	
+
 
 }

@@ -16,7 +16,14 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.jsoup.Jsoup;
+import org.jsoup.nodes.Comment;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.nodes.Node;
+import org.jsoup.nodes.Entities.EscapeMode;
+import org.jsoup.nodes.TextNode;
+import org.jsoup.safety.Cleaner;
+import org.jsoup.safety.Whitelist;
 
 import contentalignment.Cluster;
 import contentalignment.Segment;
@@ -164,7 +171,11 @@ public class Utilities {
 		Document doc = null;
 		
 		try {
-			doc= Jsoup.connect(url).get();
+			doc = Jsoup.connect(url).get();
+			//doc= new Cleaner(Whitelist.relaxed()).clean(Jsoup.connect(url).get());
+			//doc.outputSettings().prettyPrint(false);
+			//doc.outputSettings().escapeMode(EscapeMode.xhtml);
+			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -307,6 +318,22 @@ public class Utilities {
 	    }
 	}
 	
+	
+	
+	public static boolean isValidNode(Node node){
+
+		System.out.println(node.toString());
+		
+		if(node instanceof TextNode)
+			return true;
+		
+		
+		if(node instanceof Comment || ((Element)node).tagName().equalsIgnoreCase("script") || ((Element)node).tagName().equalsIgnoreCase("style"))
+			return false;
+	
+	
+	return true;
+}
  
 }
 
