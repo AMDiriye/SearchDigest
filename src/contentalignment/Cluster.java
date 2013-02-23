@@ -48,6 +48,10 @@ public class Cluster {
 
 	private boolean isSameType(Node node){
 
+		if(node instanceof Element && ((Element) node).text().contains("Tutorials:")){
+			System.out.println("!!!!!!!!!!!!!!----tutorials");
+		}
+		
 		if(state == 0){
 			
 			Node node2 =  segments.get(0).node;
