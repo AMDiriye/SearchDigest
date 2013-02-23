@@ -38,5 +38,11 @@ public class Data {
 		return labels.get(index).equalsIgnoreCase(label);
 	}
 	
+	public List<String> getLabels(){
+		return labels;
+	}
 	
+	public int getContentSize(){
+		return content.size();
+	}
 }
