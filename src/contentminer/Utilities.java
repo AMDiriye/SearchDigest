@@ -66,10 +66,6 @@ public class Utilities {
 	
 	} 
 	
-	
-
-	    
-
 	public static String stem(String terms){
 		return stemmer.stripAffixes(terms);
 	}

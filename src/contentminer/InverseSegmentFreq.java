@@ -23,6 +23,19 @@ public class InverseSegmentFreq {
 	}
 	
 	
+	public InverseSegmentFreq(String _allTerms){
+		
+		totalNumSegments = 1;
+		terms = new ArrayList<String>();
+		termFreq = new ArrayList<Integer>();
+	
+		String[] allTerms = _allTerms.split(" ");
+		
+		for(String term : allTerms){
+			addTerm(term);
+		}
+	}
+	
 	public void addAllSegments(List<Cluster> segments){
 		for(Cluster segment : segments){
 			
@@ -49,9 +62,14 @@ public class InverseSegmentFreq {
 		}
 	}
 	
+	
 	public double getTermFreq(String term)
 	{
 		int index = terms.indexOf(term);
+		
+		if(index >= termFreq.size()){
+			System.out.println("problem");
+		}
 		
 		return Math.log((totalNumSegments/termFreq.get(index)));
 	}

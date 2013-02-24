@@ -7,6 +7,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -17,6 +18,9 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
+
+import contentminer.InverseSegmentFreq;
+import contentminer.Utilities;
 
 public class Main {
 
@@ -31,21 +35,67 @@ public class Main {
 		for(File file : files){
 			data.add(makeData(file.getAbsolutePath()));
 		}
+
+		for(int i=0; i<data.size();i++){
+
+			for(int j=0; j<data.size();j++){
+
+				if(i!=j){
+					List<String> generatedLabels = getLabelsGenerated(data.get(i),data.get(j));
+					System.out.println(Evaluator.getPrecision(data.get(i), generatedLabels));
+				}
+			}
+		}
 	}
 
+
+	public static List<String> getLabelsGenerated(Data doc1, Data doc2){
+		List<String> labels = new ArrayList<String>();
+		
+		String _doc1Terms = Utilities.stem(Utilities.removeStopWords(doc1.getAllContent()));
+		String _doc2Terms = Utilities.stem(Utilities.removeStopWords(doc2.getAllContent()));
+				
+		Utilities.isf = new InverseSegmentFreq(_doc1Terms+ " "+_doc2Terms);
+		
+		for(int i=0; i<doc1.getContentSize();i++){
+			
+			double bestSim = 0.0;
+			int closestContent = 0;
+			
+			for(int j=0; j<doc2.getContentSize();j++){
+				String doc1Terms = Utilities.removeStopWords(doc1.getContentAt(i));
+		        String doc2Terms = Utilities.removeStopWords(doc2.getContentAt(j));
+		        
+		        doc1Terms = Utilities.stem(doc1Terms);
+		        doc2Terms = Utilities.stem(doc2Terms);
+		        
+				double tempSim = Utilities.cosineSimilarity(Arrays.asList(doc1Terms.split(" ")), 
+						Arrays.asList(doc2Terms.split(" ")));
+				
+				if(tempSim > bestSim){
+					bestSim = tempSim;
+					closestContent = j;
+				}
+			}
+			labels.add(doc2.getLabelAt(closestContent));
+		}
+
+
+		return labels;
+	}
 
 	private  static Data makeData(String filePath){
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 		Document dom = null;
-		
+
 		try {
 			//Using factory get an instance of document builder
 			DocumentBuilder db = dbf.newDocumentBuilder();
 			//parse using builder to get DOM representation of the XML file
 			dom = db.parse(filePath);
 			System.out.println(dom.getChildNodes().getLength());
-			
-			
+
+
 		}catch(ParserConfigurationException pce) {
 			pce.printStackTrace();
 		}catch(SAXException se) {
@@ -53,11 +103,11 @@ public class Main {
 		}catch(IOException ioe) {
 			ioe.printStackTrace();
 		}
-		
+
 		//get the root element
 		Element docEle = dom.getDocumentElement();
 		Data data = new Data();
-		
+
 		//get a nodelist of 
 		NodeList nl = docEle.getChildNodes();
 		if(nl != null && nl.getLength() > 0) {
@@ -70,12 +120,9 @@ public class Main {
 			}
 		}
 		return data;
-		
+
 	}
-	
-	
-	
-	
+
 	private static void amendFiles(){
 		File[] files = new File("E:\\Users\\Rupert\\Desktop\\New folder").listFiles();
 

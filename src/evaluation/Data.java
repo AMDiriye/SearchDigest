@@ -45,4 +45,23 @@ public class Data {
 	public int getContentSize(){
 		return content.size();
 	}
+	
+	public String getContentAt(int pos){
+		return content.get(pos);
+	}
+	
+	public String getLabelAt(int pos){
+		return labels.get(pos);
+	}
+	
+	
+	public String getAllContent(){
+		String contentStr = "";
+
+		for(String str : content){
+			contentStr += " "+str;
+		}
+		
+		return contentStr;
+	}
 }

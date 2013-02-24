@@ -11,7 +11,7 @@ public class Evaluator {
 	}
 	
 	
-	public double getPrecision(Data data, List<String> labels){
+	public static double getPrecision(Data data, List<String> labels){
 		double numCorrect = 0;
 		
 		for(int i =0; i<data.getContentSize(); i++){
@@ -37,4 +37,6 @@ public class Evaluator {
 		
 		return (numCorrect/((double)labelsGenerated.size()));
 	}
+
+
 }
