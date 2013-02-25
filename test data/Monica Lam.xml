@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?><homepage>
+<contactDetails>
+Professor 
+Computer Science Department 
+Stanford University 
+
+Gates Building, Room 307
+353 Serra Mall
+Stanford University
+CA 94305
+(Directions)	    Phone: (650) 725-3714
+   Fax: (650) 725-6949
+   E-mail: lam at cs.stanford.edu
+   Twitter: MonicaSLam
+</contactDetails>
+
+<aboutMe>
+Monica Lam is a Professor in the Computer Science Department at Stanford University since 1988. She received a B.Sc. from University of British Columbia in 1980 and a Ph.D. in Computer Science from Carnegie Mellon University in 1987. She is the Faculty Director of the Stanford MobiSocial Computing Laboratory and a co-PI in the POMI (Programmable Open Mobile Internet) 2020 project, which is an NSF Expedition started in 2008. Her current research interests are in building an open and federated social computing infrastructure. She has worked in the areas of compiler optimization, software analysis to improve security, and simplifying computer management with virtualization.
+She is a co-author of the book Compilers, Principles, Techniques, and Tools (2nd Edition), also known as the Dragon book. She is the founding CEO of moka5, a desktop virtualization start up that spun out of her research group at Stanford in 2005. She and her students started Mobisocial Inc. with the goal of creating a social internet.
+
+Monica is an ACM Fellow. She received an NSF Young Investigator award in 1992, the ACM Most Influential Programming Language Design and Implementation Paper Award in 2001, an ACM SIGSOFT Distinguished Paper Award in 2002, and the ACM Programming Language Design and Implementation Best Paper Award in 2004. She was the author of two of the papers in "20 Years of PLDI--a Selection (1979-1999)", and one paper in the "25 Years of the International Symposia on Computer Architecture".
+
+She chaired the ACM SIGPLAN Programming Languages Design and Implementation Conference in 2000, served on the Editorial Board of ACM Transactions on Computer Systems and numerous program committees for conferences on languages and compilers (PLDI, POPL), operating systems (SOSP), and computer architecture (ASPLOS, ISCA).
+
+In the area of mobile and social computing, her group developed Musubi, a message-based mobile social network that delivers both an attractive user experience as well as distributed data ownership. The paper on Musubi is a finalist of Best Student Paper in the WWW 2012 conference. She and her student Sudheendra Hangal pioneered the concept of experience-infused software.
+
+In the area of simplifying computing, her Collective project developed the concept of a livePC: subscribers of the livePC will automatically run the latest of the published PC virtual images with each reboot. This approach allows computers to be managed scalably and securely.
+
+Her contributions in compiler optimizations include software pipelining, data locality, parallelization. The SUIF compiler infrastructure developed by her research group has been widely used by compiler researchers all around the world.
+
+Her contributions in program analysis for security include tools for automatically detecting cross-site scripting and SQL injection bugs in Java/JSP web applications, which was based on a novel context-sensitive pointer alias analysis. Other contributions include the bddbddb (BDD-based Deductive DataBase) analysis system, the PQL program query language, the Diduce dynamic root-cause analyzer, the Clouseau C++ memory leak detector, and the Cred buffer overrun detector.
+</aboutMe>
+
+<publication>
+Recent Papers
+
+SociaLite: Datalog Extensions for Efficient Social Network Analysis 
+Jiwon Seo, Stephen Guo, and Monica S. Lam
+In Proceedings of the 29th IEEE International Conference on Data Engineering, Brisbane, Australia, April 2013. 
+Processing Email Archives in Special Collections 
+Sudheendra Hangal, Peter Chan, Monica S. Lam, and Jeffrey Heer
+In Proceedings of the Digital Humanities Conference (DH2012), 
+Hamburg, Germany, July 2012. 
+Musubi: Disintermediated Interactive Social Feeds for Mobile Devices 
+Ben Dodson, Ian Vo, T. J. Purtell, Aemon Cannon, and Monica S. Lam
+In Proceedings of the 21st International WWW Conference (WWW2012)
+Lyon, France, April 2012. (Finalist of Best Student Paper). 
+Effective Browsing and Serendipitous Discovery with an Experience-Infused Browser 
+Sudheendra Hangal, Abhinay Nagpal, and Monica S. Lam
+In Proceedings of the 2012 International Conference on Intelligent User Interfaces (IUI)
+Lisbon, Portugal, February 2012. 
+Friends, Romans, Countrymen: Lend me your URLs.
+Using Social Chatter to Personalize Web Search. 
+Abhinay Nagpal, Sudheendra Hangal, Rifat Reza Joyee, and Monica S. Lam
+In Proceedings of the ACM Conference on Computer Supported Cooperative Work (CSCW)
+Seattle WA, February 2012. 
+MUSE: Reviving Memories Using Email Archives 
+Sudheendra Hangal, Monica S. Lam, and Jeffrey Heer 
+In Proceedings of the 24th ACM Symposium on User Interface Software and Technology (UIST)
+Santa Barbara CA, October 2011. 
+Micro-Interactions with NFC-Enabled Mobile Phones 
+Ben Dodson and Monica S. Lam
+In Proceedings of the Third International Conference on Mobile Computing, Applications, and Services (MobiCASE) 
+Los Angeles, CA, October 2011. 
+An Algorithm and Analysis of Social Topologies from Email and Photo Tags 
+T. J. Purtell, Diana MacLean, Seng Keat Teh, Sudheendra Hangal, Monica S. Lam, and Jeffrey Heer 
+In Proceedings of the Fifth ACM Workshop on Social Network Mining and Analysis 
+Held in conjunction with the ACM SIGKDD International Conference on Knowledge Discovery and Data Mining (KDD)
+San Diego, CA, August 2011. 
+Email Clients as Decentralized Social Apps in Mr. Privacy 
+Michael Fischer, T. J. Purtell, and Monica S. Lam 
+In Proceedings of the 4th Hot Topics in Privacy Enhancing Technologies (HotPETs 2011)
+Waterloo ON, Canada, July 2011. 
+Groups Without Tears: Mining Social Topologies from Email 
+Diana MacLean, Sudheendra Hangal, Seng Keat Teh, Monica S. Lam, and Jeffrey Heer 
+In Proceedings of the 2011 International Conference on Intelligent User Interfaces (IUI), Palo Alto, CA, February 2011. 
+Selected Publications (in chronological order)
+
+Computer System Manageability
+The Collective: A Cache-Based System Management Architecture
+R. Chandra, N. Zeldovich, C. P. Sapuntzakis and M. S. Lam 
+In Proceedings of the Second Symposium on Networked Systems Design and Implementation, May 2005.
+The Interactive Performance of SLIM: A Stateless, Thin-Client Architecture 
+B. K. Schmidt, M. S. Lam, and J. D. Northcutt 
+In Proceedings of the Seventeenth ACM Symposium on Operating Systems Principles, December 1999. 
+Published as Operating Systems Review, 34(5):32-47.
+Program Analysis for Reliability and Security
+Automatic Generation of XSS and SQL Injection Attacks with Goal-Directed Model Checking. 
+Martin, Michael C., Lam, M. S.
+In Proceedings of the 17th USENIX Security Symposium, (San Jose, CA, 30 July-1 August, 2008), pages 31-43.
+Securing Web Applications Using Static and Dynamic Information Flow Tracking,
+M. S. Lam, M.C. Martin, V. B. Livshits, and J. Whaley, 
+In ACM Sigplan 2008 Workshop on Partial Evaluation and Program Manipulation, (Keynote address), January 2008.
+Finding Application Errors and Security Flaws Using PQL: a Program Query Language. 
+Michael Martin, V. Benjamin Livshits, and Monica S. Lam
+In Proceedings of the Conference on Object-Oriented Programming, Systems, Languages and Applications (OOPSLA '05), October 2005.
+Finding Security Vulnerabilities in Java Applications Using Static Analysis
+V. Benjamin Livshits and Monica S. Lam
+In Proceedings of the 14th USENIX Security Symposium, August 2005.
+Static Detection of Leaks in Polymorphic Containers. 
+David Heine and Monica S. Lam
+In Proceeding of the 28th International Conference on Software Engineering, (Shanghai, China, 20-28 May, 2006), pages 252-261.
+Context-Sensitive Program Analysis as Database Queries
+Monica S. Lam, John Whaley, V. Benjamin Livshits, Michael C. Martin, Dzintars Avots, Michael Carbin and Christopher Unkel.
+In Proceedings of the 24th SIGMOD-SIGACT-SIGART Symposium on Principles of Database Systems, June, 2005. (Invited Tutorial).
+Cloning-Based Context-Sensitive Pointer Alias Analysis Using Binary Decision Diagrams 
+John Whaley and Monica S. Lam
+In Proceedings of the ACM SIGPLAN 2004 Conference on Programming Language Design and Implementation, June 2004. 
+ACM Programming Language Design and Implementation Best Paper Award, 2004.
+A Practical Flow-Sensitive and Context-Sensitive C and C++ Memory Leak Detector
+D. L. Heine and M. S. Lam
+In Proceedings of the ACM SIGPLAN 2003 Conference on Programming Language Design and Implementation, June 2003.
+Tracking Down Software Bugs Using Automatic Anomaly Detection
+S. Hangal and M. S. Lam
+In Proceedings of the 24th International Conference on Software Engineering, May 2002.(gzip'ed postscript).
+Parallelization and Locality Optimization
+Blocking and Array Contraction Across Arbitrarily Nested Loops Using Affine Partitioning 
+A. W. Lim, S.-W. Liao and M. S. Lam
+In Proceedings of the ACM SIGPLAN Symposium on Principles and Practice of Parallel Programming, June 2001.
+An Affine Partitioning Algorithm to Maximize Parallelism and Minimize Communication 
+A. W. Lim, G. I. Cheong and M. S. Lam
+In Proceedings of the 13th ACM SIGARCH International Conference on Supercomputing, June, 1999, pp. 228-237.
+Maximizing Parallelism and Minimizing Synchronization with Affine Partitions 
+A. W. Lim and M. S. Lam 
+Parallel Computing, Vol. 24, Issue 3-4, May 1998, Pages 445-475. (PDF)
+(A preliminary version appeared as Maximizing Parallelism and Minimizing Synchronization with Affine Transform, in the Conference Record of the 24th Annual ACM SIGPLAN-SIGACT Symposium on Principles of Programming Languages, January, 1997.)
+Maximizing Multiprocessor Performance with the SUIF Compiler
+M. W. Hall, J. M. Anderson, S. P. Amarasinghe, B. R. Murphy, S.-W. Liao, E. Bugnion and M. S. Lam
+IEEE Computer, December 1996.
+(A special issue on multiprocessors).
+Detecting Coarse-Grain Parallelism Using an Interprocedural Parallelizing Compiler (PostScript)
+M. W. Hall, S. P. Amarasinghe, B. R. Murphy, S. Liao, and M. S. Lam, 
+In Proceedings of Supercomputing '95, December 1995.
+Global Optimizations for Parallelism and Locality on Scalable Parallel Machines (PostScript)
+J. M. Anderson and M. S. Lam 
+In Proceedings of the ACM SIGPLAN'93 Conference on Programming Language Design and Implementation, June, 1993.
+Design and Evaluation of a Compiler Algorithm for Prefetching ( PDF) 
+T. C. Mowry, M. S. Lam and A. Gupta 
+In Proceedings of the Fifth International Conference on Architectural Support for Programming Languages and Operating Systems, October, 1992.
+A Data Locality Optimizing Algorithm 
+M. E. Wolf and M. S. Lam 
+In Proceedings of the ACM SIGPLAN'91 Conference on Programming Language Design and Implementation, June 1991.
+ACM Most Influential PLDI Paper Award, 2001.
+Included in 20 Years of PLDI (1979-1999): A Selection, 2004. (A retrospective).
+Software Pipelining: An Effective Scheduling Technique for VLIW Machines.
+M. Lam. 
+In Proceedings of the SIGPLAN 88 Conference on Programming Language Design and Implementation, June 1988, pp. 318-328.
+Included in 20 Years of PLDI (1979-1999): A Selection, 2004. (A retrospective).
+Architecture
+Limits of Control Flow on Parallelism (PostScript) 
+M. S. Lam and R. P. Wilson 
+In Proceedings of the 19th Annual International Symposium on Computer Architecture, May, 1992.
+The Cache Performance and Optimizations of Blocked Algorithms 
+M. S. Lam, E. E. Rothberg and M. E. Wolf 
+In Proceedings of the Fourth International Conference on Architectural Support for Programming Languages and Operating Systems, April 1991.
+The Warp Computer: Architecture, Implementation and Performance. 
+M. Annaratone, E. Arnould, T. Gross, H. T. Kung, M. Lam, and O. Menzilcioglu 
+IEEE Transactions on Computers, December 1987, C-36, 12, pp. 1523-1538. 
+(A preliminary version appeared as Warp Architecture and Implementation, which appeared in the Proceedings of the 13th Annual Symposium on Computer Architecture, (Tokyo, Japan, 2-5 June 1986). pp. 346-356. 
+Included in 25 Years of the International Symposia on Computer Architecture, 1998.)
+</publication>
+</homepage>

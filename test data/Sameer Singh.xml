@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?><homepage>
+<contactDetails>
+Office 264
+Dept of Computer Science 
+140 Governors Drive 
+University of Massachusetts 
+Amherst, MA (USA) 01003 
+
+
+Phone: (562) 726 4373 
+sameer AT cs.umass.edu 
+</contactDetails>
+
+<aboutMe>
+I'm a PhD student in Computer Science at UMass Amherst. I'm working with Andrew McCallum, as part of the Information Extraction and Synthesis Lab (IESL) on various learning and approximate inference techniques for large graphical models. I'm the chief maintainer for Factorie and have worked on some of the interesting machine learning problems within Rexa.
+
+I interned at Microsoft Research, Cambridge (UK) last summer, working on Bayesian models of relational databases with Thore Graepel. I interned at Google Research at Mountain View, CA in 2010, where I worked with Amar Subramanya and Fernando Pereira on inference for large graphical models, with cross-document coreference as the task. In summer 2009, I worked with the Advertising Sciences team in Yahoo! Labs on extracting entities from ads using minimal supervision. Before I started my PhD, I interned for two semesters at Google Pittsburgh, where I got a chance to apply machine learning to some of the biggest data sets available.
+
+I co-chaired the fourth North-East Students Colloquium on Artificial Intelligence (NESCAI) 2010 with David Mimno. In December 2011, I was one of the main organizers of the popular Big Learning workshop on large-scale machine learning. I organized the ICML 2012 workshop on Inferning: Interactions between Inference and Learning, and am currently organizing the NIPS Big Learning 2012 workshop.
+
+I received the Yahoo! Key Scientific Challenges Award for the year 2010-2011 (yahoo link, umass story). For the year 2009-2010, I was granted the Department Award for Accomplishments in Search and Mining (sponsored by Yahoo!) by the Computer Science Department. I was also awarded the Graduate School Fellowship by the university for the year 2010-2011.
+
+Before starting my PhD, I finished my MS in Computer Science from Vanderbilt in May 2007, where I worked with Doug Fisher and Julie Adams. I grew up in New Delhi, India, got my Bachelors in Electrical Engineering from NSIT, and attended high school at Sardar Patel Vidyalaya.
+</aboutMe>
+
+<publication>
+RECENT PUBLICATIONS
+S. Singh, M. Wick, A. McCallum
+Monte Carlo MCMC: Efficient Inference by Approximate Sampling
+Conference on Empirical Methods in Natural Language Processing and Natural Language Learning (EMNLP-CoNLL), 2012
+PDF, Slides, Abstract , BibTex
+S. Singh, T. Graepel
+Compiling Relational Database Schemata into Probabilistic Graphical Models
+Neural Information Processing Systems (NIPS), Workshop on Probabilistic Programming, 2012
+PDF, arXiv, Abstract , BibTex
+S. Singh, G. Druck, A. McCallum
+Constraint-Driven Training of Complex Models Using MCMC
+University of Massachusetts Amherst, CMPSCI Technical Report, UM-CS-2012-032, 2012
+PDF, Abstract , BibTex
+S. Singh, A. Subramanya, F. Pereira, A. McCallum
+Wikilinks: A Large-scale Cross-Document Coreference Corpus Labeled via Links to Wikipedia
+University of Massachusetts Amherst, CMPSCI Technical Report, UM-CS-2012-015, 2012
+PDF, Abstract , BibTex
+M. Wick, S. Singh, A. McCallum
+A Discriminative Hierarchical Model for Fast Coreference at Large Scale
+Association for Computational Linguistics (ACL), 2012
+PDF, Abstract , BibTex
+</publication>
+
+
+</homepage>

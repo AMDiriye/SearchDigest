@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?><homepage>
+<contactDetails>
+firstname at cs dot umass dott edu
+
+Department of Computer Science
+University of Massachusetts
+Room 366
+140 Governors Drive
+Amherst, MA 01003
+</contactDetails>
+
+<aboutMe>
+I am a fifth year PhD student in the CIIR lab, working with Prof. James Allan.
+
+I am interested in solving real world problems in Information Retrieval and Natural Language Processing. I have worked in question answering, passage retrieval, language modeling, sentiment analysis, sparse queries, personalization, outlier detection, and diversification.
+</aboutMe>
+
+<publication>
+[6] Aktolga, E. and Allan, J., Reranking Search Results for Sparse Queries, CIKM 2011, pp. 173-183.
+
+[5] Aktolga, E., Ros, I., Assogba, Y. and DiMicco, J., Many Bills: Visualizing the Anatomy of Congressional Legislation, Workshop on Scalable Integration of Analytics and Visualization, AAAI 2011, pp. 2-7.
+
+[4] Aktolga, E., Ros, I. and Assogba, Y., Detecting Outlier Sections in US Congressional Legislation, SIGIR 2011, pp. 235-244.
+
+[3] Aktolga, E., Allan, J. and Smith, D., Passage Reranking for Question Answering Using Syntactic Structures and Answer Types, ECIR 2011, pp. 617-628.
+
+[2] Cartright, M., Aktolga, E. and Dalton, J., Characterizing the Subjectivity of Topics, SIGIR 2009, pp. 642-643.
+
+[1] Aktolga, E., Cartright, M. and Allan, J., Cross-Document Cross-Lingual Coreference Retrieval, CIKM 2008, pp. 1359-1360.
+
+</publication>
+</homepage>

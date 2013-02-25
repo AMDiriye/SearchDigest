@@ -22,11 +22,9 @@ public class NounExtractor {
 	       // System.out.println(tagged);
 	        
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		 	e.printStackTrace();
 		}
  
 

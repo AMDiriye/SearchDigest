@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?><homepage>
+<aboutMe>
+I'm currently a third year PhD student supervised by Professor W. Bruce Croft at Center for Intelligent Information Retrieval (CIIR), Department of Computer Science, University of Massachusetts Amherst.
+</aboutMe>
+
+<researchInterests>
+I'm interested in examining the possibility of using alternative sources of data that resemble the structure of query logs to simulate them. Anchor text and bookmark data are two examples of such sources. So far I've been looking only at anchor text.
+
+I'm also interested in problems related to query reformulation. In particular, I'm curious to know if we can develop a unified framework that can decide not only whether or not to reformulate a particular query but also what types of reformulation it should perform on this one.
+
+Another research interest of mine is to apply machine learning algorithms to facilitate retrieval, especially to query reformulation.
+</researchInterests>
+
+<publication>
+Van Dang and W. Bruce Croft, Feature Selection for Document Ranking using Best First Search and Coordinate Ascent. SIGIR Workshop on Feature Generation and Selection for Information Retrieval, 2010
+Van Dang, Michael Bendersky and W. Bruce Croft, Learning to Rank Query Reformulations. Proceedings of the 33rd Annual ACM SIGIR Conference (SIGIR 2010)
+Van Dang and W. Bruce Croft, Query Reformulation Using Anchor Text. Proceedings of the 3rd ACM International Conference on Web Search and Data Mining (WSDM 2010)
+</publication>
+</homepage>

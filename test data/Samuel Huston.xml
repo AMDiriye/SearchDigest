@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?><homepage>
+<aboutMe>
+I'm currently a PhD student studying at Center for Intelligent Information Retrieval (CIIR), in the Department of Computer Science of the University of Massachusetts Amherst. I am supervised by Professor W. Bruce Croft.
+</aboutMe>
+
+<researchInterests>
+Research Interests
+I'm interested in the problems related to effectively processing of complex retrieval models. Particularly, I'm interested in improving the efficiency and throughput of long and complex queries.
+I'm also interested in the problems related to the effective distribution of search engine functions across cluster computers. This involves large scale indexing and efficient distributed retrieval.
+I've been working recently on a new search engine Galago, it is hosted in the Lemur Project. Galago is a scalable and extensible search engine. One novel feature of this search engine is the extensible query language.
+</researchInterests>
+
+<publication>
+Publications
+2011 Samuel Huston, Alistair Moffat, W. Bruce Croft, Efficient Indexing of Repeated n-Grams. Proceedings of the Fourth ACM International Conference on Web Search and Data Mining (WSDM), Hong Kong, China, 2011
+2010 Xiaobing Xue, Samuel Huston, W. Bruce Croft, Improving Verbose Queries using Subset Distribution. Proceedings of the 19th International Conference on Information and Knowledge Management (CIKM). Toronto, Canada, 2010
+2010 Samuel Huston, W. Bruce Croft, Evaluating Verbose Query Processing Techniques. Proceedings of the 33rd international ACM SIGIR conference on Research and development in information retrieval, Geneva, Switzerland, 2010
+2008 Samuel Huston, Jakob Puchinger, Peter Stuckey The Core Concept for 0/1 Integer Programming. Conferences in Research and Practice in Information Technology. Vol 77: Theory of Computing, CATS 2008, Wollongong, Austrlia, 2008
+</publication>
+</homepage>

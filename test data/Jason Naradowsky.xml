@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?><homepage>
+<aboutMe>
+Hello! I'm a fourth-year graduate student in the Computer Science Department at UMass Amherst, and via cotutelle at Macquarie University, where I work in natural language processing and machine learning. My advisors are David Smith and Mark Johnson. I'm also occasionally in South College, pretending to be a linguist.
+
+As of June 2012 I am a visiting researcher at the Nara Institute of Science and Technology working with Prof. Yuji Matsumoto, supported by an NSF EAPSI fellowship.
+</aboutMe>
+
+<researchInterests>
+My research focuses on statistical models of natural language processing and acquisition, with an emphasis on joint inference, unsupervised learning and statistical relational learning. My primary interest stems from a fascination with how children are able to, with little exception, effortlessly acquire their first language. I develop models that explore this problem by examining how linguistic levels (morphology, phonology, etc.) interact, and how their relational structures can be leveraged to improve learning in the absence of labeled training instances and negative examples. Additionally, these models test different assumptions, biases, and learning mechanisms in an attempt to determine which best approximates human language learning, and which biases, if any, are linguistically universal.
+</researchInterests>
+
+<publication>
+2012
+
+Improving NLP through Marginalization of Hidden Syntactic Structure
+Jason Naradowsky, Sebastian Riedel, and David Smith 
+EMNLP 2012 
+[abstract] [paper] [bib]
+
+Grammarless Parsing for Joint Inference
+Jason Naradowsky, Tim Vieira, and David Smith 
+COLING 2012 
+[abstract] [paper] [bib]
+
+Combinatorial Constraints for Constituency Parsing in Graphical Models
+Jason Naradowsky, David Smith 
+Technical Report, University of Massachusetts Amherst, 2012. 
+2011
+
+Unsupervised Bilingual Morpheme Segmentation and Alignment with 
+Context-rich Hidden Semi-Markov Models
+Jason Naradowsky and Kristina Toutanova 
+ACL 2011 
+[abstract] [paper] [slides] [bib]
+
+A Discriminative Model for Joint Morphological Disambiguation and Dependency Parsing 
+John Lee, Jason Naradowsky, and David Smith 
+ACL 2011 
+[abstract] [paper] [bib]
+
+Feature Induction for Online Constraint-based Phonology Acquisition 
+Jason Naradowsky, Joe Pater, and David Smith 
+Synthesis Project, Presented at NECPHON 2011 
+[abstract][(Contact me for draft)]
+
+2010
+
+Learning Hidden Metrical Structure with a Log-linear Model of Grammar 
+Jason Naradowsky, Joe Pater, David Smith, and Robert Staubs 
+Workshop on Computational Modelling of Sound Pattern Acquisition 2010
+
+2009
+
+Polylingual Topic Models 
+David Mimno, Hanna Wallach, Jason Naradowsky, David Smith and Andrew McCallum 
+EMNLP 2009 
+[abstract] [paper] [bib]
+
+Improving Morphology Induction by Learning Spelling Rules 
+Jason Naradowsky and Sharon Goldwater 
+IJCAI 2009 
+[abstract] [paper] [slides] [bib]
+
+Polylingual Topic Models 
+David Mimno, Hanna Wallach, Limin Yao, Jason Naradowsky and Andrew McCallum 
+The Learning Workshop (Snowbird) 2009 
+</publication>
+</homepage>

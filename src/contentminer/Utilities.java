@@ -157,8 +157,7 @@ public class Utilities {
 		try {
 			java.awt.Desktop.getDesktop().browse(new File(fileName).toURI());
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			 e.printStackTrace();
 		}
 	}
 	
@@ -173,8 +172,7 @@ public class Utilities {
 			//doc.outputSettings().escapeMode(EscapeMode.xhtml);
 			
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		 	e.printStackTrace();
 		}
 		
 		return doc;

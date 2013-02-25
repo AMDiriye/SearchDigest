@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?><homepage>
+<contactDetails>
+Department of Computer Science
+140 Governors Drive, Box 9264
+University of Massachusetts, Amherst
+Amherst, MA 01003-9264
+
+Office: 202 Computer Science Research Center
+Phone:(413) 545-0463
+Fax: (413) 545-1789
+Email: croft@cs.umass.edu
+</contactDetails>
+
+<publication>
+Search Engines: Information Retrieval in Practice, Addison Wesley, 2010.
+Xue, X., Huston, S. and Croft, W. B. , "Improving Verbose Queries using Subset Distribution," Proceedings of the 19th ACM International Conference on Information and Knowledge Management (CIKM 2010), pp. 1059-1068, 2010.
+Bendersky, M., Croft, W. B. and Diao, Y., "Quality-Biased Ranking of Web Documents," Proceedings of the Fourth International Conference on Web Search and Data Mining (WSDM 2011), pp. 95-104, 2011.
+Huston, S., Moffat, A. and Croft, W. B. , "Efficient Indexing of Repeated n-Grams," Proceedings of the Fourth ACM International Conference on Web Search and Data Mining (WSDM 2011), pp.127-136, 2011.
+Kim, J. and Croft, W. B. , "Ranking using Multiple Document Types in Desktop Search," Proceedings of the 33rd Annual International ACM SIGIR conference on Research and Development in Information Retrieval (SIGIR 2010), pp. 50-57, 2010.
+Bendersky, M., Metzler, D. and Croft, W. B. , "Learning Concept Importance Using a Weighted Dependence Model," Proceedings of the Third ACM International Conference on Web Search and Data Mining (WSDM 2010), pp. 31-40, 2010.
+Dang, V. and Croft, W. B. , "Query Reformulation Using Anchor Text," Proceedings of the Third ACM International Conference on Web Search and Data Mining (WSDM 2010), pp. 41-50, 2010.
+Seo, J. and Croft, W. B. , "Geometric Representations for Multiple Documents," Proceedings of the 33rd Annual International ACM SIGIR Conference on Research and Development in Information Retrieval (SIGIR 2010), pp. 251-258, 2010.
+Seo, J., Croft, W. B. and Smith, D., "Online Community Search Using Thread Structure," Proceedings of the 8th ACM Conference on Information and Knowledge Management (CIKM 2009), pp. 1907-1910, 2009.
+
+</publication>
+</homepage>

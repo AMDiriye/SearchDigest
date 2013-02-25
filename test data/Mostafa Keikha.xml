@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?><homepage>
+<contactDetails>
+The Center for Intelligent Information Retrieval (CIIR)
+Room 360
+Department of Computer Science
+140 Governors Drive, Box 9264
+University of Massachusetts, Amherst
+Amherst, MA 01003-9264
+
+E-mail : [keikham] at cs.umass.edu
+</contactDetails>
+
+<publication>
+Publications:
+2012
+Mostafa Keikha, Fabio Crestani, W. Bruce Croft, "Diversity in Blog Feed Retrieval", CIKM 2012.
+Parvaz Mahdabi, Linda Andersson, Mostafa Keikha, Fabio Crestani, "Automatic refinement of patent queries using concept importance predictors." SIGIR 2012.
+2011
+Mostafa Keikha, Jangwon Seo, W. Bruce Croft, Fabio Crestani, "Predicting document effectiveness in pseudo relevance feedback". CIKM 2011, Poster Session.
+Mostafa Keikha, Shima Gerani, Fabio Crestani, "Time-based relevance models", SIGIR 2011, Poster session.
+Shima Gerani, Mostafa Keikha, Fabio Crestani, "Aggregating multiple opinion evidence in proximity-based opinion retrieval", SIGIR 2011, Poster session.
+Mostafa Keikha, Mark J. Carman, Fabio Crestani, "Employing Document Dependency in Blog Search", Journal of the American Society for Information Science and Technology (JASIST) 2012.
+Mostafa Keikha, Fabio Crestani, "Linguistic Aggregation Methods in Blog Retrieval", Journal of Information Processing and Management 2012. 
+Mostafa Keikha, Shima Gerani, Fabio Crestani, "TEMPER : A Temporal Relevance Feedback Method", ECIR 2011.
+Shima Gerani, Mostafa Keikha, Fabio Crestani, "Personal Blog Retrieval Using Opinion Features", ECIR 2011, Poster Session.
+Mostafa Keikha, Shima Gerani, Fabio Crestani, "Relevance Stability in Blog Retrieval", SAC 2011.
+2009
+Mostafa Keikha, Ahmad Khonsari, Farhad Oroumchian, "Rich document representation and classification: An analysis", Journal Of Knowledge Based Systems, volume 22, 2009.
+Mostafa Keikha, Fabio Crestani, "Effectiveness of Aggregation Methods in Blog Distillation", In Proceedings of FQAS 2009.
+Mostafa Keikha, Mark James Carman, Fabio Crestani, "Blog distillation using random walks",  In Proceedings of SIGIR 2009, Poster Session.
+2007
+Fahimeh Raja, Mostafa Keikha, Maseud Rahgozar, Farhad Oroumchian, "Effectiveness of Rich Document Representation in XML Retrieval", RIAO 2007.
+</publication>
+</homepage>

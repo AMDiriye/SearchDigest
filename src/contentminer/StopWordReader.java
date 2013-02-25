@@ -26,8 +26,7 @@ public class StopWordReader {
 			s.close();
 		} catch (FileNotFoundException e) 
 		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			 e.printStackTrace();
 		}
 		
 		return stopWords;

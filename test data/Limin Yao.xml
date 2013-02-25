@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?><homepage>
+<contactDetails>
+Department of Computer Science
+University of Massachusetts Amherst
+
+140 Governors Drive
+University of Massachusetts
+Amherst, MA 01003
+Email: lmyao AT cs DOT umass DOT edu
+</contactDetails>
+
+<aboutMe>
+I am a PhD student, working with Professor Andrew McCallum, started in August 2008 (expect to graduate in summer 2014). Here is my CV.
+</aboutMe>
+
+
+<researchInterests>
+Information extraction (especially relation extraction), Natural language processing, Semi-supervised learning.
+</researchInterests>
+
+
+<publication>
+Limin Yao, Sebastian Riedel, Andrew McCallum. Probabilistic Databases of Universal Schema. In Proceedings of the AKBC-WEKEX Workshop at NAACL 2012. 
+
+Limin Yao, Sebastian Riedel, Andrew McCallum. Unsupervised Relation Discovery with Sense Disambiguation. In Proceedings of ACL 2012. 
+
+Limin Yao, Aria Haghighi, Sebastian Riedel, Andrew McCallum. Structured Relation Discovery using Generative Models. In Proceedings of EMNLP 2011, Edinburgh, UK. 
+
+Limin Yao, Sebastian Riedel, Andrew McCallum. Collective Cross-Document Relation Extraction Without Labelled Data. In Proceedings of EMNLP 2010. [spotlight] [poster] 
+
+Sebastian Riedel, Limin Yao, Andrew McCallum. Modeling Relations and Their Mentions without Labeled Text. In Proceedings of ECML/PKDD 2010. 
+
+Sameer Singh, Limin Yao, Sebastian Riedel, Andrew McCallum. Constraint-Driven Rank based Learning for Information Extraction. In Proceedings of NAACL 2010. 
+
+Limin Yao, David Mimno, Andrew McCallum. Efficient Methods for Topic Model Inference on Streaming Document Collections. In Proceedings of SIGKDD 2009, Paris, France. Corrections from David Mimno 
+
+Jie Tang, Limin Yao, Dewei Chen. Multi-topic based Query-oriented Summarization. In Proceedings of SDM 2009. 
+
+Jie Tang, Jing Zhang, Limin Yao, Juanzi Li, Li Zhang, Zhong Su. Extraction and Mining of Academic Social Network. In Proceedings of SIGKDD 2008. 
+
+Limin Yao, Jie Tang, Juanzi Li. The Entire Solution Path for Support Vector Machine in Positive and Unlabeled Classification. Journal of Tsinghua Science and Technology, 2008 
+
+Jie Tang, Jing Zhang, Limin Yao, Juanzi Li. Extraction and Mining of an Academic Social Network. (Poster Paper). In Proceedings of WWW 2008. 
+
+Jie Tang, Duo Zhang, Limin Yao. Social Network Extraction of Academic Researchers. In Proceedings of ICDM 2007. 
+
+Limin Yao, Jie Tang, Juanzi Li. A Unified Approach to Researcher Profiling. In Proceedings of Web Intelligence 2007, Silicon Valley, CA, US. 
+
+Limin Yao, Mu Li, Changning Huang. Improving Chinese Chunking with Enriched Statistical and Morphological Knowledge. NLP-KE 2007. 
+</publication>
+</homepage>

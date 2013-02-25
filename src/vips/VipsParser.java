@@ -998,8 +998,7 @@ public class VipsParser {
 			{
 				vipsStructureChild.setIsDividable(false);
 				vipsStructureChild.setIsVisualBlock(true);
-				// TODO DoC values
-				vipsStructureChild.setDoC(7);
+			 	vipsStructureChild.setDoC(7);
 				return true;
 			}
 		}
@@ -1117,8 +1116,7 @@ public class VipsParser {
 		if (maxSize > _sizeTresholdWidth * _sizeTresholdHeight)
 			return true;
 
-		//TODO set DOC
-		_currentVipsBlock.setIsVisualBlock(true);
+		 _currentVipsBlock.setIsVisualBlock(true);
 		_currentVipsBlock.setIsDividable(false);
 
 		if (node.getNode().getNodeName().equals("Xdiv"))
@@ -1204,8 +1202,7 @@ public class VipsParser {
 			_currentVipsBlock.setDoC(8);
 		else
 			_currentVipsBlock.setDoC(333);
-		//TODO DoC Part
-		return true;
+		 return true;
 	}
 
 	/**

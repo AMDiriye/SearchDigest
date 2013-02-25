@@ -27,25 +27,40 @@ public class Main {
 
 	public static void main(String args[]){
 		//amendFiles();
-
-		File[] files = new File("E:\\Users\\Rupert\\Desktop\\New folder").listFiles();
+		File[] files = new File("test data").listFiles();
 		List<Data> data = new ArrayList<Data>();
-
 
 		for(File file : files){
 			data.add(makeData(file.getAbsolutePath()));
 		}
 
+		double precision = 0;
+		double recall = 0;
+		double totalInstances = 0;
+		
 		for(int i=0; i<data.size();i++){
 
 			for(int j=0; j<data.size();j++){
 
 				if(i!=j){
+					System.out.println((totalInstances++)+" of "+(Math.pow(data.size(),2)-data.size())/2);
+					
 					List<String> generatedLabels = getLabelsGenerated(data.get(i),data.get(j));
-					System.out.println(Evaluator.getPrecision(data.get(i), generatedLabels));
+					//System.out.println("--------");
+					//System.out.println(data.get(i).getAllContent().substring(0,100));
+					//System.out.println(data.get(j).getAllContent().substring(0,100));
+					
+					//System.out.println("Precision: "+Evaluator.getPrecision(data.get(i), generatedLabels) +
+					//		" Recall: " +Evaluator.getRecall(data.get(i), generatedLabels));
+					precision += Evaluator.getPrecision(data.get(i), generatedLabels);
+					recall += Evaluator.getRecall(data.get(i), generatedLabels);
 				}
 			}
 		}
+		precision = (precision/totalInstances);
+		recall = (recall/totalInstances);
+		
+		System.out.println("precision: "+precision+" -- recall: "+recall);
 	}
 
 
@@ -60,7 +75,7 @@ public class Main {
 		for(int i=0; i<doc1.getContentSize();i++){
 			
 			double bestSim = 0.0;
-			int closestContent = 0;
+			int closestContent = -1;
 			
 			for(int j=0; j<doc2.getContentSize();j++){
 				String doc1Terms = Utilities.removeStopWords(doc1.getContentAt(i));
@@ -69,7 +84,8 @@ public class Main {
 		        doc1Terms = Utilities.stem(doc1Terms);
 		        doc2Terms = Utilities.stem(doc2Terms);
 		        
-				double tempSim = Utilities.cosineSimilarity(Arrays.asList(doc1Terms.split(" ")), 
+		        //Change here to test other text-based metrics
+				double tempSim = Utilities.diceSimilarity(Arrays.asList(doc1Terms.split(" ")), 
 						Arrays.asList(doc2Terms.split(" ")));
 				
 				if(tempSim > bestSim){
@@ -77,7 +93,12 @@ public class Main {
 					closestContent = j;
 				}
 			}
-			labels.add(doc2.getLabelAt(closestContent));
+			
+			//System.out.println(closestContent);
+			if(closestContent != -1)
+				labels.add(doc2.getLabelAt(closestContent));
+			else
+				labels.add(null);
 		}
 
 
