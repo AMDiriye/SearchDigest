@@ -93,7 +93,8 @@ public class Utilities {
 
 		for(String term : entity1)
 		{
-			similarity += getTFIDF(term, entity2.toString());
+			if(term.trim().length() != 0)
+				similarity += getTFIDF(term, entity2.toString());
 		}
 
 		return 1-Math.cos(similarity / Math.sqrt((entity1.size() * entity2.size())));
@@ -143,7 +144,7 @@ public class Utilities {
 
 		while (matcher.find())
 			tf++;
-
+		
 		double idf = isf.getIDF(term);
 		return tf * idf;
 

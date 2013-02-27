@@ -39,7 +39,10 @@ public class Evaluator {
 					numCorrect++;
 			}
 		}
-
+		
+		if(numLabels == 0)
+			return 0.0;
+		
 		return (numCorrect/(numLabels));
 	}
 

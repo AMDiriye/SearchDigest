@@ -54,6 +54,10 @@ public class EvaluateAlgos {
 				if(i!=j){
 					System.out.println((totalInstances++)+" of "+(Math.pow(data.size(),2)-data.size())/2);
 					
+					if(totalInstances == 274.0){
+						System.out.println("trouble");
+					}
+					
 					List<String> generatedLabels = getLabelsGenerated(data.get(i),data.get(j));
 					//System.out.println("--------");
 					//System.out.println(data.get(i).getAllContent().substring(0,100));
@@ -82,8 +86,8 @@ public class EvaluateAlgos {
 	public static List<String> getLabelsGenerated(Data doc1, Data doc2){
 		List<String> labels = new ArrayList<String>();
 		
-		String _doc1Terms = Utilities.stem(Utilities.removeStopWords(doc1.getAllContent()));
-		String _doc2Terms = Utilities.stem(Utilities.removeStopWords(doc2.getAllContent()));
+		String _doc1Terms = Utilities.stem(doc1.getAllContent());
+		String _doc2Terms = Utilities.stem(doc2.getAllContent());
 				
 		Utilities.isf = new InverseDocumentFreq(_doc1Terms+ " "+_doc2Terms);
 		
@@ -93,11 +97,11 @@ public class EvaluateAlgos {
 			int closestContent = -1;
 			
 			for(int j=0; j<doc2.getContentSize();j++){
-				String doc1Terms = Utilities.removeStopWords(doc1.getContentAt(i));
-		        String doc2Terms = Utilities.removeStopWords(doc2.getContentAt(j));
+				String doc1Terms = Utilities.stem(doc1.getContentAt(i));
+		        String doc2Terms = Utilities.stem(doc2.getContentAt(j));
 		        
-		        doc1Terms = Utilities.stem(doc1Terms);
-		        doc2Terms = Utilities.stem(doc2Terms);
+		     //   doc1Terms = Utilities.stem(doc1Terms);
+		     //   doc2Terms = Utilities.stem(doc2Terms);
 		        
 		        //Change here to test other text-based metrics
 				double tempSim = Utilities.cosineSimilarity(Arrays.asList(doc1Terms.split(" ")), 
