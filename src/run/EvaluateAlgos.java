@@ -1,19 +1,44 @@
-package evaluation;
+package run;
 
+import index.InverseDocumentFreq;
+import index.InverseSegmentFreq;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-public class Evaluator {
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 
-	List<Data> testData;
+import namedentities.EntityFactory;
+import namedentities.NamedEntity;
 
-	public Evaluator(List<Data> testData){
-		this.testData = testData;
-	}
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
+
+import evaluation.Data;
+import evaluation.Evaluator;
+
+import utilities.Utilities;
 
 
-	public static double getRecall(Data data, Data data2, List<String> labels){
+public class EvaluateAlgos {
 
-<<<<<<< HEAD
+
+	public static void main(String args[]){
+		//amendFiles();
+		File[] files = new File("test data").listFiles();
+		List<Data> data = new ArrayList<Data>();
+
 		for(File file : files){
 			Data _data = makeData(file.getAbsolutePath(),false);
 			ArrayList<String> labels = new ArrayList<String>(){{add("aboutMe"); add("contactDetails"); add("publication"); add("researchInterests");}};
@@ -80,60 +105,117 @@ public class Evaluator {
 		        //Change here to test other text-based metrics
 				double tempSim = Utilities.cosineSimilarity(Arrays.asList(doc1Terms.split(" ")), 
 						Arrays.asList(doc2Terms.split(" ")));
-=======
-		double numCorrect = 0;
-		double numPossiblyCorrect = 0.0;
-		for(int i =0; i<data.getContentSize(); i++){
-
-			System.out.println(data.getLabels().get(i)+ " -- "+labels.get(i)+" -- "+data.getLabels().get(i).equals(labels.get(i)));
-			
-			if(data2.containsLabel(data.getLabels().get(i))){
-				numPossiblyCorrect++;
-			}
->>>>>>> Minor edits
 				
-			if(data.getLabels().get(i).equals(labels.get(i))){
-				numCorrect++;
+				if(tempSim > bestSim){
+					bestSim = tempSim;
+					closestContent = j;
+				}
 			}
-		}
-
-		return (numCorrect/((double)numPossiblyCorrect));
-	}
-
-	public static double getPrecision(Data data, Data data2, List<String> labels){
-		double numCorrect = 0;
-		double numLabels = 0;
-
-		for(int i =0; i<data.getContentSize(); i++){
- 
-			if(labels.get(i) != null && data2.containsLabel(data.getLabels().get(i))){
 			
-				numLabels++;
-
-				if(data.getLabels().get(i).equals(labels.get(i)))
-					numCorrect++;
-			}
+			//System.out.println(closestContent);
+			if(closestContent != -1)
+				labels.add(doc2.getLabelAt(closestContent));
+			else
+				labels.add(null);
 		}
-		
-		if(numLabels == 0)
-			return 0.0;
-		
-		return (numCorrect/(numLabels));
+		return labels;
 	}
 
+	
+	
+	
+	private  static Data makeData(String filePath, boolean extractEntities){
+		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+		Document dom = null;
 
-	/*public double getPrecision(List<String> labelsGenerated, List<String> correctLabels){
-		double numCorrect = 0;
+		try {
+			//Using factory get an instance of document builder
+			DocumentBuilder db = dbf.newDocumentBuilder();
+			//parse using builder to get DOM representation of the XML file
+			dom = db.parse(filePath);
+			System.out.println(dom.getChildNodes().getLength());
 
-		for(int i =0; i<labelsGenerated.size(); i++){
 
-			if(labelsGenerated.get(i).equals(correctLabels.get(i))){
-				numCorrect++;
-			}
+		}catch(ParserConfigurationException pce) {
+			pce.printStackTrace();
+		}catch(SAXException se) {
+			se.printStackTrace();
+		}catch(IOException ioe) {
+			ioe.printStackTrace();
 		}
 
-		return (numCorrect/((double)labelsGenerated.size()));
-	}*/
+		//get the root element
+		Element docEle = dom.getDocumentElement();
+		Data data = new Data();
+
+		//get a nodelist of 
+		NodeList nl = docEle.getChildNodes();
+		if(nl != null && nl.getLength() > 0) {
+			for(int i = 0 ; i < nl.getLength();i++) {
+
+				if(!nl.item(i).getNodeName().equalsIgnoreCase("#text")){
+					
+					if(extractEntities){
+						List<NamedEntity> namedEntities = EntityFactory.generateEntities(nl.item(i).getTextContent());
+						String content="";
+						
+						for(NamedEntity namedEntity : namedEntities){
+							content += " "+namedEntity.getEntityValue();
+							System.out.println(content);
+						}
+						
+						data.addContent(nl.item(i).getNodeName(),content);
+					}
+					else {
+						data.addContent(nl.item(i).getNodeName(),nl.item(i).getTextContent());
+					}
+				}
+			}
+		}
+		return data;
+
+	}
+
+	private static void amendFiles(){
+		File[] files = new File("E:\\Users\\Rupert\\Desktop\\New folder").listFiles();
 
 
+
+		for(File file : files){
+
+			try {
+
+				BufferedReader input =  new BufferedReader(new FileReader(file));
+				StringBuilder contents = new StringBuilder();
+				contents.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
+				contents.append("<homepage>");
+				contents.append(System.getProperty("line.separator"));
+
+				try {
+					String line = null; 
+
+					while (( line = input.readLine()) != null){
+						contents.append(line);
+						contents.append(System.getProperty("line.separator"));
+					}
+					contents.append("</homepage>");
+
+					FileWriter fstream = new FileWriter(file.getAbsolutePath()+".xml");
+					BufferedWriter out = new BufferedWriter(fstream);
+					out.write(contents.toString());
+					//Close the output stream
+					out.close();
+
+				}
+				finally {
+					input.close();
+				}
+			}
+			catch (IOException ex){
+				ex.printStackTrace();
+			}
+
+
+		}
+	}
 }
