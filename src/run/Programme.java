@@ -1,4 +1,4 @@
-package contentminer;
+package run;
 
 import java.awt.Desktop;
 import java.io.BufferedReader;
@@ -7,7 +7,18 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
+import namedentities.KeyEntityFinder;
+import namedentities.NamedEntity;
+
 import org.jsoup.nodes.Node;
+
+import contentminer.ComparisonEngine;
+import contentminer.WebPage;
+import contentminer.WebPageMiner;
+
+import utilities.DataWriter;
+import utilities.HtmlProcessor;
+import utilities.Utilities;
 
 public class Programme {
 	

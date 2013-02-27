@@ -2,6 +2,8 @@ package contentminer;
 
 import java.util.ArrayList;
 
+import utilities.Utilities;
+
 public class ComparisonEngine {
 
 	public ComparisonEngine(){}

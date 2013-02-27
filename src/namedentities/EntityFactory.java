@@ -1,7 +1,10 @@
-package contentminer;
+package namedentities;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import utilities.StopWordCollection;
+
 
 import net.sf.classifier4J.SimpleClassifier;
 import net.sf.classifier4J.summariser.SimpleSummariser;
@@ -26,8 +29,9 @@ public class EntityFactory {
 		}
 		return entities;
 	}
-
-	private static boolean goodEntity(NamedEntity entity, List<NamedEntity> namedEntities){
+	
+	
+ 	private static boolean goodEntity(NamedEntity entity, List<NamedEntity> namedEntities){
 		
 		String entityValue = entity.getEntityValue().trim();
 		
@@ -46,5 +50,6 @@ public class EntityFactory {
 		
 		return true;
 	} 
+
 	
 }

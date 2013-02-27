@@ -1,4 +1,4 @@
-package contentminer;
+package utilities;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -14,6 +14,7 @@ import org.jsoup.select.Elements;
 
 import contentalignment.Cluster;
 import contentalignment.Segment;
+import contentminer.WebPage;
 
 public class HtmlProcessor {
 

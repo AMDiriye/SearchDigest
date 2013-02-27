@@ -1,4 +1,4 @@
-package contentminer;
+package namedentities;
 
 import java.io.IOException;
 

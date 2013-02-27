@@ -1,4 +1,7 @@
-package evaluation;
+package run;
+
+import index.InverseDocumentFreq;
+import index.InverseSegmentFreq;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -14,15 +17,21 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+import namedentities.EntityFactory;
+import namedentities.NamedEntity;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import contentminer.InverseSegmentFreq;
-import contentminer.Utilities;
+import evaluation.Data;
+import evaluation.Evaluator;
 
-public class Main {
+import utilities.Utilities;
+
+
+public class EvaluateAlgos {
 
 
 	public static void main(String args[]){
@@ -31,7 +40,7 @@ public class Main {
 		List<Data> data = new ArrayList<Data>();
 
 		for(File file : files){
-			data.add(makeData(file.getAbsolutePath()));
+			data.add(makeData(file.getAbsolutePath(),true));
 		}
 
 		double precision = 0;
@@ -40,7 +49,7 @@ public class Main {
 		
 		for(int i=0; i<data.size();i++){
 
-			for(int j=0; j<data.size();j++){
+			for(int j=i; j<data.size();j++){
 
 				if(i!=j){
 					System.out.println((totalInstances++)+" of "+(Math.pow(data.size(),2)-data.size())/2);
@@ -52,8 +61,14 @@ public class Main {
 					
 					//System.out.println("Precision: "+Evaluator.getPrecision(data.get(i), generatedLabels) +
 					//		" Recall: " +Evaluator.getRecall(data.get(i), generatedLabels));
-					precision += Evaluator.getPrecision(data.get(i), generatedLabels);
+					double d = Evaluator.getPrecision(data.get(i), generatedLabels);;
+					precision += d;
 					recall += Evaluator.getRecall(data.get(i), generatedLabels);
+
+					if (Double.isNaN(d))
+				    {
+				        System.out.println(d+"!!!!!!");
+				    }
 				}
 			}
 		}
@@ -70,7 +85,7 @@ public class Main {
 		String _doc1Terms = Utilities.stem(Utilities.removeStopWords(doc1.getAllContent()));
 		String _doc2Terms = Utilities.stem(Utilities.removeStopWords(doc2.getAllContent()));
 				
-		Utilities.isf = new InverseSegmentFreq(_doc1Terms+ " "+_doc2Terms);
+		Utilities.isf = new InverseDocumentFreq(_doc1Terms+ " "+_doc2Terms);
 		
 		for(int i=0; i<doc1.getContentSize();i++){
 			
@@ -85,7 +100,7 @@ public class Main {
 		        doc2Terms = Utilities.stem(doc2Terms);
 		        
 		        //Change here to test other text-based metrics
-				double tempSim = Utilities.diceSimilarity(Arrays.asList(doc1Terms.split(" ")), 
+				double tempSim = Utilities.cosineSimilarity(Arrays.asList(doc1Terms.split(" ")), 
 						Arrays.asList(doc2Terms.split(" ")));
 				
 				if(tempSim > bestSim){
@@ -100,12 +115,13 @@ public class Main {
 			else
 				labels.add(null);
 		}
-
-
 		return labels;
 	}
 
-	private  static Data makeData(String filePath){
+	
+	
+	
+	private  static Data makeData(String filePath, boolean extractEntities){
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 		Document dom = null;
 
@@ -135,8 +151,21 @@ public class Main {
 			for(int i = 0 ; i < nl.getLength();i++) {
 
 				if(!nl.item(i).getNodeName().equalsIgnoreCase("#text")){
-					System.out.println(nl.item(i).getNodeName()+ " - "+nl.item(i).getTextContent());
-					data.addContent(nl.item(i).getNodeName(),nl.item(i).getTextContent());
+					
+					if(extractEntities){
+						List<NamedEntity> namedEntities = EntityFactory.generateEntities(nl.item(i).getTextContent());
+						String content="";
+						
+						for(NamedEntity namedEntity : namedEntities){
+							content += " "+namedEntity.getEntityValue();
+							System.out.println(content);
+						}
+						
+						data.addContent(nl.item(i).getNodeName(),content);
+					}
+					else {
+						data.addContent(nl.item(i).getNodeName(),nl.item(i).getTextContent());
+					}
 				}
 			}
 		}

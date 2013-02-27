@@ -5,12 +5,14 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 
+import namedentities.EntityFactory;
+import namedentities.NamedEntity;
+
 import org.jsoup.nodes.Element;
 import org.jsoup.nodes.Node;
 
-import contentminer.EntityFactory;
-import contentminer.NamedEntity;
-import contentminer.Utilities;
+import utilities.Utilities;
+
 
 public class Segment {
 

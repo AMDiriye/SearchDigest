@@ -1,6 +1,11 @@
+package run;
 import java.util.List;
 
 import org.jsoup.nodes.Document;
+
+import utilities.DataWriter;
+import utilities.HtmlProcessor;
+import utilities.Utilities;
 
 import contentalignment.AlignmentEngine;
 import contentalignment.Cluster;
@@ -8,9 +13,6 @@ import contentalignment.EntityExtractor;
 import contentalignment.Segment;
 import contentalignment.SegmentationFactory;
 import contentalignment.WebPage;
-import contentminer.DataWriter;
-import contentminer.HtmlProcessor;
-import contentminer.Utilities;
 
 
 public class SegmentPage {

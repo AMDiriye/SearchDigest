@@ -5,7 +5,8 @@ import java.util.HashSet;
 import java.util.List;
 import org.jsoup.nodes.Document;
 
-import contentminer.Utilities;
+import utilities.Utilities;
+
 
 public class WebPage {
 

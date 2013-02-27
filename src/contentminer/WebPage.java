@@ -2,14 +2,16 @@ package contentminer;
 
 import java.util.ArrayList;
 
+import namedentities.NamedEntity;
+
 import org.jsoup.nodes.Document;
 
 public class WebPage {
 
-	String url;
-	String title;
-	ArrayList<WebPageEntity> webPageEntities;
-	Document doc;
+	public String url;
+	public String title;
+	public ArrayList<WebPageEntity> webPageEntities;
+	public Document doc;
 	
 	public WebPage(String url){
 		this.url = url;
@@ -57,5 +59,7 @@ public class WebPage {
 	public void addDoc(Document doc){
 		this.doc = doc;
 	}
+	
+	
 	
 }

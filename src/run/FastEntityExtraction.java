@@ -1,9 +1,10 @@
+package run;
 
 
 import text.TextProcessor;
 import contentalignment.SegmentationFactory;
 
-public class ExtractEntitiesFast {
+public class FastEntityExtraction {
 
 	
 	public static void main(String args[]){

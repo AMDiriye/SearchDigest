@@ -15,7 +15,8 @@ import org.jsoup.nodes.Node;
 import org.jsoup.nodes.TextNode;
 import org.jsoup.nodes.XmlDeclaration;
 import org.jsoup.select.Elements;
-import contentminer.Utilities;
+
+import utilities.Utilities;
 import contentminer.WebPage;
 import contentsegmentation.SegmentValidator;
 

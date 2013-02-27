@@ -1,4 +1,4 @@
-package contentminer;
+package utilities;
 
 class NewString {
 	public String str;

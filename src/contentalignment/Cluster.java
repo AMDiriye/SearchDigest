@@ -7,7 +7,8 @@ import org.jsoup.nodes.Element;
 import org.jsoup.nodes.Node;
 import org.jsoup.nodes.TextNode;
 
-import contentminer.Utilities;
+import utilities.Utilities;
+
 
 public class Cluster {
 

@@ -1,5 +1,7 @@
 package contentalignment;
 
+import index.InverseSegmentFreq;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -7,8 +9,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import contentminer.InverseSegmentFreq;
-import contentminer.Utilities;
+import utilities.Utilities;
+
 
 import JavaMI.MutualInformation;
 

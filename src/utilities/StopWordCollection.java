@@ -1,4 +1,4 @@
-package contentminer;
+package utilities;
 
 import java.util.ArrayList;
 

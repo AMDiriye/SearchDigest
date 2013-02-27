@@ -1,13 +1,15 @@
+package run;
 import java.util.List;
+
+import namedentities.EntityFactory;
+import namedentities.NamedEntity;
 
 import contentalignment.Cluster;
 import contentalignment.EntityExtractor;
 import contentalignment.SegmentationFactory;
-import contentminer.EntityFactory;
-import contentminer.NamedEntity;
 
 
-public class ExtractEntities {
+public class EntityExtraction {
 
 	/**
 	 * @param args

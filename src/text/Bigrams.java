@@ -3,21 +3,7 @@ package text;
 import java.util.*;
 import java.io.*;
 
-/**
- * Demonstrates simple method for collecting word bigrams.
- * @author Bob Futrelle, Northeastern U. and bionlp.org
- * @version  0.1 23 May 2003
- *
- * Technique is to tokenize each line and add to hash table,
- * initting or upping counts as needed.
- *
- * Thanks to the SUN API, JavaNut books and Java Cookbook for quick refs
- * as well as WCPE.org for musical work environment. 
- *
- * Bugs: Doesn't handle bigrams across end-of-line.
- *
- * PS: I accept Java style critiques, suggestions, etc.  ;-)
- */
+
  
  public class Bigrams {
  
@@ -37,8 +23,6 @@ import java.io.*;
 	public void run() {
 		collectStats();
 		collectResults();
-		//dumpTable();
-		//showAlphaResults();
 		showFrequencyResults();
 		
 		} // run() 
@@ -102,12 +86,7 @@ import java.io.*;
 			}
 		} // collectResults
 	
-	/** Dumps entire table.
-	*/
-	void dumpTable() {
 
-		
-	} // dumpTable()
 
 	void showAlphaResults() {
 	
@@ -141,23 +120,6 @@ import java.io.*;
 			System.out.println(fullResults[i].count + " " + fullResults[i].bigram);
 	
 	
-	} // showFrequencyResults()
+	} 
 
-} // class SimpleBigramStats
-
-/* 
-Using the Watson and Crick April 1953 Letter to Nature.
-Number of bigrams is: 652
-
-Here are the largest entries from the count sorted result:
-11 of the
-7 that the
-6 and the
-5 it is
-5 on the
-5 in the
-4 to the
-4 the other
-4 the bases
-
-*/
+} 

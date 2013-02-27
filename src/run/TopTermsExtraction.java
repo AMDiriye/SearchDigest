@@ -1,10 +1,11 @@
+package run;
 import text.Bigrams;
 import text.TextProcessor;
+import utilities.Utilities;
 import contentalignment.SegmentationFactory;
-import contentminer.Utilities;
 
 
-public class ExtractTopTerms {
+public class TopTermsExtraction {
 
 	/**
 	 * @param args

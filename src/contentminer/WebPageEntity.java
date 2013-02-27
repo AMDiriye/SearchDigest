@@ -2,6 +2,8 @@ package contentminer;
 
 import java.util.ArrayList;
 
+import namedentities.NamedEntity;
+
 public class WebPageEntity {
 
 	String text;

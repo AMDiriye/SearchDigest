@@ -1,4 +1,4 @@
-package contentminer;
+package utilities;
 
 import java.io.File;
 import java.io.FileNotFoundException;
