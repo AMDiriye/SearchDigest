@@ -79,7 +79,7 @@ public class Utilities {
 
 	public static double overlapSimilarity(List<String> entity1, List<String> entity2) {
 		double similarity = 0.0;
-
+		
 		for(String term : entity1) {
 			similarity += count(term, entity2.toString());
 		}

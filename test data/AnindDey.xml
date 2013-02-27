@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <homepage>
-<aboutme>Current Status. I am an Associate Professor in the Human-Computer Interaction (HCI) Institute at Carnegie Mellon University. Past Work. I received a Bachelors of Applied Science in Computer Engineering from Simon Fraser University in Burnaby, Canada in 1993. I received a Masters of Science in AeroSpace Engineering from Georgia Tech in 1995. I received a 2nd Masters of Science and a Ph.D. in Computer Science at Georgia Tech in 2000. For my dissertation, I researched programming support for building context-aware applications: The Context Toolkit. I was a member of the Future Computing Environments research group in the College of Computing at Georgia Tech. Gregory Abowd was my advisor. I was a Senior Researcher at Intel Research Berkeley from 2001-2004, where my title was Ubicomp Software Architect. At the same time, I was an Adjunct Assistant Professor in the EECS Department at UC Berkeley, where I was a member of GUIR, the Group for User Interface Research.
-</aboutme>
+<aboutMe>Current Status. I am an Associate Professor in the Human-Computer Interaction (HCI) Institute at Carnegie Mellon University. Past Work. I received a Bachelors of Applied Science in Computer Engineering from Simon Fraser University in Burnaby, Canada in 1993. I received a Masters of Science in AeroSpace Engineering from Georgia Tech in 1995. I received a 2nd Masters of Science and a Ph.D. in Computer Science at Georgia Tech in 2000. For my dissertation, I researched programming support for building context-aware applications: The Context Toolkit. I was a member of the Future Computing Environments research group in the College of Computing at Georgia Tech. Gregory Abowd was my advisor. I was a Senior Researcher at Intel Research Berkeley from 2001-2004, where my title was Ubicomp Software Architect. At the same time, I was an Adjunct Assistant Professor in the EECS Department at UC Berkeley, where I was a member of GUIR, the Group for User Interface Research.
+</aboutMe>
 <researchInterests>
 Interests: Feedback/intelligibility and control in ubiquitous computing, context-aware computing, toolkits and end-user programming environments, sensor-rich environments, information overload, ambient displays, privacy, human-computer interaction, machine learning. Current Projects: Intelligibility and control in context-aware computing, persuasive and self-reflective interfaces, modeling and predicting human behavior, usability and improved performance in active learning, creating salient summaries of experiences to diagnose and support memory issues, learning routines and deteting deviations to support dual-income families, augmented reality interfaces, and programming support for context-aware and sensor-rich environments (toolkits and programming environments). Look here for an up-to-date list of my research interests.
 </researchInterests>
 
-<publications>Recent Conference/Journal Publications (complete list): Ziebart, B., Bagnell, J.A., and Dey, A.K. Maximum Causal Entropy Correlated Equilibria for Markov Games. To appear in the Proceedings of the Workshop on Interactive Decision Theory and Game Theory, at AAAI 2010.(pdf)
+<publication>Recent Conference/Journal Publications (complete list): Ziebart, B., Bagnell, J.A., and Dey, A.K. Maximum Causal Entropy Correlated Equilibria for Markov Games. To appear in the Proceedings of the Workshop on Interactive Decision Theory and Game Theory, at AAAI 2010.(pdf)
 Pavel, D., Callaghan, V. and Dey, A.K. Looking back in wonder: How self-monitoring technologies can help us better understand ourselves. Proceedings of Intelligent Envrionments 2010.
 (pdf)Ziebart, B., Bagnell, J.A., and Dey, A.K. Modeling interaction via the principle of maximum causal entropy. To appear in the Proceedings of International Conference on Machine Learning (ICML 2010).
 (pdf)Rosenthal, S. and Dey, A.K. Towards maximizing the accuracy of human-labeled sensor data. To appear in the Proceedings of Intelligent User Interfaces (IUI 2010).
@@ -22,7 +22,7 @@ Harrison, C. Dey, A.K., and Hudson, S.E. Evaluation of Progressive Image Loading
 (pdf)
 Shin, C., Dey, A.K., and Woo, W. Toward Combining Automatic Resolution with Social Mediation for Resolving Multi-user Conflicts. Cybernetics and Systems Journal, 41(2), pp. 146-166.
 (pdf)
-</publications>
+</publication>
 
 <contactDetails>
 Carnegie Mellon University

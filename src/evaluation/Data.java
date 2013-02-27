@@ -57,4 +57,9 @@ public class Data {
 		
 		return contentStr;
 	}
+
+
+	public boolean containsLabel(String label) {
+		return labels.contains(label);
+	}
 }

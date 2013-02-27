@@ -40,7 +40,15 @@ public class EvaluateAlgos {
 		List<Data> data = new ArrayList<Data>();
 
 		for(File file : files){
-			data.add(makeData(file.getAbsolutePath(),true));
+			Data _data = makeData(file.getAbsolutePath(),false);
+			ArrayList<String> labels = new ArrayList<String>(){{add("aboutMe"); add("contactDetails"); add("publication"); add("researchInterests");}};
+			
+			for(String str : _data.getLabels()){
+				if(!labels.contains(str)){
+					System.out.println(str+" -- "+file.getAbsolutePath());
+				}
+			}
+			data.add(makeData(file.getAbsolutePath(),false));
 		}
 
 		double precision = 0;
@@ -49,15 +57,10 @@ public class EvaluateAlgos {
 		
 		for(int i=0; i<data.size();i++){
 
-			for(int j=i; j<data.size();j++){
+			for(int j=i+1; j<data.size();j++){
 
 				if(i!=j){
 					System.out.println((totalInstances++)+" of "+(Math.pow(data.size(),2)-data.size())/2);
-					
-					if(totalInstances == 274.0){
-						System.out.println("trouble");
-					}
-					
 					List<String> generatedLabels = getLabelsGenerated(data.get(i),data.get(j));
 					//System.out.println("--------");
 					//System.out.println(data.get(i).getAllContent().substring(0,100));
@@ -65,14 +68,10 @@ public class EvaluateAlgos {
 					
 					//System.out.println("Precision: "+Evaluator.getPrecision(data.get(i), generatedLabels) +
 					//		" Recall: " +Evaluator.getRecall(data.get(i), generatedLabels));
-					double d = Evaluator.getPrecision(data.get(i), generatedLabels);;
-					precision += d;
-					recall += Evaluator.getRecall(data.get(i), generatedLabels);
+					
+					precision += Evaluator.getPrecision(data.get(i), data.get(j), generatedLabels);
+					recall += Evaluator.getRecall(data.get(i), data.get(j), generatedLabels);
 
-					if (Double.isNaN(d))
-				    {
-				        System.out.println(d+"!!!!!!");
-				    }
 				}
 			}
 		}
@@ -86,8 +85,8 @@ public class EvaluateAlgos {
 	public static List<String> getLabelsGenerated(Data doc1, Data doc2){
 		List<String> labels = new ArrayList<String>();
 		
-		String _doc1Terms = Utilities.stem(doc1.getAllContent());
-		String _doc2Terms = Utilities.stem(doc2.getAllContent());
+		String _doc1Terms = Utilities.stem(Utilities.removeStopWords(doc1.getAllContent()));
+		String _doc2Terms = Utilities.stem(Utilities.removeStopWords(doc2.getAllContent()));
 				
 		Utilities.isf = new InverseDocumentFreq(_doc1Terms+ " "+_doc2Terms);
 		
@@ -97,11 +96,11 @@ public class EvaluateAlgos {
 			int closestContent = -1;
 			
 			for(int j=0; j<doc2.getContentSize();j++){
-				String doc1Terms = Utilities.stem(doc1.getContentAt(i));
-		        String doc2Terms = Utilities.stem(doc2.getContentAt(j));
+				String doc1Terms = Utilities.removeStopWords(doc1.getContentAt(i));
+		        String doc2Terms = Utilities.removeStopWords(doc2.getContentAt(j));
 		        
-		     //   doc1Terms = Utilities.stem(doc1Terms);
-		     //   doc2Terms = Utilities.stem(doc2Terms);
+		        doc1Terms = Utilities.stem(doc1Terms);
+		        doc2Terms = Utilities.stem(doc2Terms);
 		        
 		        //Change here to test other text-based metrics
 				double tempSim = Utilities.cosineSimilarity(Arrays.asList(doc1Terms.split(" ")), 

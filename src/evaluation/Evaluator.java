@@ -11,27 +11,33 @@ public class Evaluator {
 	}
 
 
-	public static double getRecall(Data data, List<String> labels){
+	public static double getRecall(Data data, Data data2, List<String> labels){
 
 		double numCorrect = 0;
-
+		double numPossiblyCorrect = 0.0;
 		for(int i =0; i<data.getContentSize(); i++){
 
+			System.out.println(data.getLabels().get(i)+ " -- "+labels.get(i)+" -- "+data.getLabels().get(i).equals(labels.get(i)));
+			
+			if(data2.containsLabel(data.getLabels().get(i))){
+				numPossiblyCorrect++;
+			}
+				
 			if(data.getLabels().get(i).equals(labels.get(i))){
 				numCorrect++;
 			}
 		}
 
-		return (numCorrect/((double)labels.size()));
+		return (numCorrect/((double)numPossiblyCorrect));
 	}
 
-	public static double getPrecision(Data data, List<String> labels){
+	public static double getPrecision(Data data, Data data2, List<String> labels){
 		double numCorrect = 0;
 		double numLabels = 0;
 
 		for(int i =0; i<data.getContentSize(); i++){
-
-			if(labels.get(i) != null){
+ 
+			if(labels.get(i) != null && data2.containsLabel(data.getLabels().get(i))){
 			
 				numLabels++;
 
@@ -47,7 +53,7 @@ public class Evaluator {
 	}
 
 
-	public double getPrecision(List<String> labelsGenerated, List<String> correctLabels){
+	/*public double getPrecision(List<String> labelsGenerated, List<String> correctLabels){
 		double numCorrect = 0;
 
 		for(int i =0; i<labelsGenerated.size(); i++){
@@ -58,7 +64,7 @@ public class Evaluator {
 		}
 
 		return (numCorrect/((double)labelsGenerated.size()));
-	}
+	}*/
 
 
 }
