@@ -28,6 +28,7 @@ import org.xml.sax.SAXException;
 import evaluation.Data;
 import evaluation.Evaluator;
 
+import similarityalgos.MutualInformation;
 import utilities.Utilities;
 
 
@@ -40,21 +41,13 @@ public class EvaluateAlgos {
 		List<Data> data = new ArrayList<Data>();
 
 		for(File file : files){
-			Data _data = makeData(file.getAbsolutePath(),false);
-			ArrayList<String> labels = new ArrayList<String>(){{add("aboutMe"); add("contactDetails"); add("publication"); add("researchInterests");}};
-			
-			for(String str : _data.getLabels()){
-				if(!labels.contains(str)){
-					System.out.println(str+" -- "+file.getAbsolutePath());
-				}
-			}
 			data.add(makeData(file.getAbsolutePath(),false));
 		}
 
 		double precision = 0;
 		double recall = 0;
 		double totalInstances = 0;
-		
+
 		for(int i=0; i<data.size();i++){
 
 			for(int j=i+1; j<data.size();j++){
@@ -65,10 +58,10 @@ public class EvaluateAlgos {
 					//System.out.println("--------");
 					//System.out.println(data.get(i).getAllContent().substring(0,100));
 					//System.out.println(data.get(j).getAllContent().substring(0,100));
-					
+
 					//System.out.println("Precision: "+Evaluator.getPrecision(data.get(i), generatedLabels) +
 					//		" Recall: " +Evaluator.getRecall(data.get(i), generatedLabels));
-					
+
 					precision += Evaluator.getPrecision(data.get(i), data.get(j), generatedLabels);
 					recall += Evaluator.getRecall(data.get(i), data.get(j), generatedLabels);
 
@@ -77,53 +70,98 @@ public class EvaluateAlgos {
 		}
 		precision = (precision/totalInstances);
 		recall = (recall/totalInstances);
-		
+
 		System.out.println("precision: "+precision+" -- recall: "+recall);
 	}
 
 
 	public static List<String> getLabelsGenerated(Data doc1, Data doc2){
+
+		List<double[]> segmentSimVals = new ArrayList<double[]>();
 		List<String> labels = new ArrayList<String>();
-		
-		String _doc1Terms = Utilities.stem(Utilities.removeStopWords(doc1.getAllContent()));
-		String _doc2Terms = Utilities.stem(Utilities.removeStopWords(doc2.getAllContent()));
-				
+
+		String _doc1Terms = Utilities.stem(Utilities.removeStopWords((doc1.getAllContent()).toLowerCase()));
+		String _doc2Terms = Utilities.stem(Utilities.removeStopWords(((doc2.getAllContent()).toLowerCase())));
+
 		Utilities.isf = new InverseDocumentFreq(_doc1Terms+ " "+_doc2Terms);
-		
+
 		for(int i=0; i<doc1.getContentSize();i++){
-			
+
 			double bestSim = 0.0;
 			int closestContent = -1;
-			
+			double[] simVals = new double[doc2.getContentSize()];
 			for(int j=0; j<doc2.getContentSize();j++){
-				String doc1Terms = Utilities.removeStopWords(doc1.getContentAt(i));
-		        String doc2Terms = Utilities.removeStopWords(doc2.getContentAt(j));
-		        
-		        doc1Terms = Utilities.stem(doc1Terms);
-		        doc2Terms = Utilities.stem(doc2Terms);
-		        
-		        //Change here to test other text-based metrics
-				double tempSim = Utilities.cosineSimilarity(Arrays.asList(doc1Terms.split(" ")), 
-						Arrays.asList(doc2Terms.split(" ")));
-				
+				String doc1Terms = Utilities.removeStopWords((doc1.getContentAt(i).toLowerCase()));
+				String doc2Terms = Utilities.removeStopWords((doc2.getContentAt(j).toLowerCase()));
+
+				doc1Terms = Utilities.stem(doc1Terms);
+				doc2Terms = Utilities.stem(doc2Terms);
+
+				//Change here to test other text-based metrics
+				double tempSim = Utilities.diceSimilarity(Arrays.asList(doc1Terms.split(" ")), Arrays.asList(doc2Terms.split(" ")));
+						//MutualInformation.getValue(doc1Terms,doc2Terms);
+				simVals[j] = tempSim;
 				if(tempSim > bestSim){
 					bestSim = tempSim;
 					closestContent = j;
 				}
 			}
-			
+
 			//System.out.println(closestContent);
 			if(closestContent != -1)
 				labels.add(doc2.getLabelAt(closestContent));
 			else
 				labels.add(null);
+
+			segmentSimVals.add(simVals);
 		}
-		return labels;
+		return getBestLabels(segmentSimVals,doc2.getLabels());
 	}
 
-	
-	
-	
+
+	private static List<String> getBestLabels(List<double[]> segmentSimVals, List<String> labels) {
+		String[] segmentLabels = new String[segmentSimVals.size()];
+		List<Integer> labelledDocs = new ArrayList<Integer>();
+		List<Integer> labelledRows = new ArrayList<Integer>();
+		
+		for(int i=0; i<segmentSimVals.size(); i++){
+			double biggestSimVal = 0;
+			int posLabel = -1;
+			int posSegment = -1;
+
+			//this section finds the current max value
+			//represents the labels
+			for(int j=0; j<segmentSimVals.size(); j++){
+				double[] segmentSimVal = segmentSimVals.get(j);
+
+				//if it's null continue onto the next label
+				if(labelledRows.contains(j))
+					continue;
+
+				//represents the segments
+				for(int k =0; k<segmentSimVal.length; k++){
+
+					if(segmentSimVal[k]>=biggestSimVal && !labelledDocs.contains(k)){
+						biggestSimVal = segmentSimVal[k];
+						posLabel = k;
+						posSegment = j;
+					}
+				}
+
+			}
+			if(posSegment != -1 && posLabel != -1){
+				segmentLabels[posSegment] = labels.get(posLabel);
+				labelledDocs.add(new Integer(posLabel));
+				labelledRows.add(new Integer(posSegment));
+			}
+			
+		}
+
+		return Arrays.asList(segmentLabels);
+	}
+
+
+
 	private  static Data makeData(String filePath, boolean extractEntities){
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 		Document dom = null;
@@ -154,16 +192,16 @@ public class EvaluateAlgos {
 			for(int i = 0 ; i < nl.getLength();i++) {
 
 				if(!nl.item(i).getNodeName().equalsIgnoreCase("#text")){
-					
+
 					if(extractEntities){
 						List<NamedEntity> namedEntities = EntityFactory.generateEntities(nl.item(i).getTextContent());
 						String content="";
-						
+
 						for(NamedEntity namedEntity : namedEntities){
 							content += " "+namedEntity.getEntityValue();
 							System.out.println(content);
 						}
-						
+
 						data.addContent(nl.item(i).getNodeName(),content);
 					}
 					else {

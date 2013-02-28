@@ -121,7 +121,7 @@ public class Utilities {
 	}
 
 	//can sometimes find terms inside the middle of words
-	private static int count(String term, String line){
+	public static int count(String term, String line){
 
 		Pattern pattern = Pattern.compile(" "+term);
 		Matcher matcher = pattern.matcher(" "+line.trim());
