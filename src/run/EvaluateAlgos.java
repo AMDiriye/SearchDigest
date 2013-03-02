@@ -25,6 +25,9 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import contentalignment.Cluster;
+import contentalignment.Segment;
+
 import evaluation.Data;
 import evaluation.Evaluator;
 
@@ -43,6 +46,18 @@ public class EvaluateAlgos {
 		for(File file : files){
 			data.add(makeData(file.getAbsolutePath(),false));
 		}
+
+		List<Cluster> clusters = getClusters(data,3);
+
+		double sum = 0;
+		for(Cluster cluster : clusters){
+			double purity = cluster.getPurity();
+			sum += purity;
+
+			System.out.println("Purity: "+purity);
+		}
+
+		System.out.println("average Purity: "+(sum / (double) clusters.size()));
 
 		double precision = 0;
 		double recall = 0;
@@ -98,8 +113,8 @@ public class EvaluateAlgos {
 				doc2Terms = Utilities.stem(doc2Terms);
 
 				//Change here to test other text-based metrics
-				double tempSim = Utilities.diceSimilarity(Arrays.asList(doc1Terms.split(" ")), Arrays.asList(doc2Terms.split(" ")));
-						//MutualInformation.getValue(doc1Terms,doc2Terms);
+				double tempSim = Utilities.jaccardSimilarity(Arrays.asList(doc1Terms.split(" ")), Arrays.asList(doc2Terms.split(" ")));
+				//MutualInformation.getValue(doc1Terms,doc2Terms);
 				simVals[j] = tempSim;
 				if(tempSim > bestSim){
 					bestSim = tempSim;
@@ -123,7 +138,7 @@ public class EvaluateAlgos {
 		String[] segmentLabels = new String[segmentSimVals.size()];
 		List<Integer> labelledDocs = new ArrayList<Integer>();
 		List<Integer> labelledRows = new ArrayList<Integer>();
-		
+
 		for(int i=0; i<segmentSimVals.size(); i++){
 			double biggestSimVal = 0;
 			int posLabel = -1;
@@ -154,12 +169,157 @@ public class EvaluateAlgos {
 				labelledDocs.add(new Integer(posLabel));
 				labelledRows.add(new Integer(posSegment));
 			}
-			
 		}
-
 		return Arrays.asList(segmentLabels);
 	}
 
+
+
+	private static List<Cluster> getBestLabels(List<Data> dataItems){
+
+		List<Cluster> clusters = null; 
+
+		for(Data data : dataItems){
+
+			if(clusters == null){
+
+				clusters = new ArrayList<Cluster>();
+
+				for(int i=0;i<data.getContentSize();i++){
+					Cluster cluster = new Cluster();
+					Segment segment = new Segment(data.getContentAt(i));
+					segment.addLabel(data.getLabelAt(i));
+
+					cluster.addSegment(segment);
+					clusters.add(cluster);
+				}
+			}
+			else{
+				for(int i=0;i<data.getContentSize();i++){
+					Segment segment = new Segment(data.getContentAt(i));
+					segment.addLabel(data.getLabelAt(i));
+
+					int closestClusterPos = findBestCluster(segment, clusters);
+
+					if(closestClusterPos != -1){
+						Cluster cluster = clusters.get(closestClusterPos);	
+						cluster.addSegment(segment);
+					}
+					else{
+						Cluster cluster = new Cluster();
+						cluster.addSegment(segment);
+						clusters.add(cluster);
+					}
+				}
+			}
+
+
+		}
+		return clusters;
+
+	}
+
+	public static List<Cluster> getClusters(List<Data> dataItems, int clusterSize){
+
+		List<Data[]> dataGroups = new ArrayList<Data[]>();
+
+		List<Cluster> clusters = new ArrayList<Cluster>();
+
+		for(int i=0; i<clusterSize; i++){
+			dataGroups = addDataItemsToClusters(dataItems, dataGroups);
+			dataGroups = removeDuplicateClusters(dataGroups);
+		}
+
+		return clusters;
+	}
+
+
+	private static List<Data[]> addDataItemsToClusters(List<Data> dataItems, List<Data[]> dataGroups){
+
+		List<Data[]> newDataGroups = new ArrayList<Data[]>();
+
+		if(dataGroups.size() == 0){
+			for(Data dataItem : dataItems){
+				Data[] _data = new Data[]{dataItem};
+				newDataGroups.add(_data);
+			}
+
+			return newDataGroups;
+		}
+		else{
+			
+			for(Data[] data : dataGroups){
+				
+				for(Data dataItem : dataItems){
+					
+					if(Arrays.asList(data).contains(dataItem))
+						continue;
+					
+					Data[] _data = Arrays.copyOf(data, data.length+1);
+					_data[data.length] = dataItem;
+					
+					newDataGroups.add(_data);
+				}
+			}
+			return newDataGroups;
+		}
+	}
+
+	private static List<Data[]> removeDuplicateClusters(List<Data[]> dataGroups){
+		List<Data[]> newDataGroups = new ArrayList<Data[]>();
+
+		for(int i=0; i<dataGroups.size(); i++){
+
+			if(!containsDataItem(dataGroups.get(i),newDataGroups)){
+				newDataGroups.add(dataGroups.get(i));
+			}
+		}
+
+		return newDataGroups;
+	}
+
+	private static boolean containsDataItem(Data[] data, List<Data[]> dataGroups){
+
+		if(dataGroups.size() == 0){
+			return false;
+		}
+
+		else{
+			for(Data[] _data : dataGroups){
+				List<Data> tempData = Arrays.asList(_data);
+				
+				int num = 0;
+				
+				for(int i=0; i<data.length; i++){
+					if(!tempData.contains(data[i]))
+						break;
+					num++;
+				}
+				
+				if(num == data.length)
+					return true;
+			}
+			return false;
+		}
+	}
+
+	private static int findBestCluster(Segment segment, List<Cluster> clusters) {
+		double bestSimVal = 0;
+		int posBestCluster = -1;
+
+		for(int i = 0;i < clusters.size(); i++){
+
+			double tempSimVal = clusters.get(i).getSimilarity(segment);
+
+			System.out.println(tempSimVal);
+
+			if(tempSimVal > bestSimVal){
+				bestSimVal = tempSimVal;
+				posBestCluster = i;
+			}
+		}
+		return posBestCluster;
+	}
 
 
 	private  static Data makeData(String filePath, boolean extractEntities){

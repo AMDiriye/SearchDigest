@@ -53,8 +53,7 @@ public class Data {
 
 		for(String str : content){
 			contentStr += " "+str;
-		}
-		
+		}	
 		return contentStr;
 	}
 

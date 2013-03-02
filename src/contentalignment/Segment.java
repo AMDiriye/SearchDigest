@@ -23,7 +23,8 @@ public class Segment {
 	int uniqueTerms;
 	List<String> cleanTextList;
 	Node node;
-
+	String label;
+	
 	public Segment(String text, Node node)
 	{
 		this.text = text;
@@ -40,7 +41,11 @@ public class Segment {
 		uniqueTerms = set.size();
 	}
 
-
+	
+	public Segment(String text){
+		this(text, null);
+	}
+	
 	public String getText()
 	{
 		return text;
@@ -61,6 +66,9 @@ public class Segment {
 		return node;
 	}
 
+	public void addLabel(String label){
+		this.label = label;
+	}
 
 	@Override
 	public String toString(){

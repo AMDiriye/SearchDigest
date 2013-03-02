@@ -1,6 +1,7 @@
 package contentalignment;
 
 import java.util.ArrayList;
+import java.util.Hashtable;
 import java.util.List;
 
 import org.jsoup.nodes.Element;
@@ -25,7 +26,7 @@ public class Cluster {
 
 	public double getSimilarity(Segment segment)
 	{
-		return Utilities.cosineSimilarity(segment.getCleanTextList(),terms);
+		return Utilities.diceSimilarity(segment.getCleanTextList(),terms);
 	}
 
 
@@ -143,6 +144,27 @@ public class Cluster {
 		return false;
 	}
 	
+	public double getPurity(){
+		Hashtable<String, Integer> segmentLabels = new Hashtable<String, Integer>();
+		int max = 0;
+		for(Segment seg : segments){
+			if(segmentLabels.containsKey(seg.label.trim())){
+				int count = segmentLabels.get(seg.label).intValue()+1;
+				
+				if(count > max)
+					max = count;
+				
+				segmentLabels.put(seg.label, new Integer(count)); 
+			}
+			
+			else{
+				segmentLabels.put(seg.label.trim(), new Integer(1));
+			}
+		}
+		return (double) max /((double)segments.size());
+	}
+	
+	
 	@Override
 	public String toString(){
 		return segments.toString();
@@ -162,6 +184,14 @@ public class Cluster {
 
 	public List<Segment> getSegments(){
 		return segments;
+	}
+
+	public boolean isSame(Cluster cluster) {
+		for(Segment segment: cluster.getSegments()){
+			if(!segments.contains(segment))
+				return false;
+		}
+		return true;
 	}
 
 }
