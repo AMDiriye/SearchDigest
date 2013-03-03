@@ -86,7 +86,7 @@ public class CharacterBasedDistribution{
 		return items.size();
 	}
 	
-	public static void main(String args[]){
+	/*public static void main(String args[]){
 		CharacterBasedDistribution cbd = new CharacterBasedDistribution("2012 1111 '12 SIGIR s.i.gir hi CHI'06 WWW2007 World Wide");
-	}
+	}*/
 }
