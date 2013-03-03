@@ -46,7 +46,7 @@ public class EvaluateAlgos {
 		for(File file : files){
 			data.add(makeData(file.getAbsolutePath(),false));
 		}
-
+ 
 		List<Cluster> clusters = getClusters(data,3);
 
 		double sum = 0;
