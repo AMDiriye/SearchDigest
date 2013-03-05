@@ -22,14 +22,14 @@ public class SegmentPage {
 	 */
 	public static void main(String[] args) {
 		
-		SegmentationFactory segmentFactory = new SegmentationFactory("http://research.microsoft.com/en-us/um/people/pauben/");
+		SegmentationFactory segmentFactory = new SegmentationFactory("http://athletics.cmu.edu/sports/msoc/2012-13/roster");
 		EntityExtractor entityExtractor = new EntityExtractor(segmentFactory.getSegments(), segmentFactory.getDoc());
 		
 		List<Cluster> clusters = entityExtractor.getCluster();
 		Document doc = HtmlProcessor.addDOMHighlighting(segmentFactory.getDoc(), clusters);
 		
-		DataWriter.writeFile("../html/jhuang.html", doc.toString());
-		Utilities.openFileInBrowser("html/jhuang.html");
+		DataWriter.writeFile("../html/segmentedPage.html", doc.toString());
+		Utilities.openFileInBrowser("html/segmentedPage.html");
 		
 		for(Cluster cluster : clusters){
 			System.out.println(cluster.toString());

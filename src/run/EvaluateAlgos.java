@@ -47,7 +47,7 @@ public class EvaluateAlgos {
 			data.add(makeData(file.getAbsolutePath(),false));
 		}
  
-		List<Cluster> clusters = getClusters(data,3);
+		List<Cluster> clusters = getClusters(data,2);
 
 		double sum = 0;
 		for(Cluster cluster : clusters){
@@ -134,7 +134,7 @@ public class EvaluateAlgos {
 	}
 
 
-	private static List<String> getBestLabels(List<double[]> segmentSimVals, List<String> labels) {
+	public  static List<String> getBestLabels(List<double[]> segmentSimVals, List<String> labels) {
 		String[] segmentLabels = new String[segmentSimVals.size()];
 		List<Integer> labelledDocs = new ArrayList<Integer>();
 		List<Integer> labelledRows = new ArrayList<Integer>();
@@ -322,7 +322,7 @@ public class EvaluateAlgos {
 	}
 
 
-	private  static Data makeData(String filePath, boolean extractEntities){
+	public  static Data makeData(String filePath, boolean extractEntities){
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 		Document dom = null;
 
