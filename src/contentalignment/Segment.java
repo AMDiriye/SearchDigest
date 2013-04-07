@@ -72,7 +72,9 @@ public class Segment {
 
 	@Override
 	public String toString(){
-		if(node instanceof Element)
+		if(node == null)
+			return text;
+		else if(node instanceof Element)
 			return ((Element) node).text();
 		else return node.toString();
 

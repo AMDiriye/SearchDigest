@@ -61,4 +61,10 @@ public class Data {
 	public boolean containsLabel(String label) {
 		return labels.contains(label);
 	}
+
+
+	public List<String> getContent() {
+		// TODO Auto-generated method stub
+		return content;
+	}
 }

@@ -14,26 +14,45 @@ import utilities.Utilities;
 public class Cluster {
 
 	List<Segment> segments;
+	List<Cluster> clusters;
 	List<String> terms;
 	String processedTerms;
 	int state = 0;
+	String text;
 	
 	public Cluster(){
 		this.segments = new ArrayList<Segment>();
 		this.terms = new ArrayList<String>();
+		this.clusters = new ArrayList<Cluster>();
 		this.processedTerms = "";
+		this.text = "";
 	}
 
-	public double getSimilarity(Segment segment)
-	{
-		return Utilities.diceSimilarity(segment.getCleanTextList(),terms);
+	public double getSimilarity(Segment segment){
+		return Utilities.jaccardSimilarity(segment.getCleanTextList(),terms);
 	}
 
+	public double getSimilarity(Cluster cluster){
+		return Utilities.jaccardSimilarity(cluster.getCleanTextList(),terms);
+	}
 
 	public void addSegment(Segment segment){
 		segments.add(segment);
 		terms.addAll(segment.cleanTextList);
 		processedTerms += segment.processedTerms;
+		text += " "+segment.text;
+	}
+	
+	public void addCluster(int index, Cluster cluster){
+		if(index > clusters.size()){
+			for(int i=clusters.size();i<index;i++)
+				clusters.add(i, new Cluster());
+		}
+		clusters.add(index, cluster);
+		segments.addAll(cluster.getSegments());
+		terms.addAll(cluster.getCleanTextList());
+		processedTerms += cluster.getProcessedText();
+		text += " "+cluster.text;
 	}
 
 	public boolean isSameCluster(Segment segment){
@@ -192,6 +211,14 @@ public class Cluster {
 				return false;
 		}
 		return true;
+	}
+
+	public List<Cluster> getClusters() {
+		return clusters;
+	}
+
+	public String getText() {
+		return text;
 	}
 
 }

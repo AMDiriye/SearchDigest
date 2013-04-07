@@ -216,6 +216,20 @@ public class Utilities {
 		return distribution;
 	}
 
+	public static double jsDivergence(double[] p1, double[] p2){
+		double jsDiv = 0.0;
+		double[] r = new double[p1.length];
+		
+		for(int i=0; i<p1.length; i++){
+			r[i] = 0.5*(p1[i] + p2[i]);
+		}
+		
+		jsDiv = 0.5 * (klDivergence(p1,r) + klDivergence(p2,r));
+		
+		return Math.sqrt(jsDiv);
+	}
+	
+	
 	public static final double log2 = Math.log(2);
 	/**
 	 * Returns the KL divergence, K(p1 || p2).
