@@ -9,7 +9,7 @@ import contentalignment.Cluster;
 import contentalignment.EntityExtractor;
 import contentalignment.Segment;
 import contentalignment.SegmentationFactory;
-import contentalignment.WebPage;
+import document.SegmentBasedWebPage;
 
 
 public class AlignPages {
@@ -20,7 +20,7 @@ public class AlignPages {
 	public static void main(String[] args) {
 
 		args = "http://research.microsoft.com/en-us/um/people/sdumais/,http://research.microsoft.com/en-us/um/people/pauben/".split("[,]");
-		WebPage[] webPages = new WebPage[args.length];
+		SegmentBasedWebPage[] webPages = new SegmentBasedWebPage[args.length];
 		SegmentationFactory segmentFactory = null;
 		AlignmentEngine alignmentEngine;
 		EntityExtractor entityExtractor;
@@ -30,7 +30,7 @@ public class AlignPages {
 			segmentFactory = new SegmentationFactory(args[i]);
 			//entityExtractor = new EntityExtractor(segmentFactory.getSegments(), segmentFactory.getDoc());
 
-			WebPage webPage = new WebPage((segmentFactory.getDoc()));
+			SegmentBasedWebPage webPage = new SegmentBasedWebPage((segmentFactory.getDoc()));
 			webPage.addAllSegments(segmentFactory.getSegments());
 			//webPage.addAllClusters(entityExtractor.getCluster());
 			webPages[i] = webPage;

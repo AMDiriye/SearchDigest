@@ -2,13 +2,16 @@ package contentminer;
 
 import java.util.ArrayList;
 
+import document.EntityBasedWebPage;
+
+
 import utilities.Utilities;
 
 public class ComparisonEngine {
 
 	public ComparisonEngine(){}
 
-	public WebPageEntity findSimilarContent(WebPageEntity webPageEntity, WebPage webPage, double threshold){
+	public WebPageEntity findSimilarContent(WebPageEntity webPageEntity, EntityBasedWebPage webPage, double threshold){
 		
 		double highestSim = 0.0;
 		WebPageEntity relatedEntity = null;
@@ -30,7 +33,7 @@ public class ComparisonEngine {
 	}
 	
 	
-	public WebPageEntity findMatchingContent(String entity, WebPage webPage, double threshold){
+	public WebPageEntity findMatchingContent(String entity, EntityBasedWebPage webPage, double threshold){
 		
 		double highestSim = 0.0;
 		WebPageEntity relatedEntity = null;

@@ -17,8 +17,8 @@ import org.jsoup.nodes.XmlDeclaration;
 import org.jsoup.select.Elements;
 
 import utilities.Utilities;
-import contentminer.WebPage;
 import contentsegmentation.SegmentValidator;
+import document.EntityBasedWebPage;
 
 public class SegmentationFactory {
 

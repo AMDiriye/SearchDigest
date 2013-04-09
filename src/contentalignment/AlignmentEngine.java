@@ -9,34 +9,34 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import document.SegmentBasedWebPage;
+
 import utilities.Utilities;
 
 
 import JavaMI.MutualInformation;
-
-
    
 
 public class AlignmentEngine { 
 
-	WebPage webpage;
+	SegmentBasedWebPage webpage;
 	Map<Cluster, List<Cluster>> alignments;
+
 	
-	
-	public AlignmentEngine(WebPage webpage){
+	public AlignmentEngine(SegmentBasedWebPage webpage){
 		this.webpage = webpage;
 		alignments = new HashMap<Cluster, List<Cluster>>();
 	}
 	
 	
 	public AlignmentEngine(Cluster segment){
-		webpage = new WebPage(null);
+		webpage = new SegmentBasedWebPage(null);
 		webpage.addSegment(segment);
 		alignments = new HashMap<Cluster,  List<Cluster>>();
 	}
 	
 	
-	public void alignWebPages(WebPage[] webPages){
+	public void alignWebPages(SegmentBasedWebPage[] webPages){
 		
 		
 		for(int i=0; i<webPages.length;i++)

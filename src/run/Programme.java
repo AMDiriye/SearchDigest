@@ -13,8 +13,8 @@ import namedentities.NamedEntity;
 import org.jsoup.nodes.Node;
 
 import contentminer.ComparisonEngine;
-import contentminer.WebPage;
 import contentminer.WebPageMiner;
+import document.EntityBasedWebPage;
 
 import utilities.DataWriter;
 import utilities.HtmlProcessor;
@@ -35,7 +35,7 @@ public class Programme {
 		
 		WebPageMiner webPageMiner = new WebPageMiner();	
 		
-		WebPage webPage = webPageMiner.mine(pageURL,false);
+		EntityBasedWebPage webPage = webPageMiner.mine(pageURL,false);
 		webPage = HtmlProcessor.addDOMHighlighting(webPage);
 		DataWriter.writeFile("../html/jhuang.html", webPage.doc.toString());
 		Utilities.openFileInBrowser("html/jhuang.html");
@@ -49,8 +49,8 @@ public class Programme {
 		
 		WebPageMiner webPageMiner = new WebPageMiner();	
 		
-		WebPage webPage1 = webPageMiner.mine(page1URL,true);
-		WebPage webPage2 = webPageMiner.mine(page2URL,false);
+		EntityBasedWebPage webPage1 = webPageMiner.mine(page1URL,true);
+		EntityBasedWebPage webPage2 = webPageMiner.mine(page2URL,false);
 
 		ComparisonEngine compEngine = new ComparisonEngine();
 

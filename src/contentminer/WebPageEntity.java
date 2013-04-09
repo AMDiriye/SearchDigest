@@ -11,9 +11,9 @@ public class WebPageEntity {
 	String stopWordLessText;
 	String tag;
 	
-	ArrayList<String> terms;
-	ArrayList<NamedEntity> namedEntities;
-	ArrayList<WebPageEntity> children;
+	public ArrayList<String> terms;
+	public ArrayList<NamedEntity> namedEntities;
+	public ArrayList<WebPageEntity> children;
 	
 	
 	public WebPageEntity(String text){

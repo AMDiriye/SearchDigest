@@ -13,6 +13,9 @@ import org.jsoup.nodes.Node;
 import org.jsoup.nodes.TextNode;
 import org.jsoup.select.Elements;
 
+import document.EntityBasedWebPage;
+
+
 import utilities.StopWordCollection;
 import utilities.Utilities;
 
@@ -31,16 +34,16 @@ public class WebPageMiner {
 		stopWordCollection = StopWordCollection.getInstance();
 	}
 
-	public WebPage mine(String url, boolean performEntityExtraction){
+	public EntityBasedWebPage mine(String url, boolean performEntityExtraction){
 
-		WebPage webPage = null;
+		EntityBasedWebPage webPage = null;
 		Document doc;
 		WebPageEntity webPageEntity;
 
 		try {
 
 			doc = Jsoup.connect(url).get();
-			webPage = new WebPage(url);
+			webPage = new EntityBasedWebPage(url);
 			webPage.addDoc(doc);
 
 			Elements docElements = doc.select("body");

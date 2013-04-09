@@ -22,7 +22,7 @@ import contentalignment.Cluster;
 import contentalignment.EntityExtractor;
 import contentalignment.Segment;
 import contentalignment.SegmentationFactory;
-import contentalignment.WebPage;
+import document.SegmentBasedWebPage;
 import evaluation.Data;
 
 
@@ -33,14 +33,14 @@ public class AlignPagesIntoTable {
 	 */
 	public static void main(String[] args) {
 
-		/*SegmentationFactory segmentFactory = new SegmentationFactory("http://research.microsoft.com/en-us/um/people/sdumais/");
+		SegmentationFactory segmentFactory = new SegmentationFactory("http://research.microsoft.com/en-us/um/people/sdumais/");
 		EntityExtractor entityExtractor = new EntityExtractor(segmentFactory.getSegments(), segmentFactory.getDoc());
 		List<Cluster> cluster1 = entityExtractor.getCluster();
 
 		segmentFactory = new SegmentationFactory("http://research.microsoft.com/en-us/um/people/pauben/");
 		entityExtractor = new EntityExtractor(segmentFactory.getSegments(), segmentFactory.getDoc());
 		List<Cluster> cluster2 = entityExtractor.getCluster();
-		 */
+		 
 		List<List<Cluster>> clusters = new ArrayList<List<Cluster>>();
 		
 		File[] files = new File("test data").listFiles();

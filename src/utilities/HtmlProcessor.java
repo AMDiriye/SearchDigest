@@ -14,7 +14,8 @@ import org.jsoup.select.Elements;
 
 import contentalignment.Cluster;
 import contentalignment.Segment;
-import contentminer.WebPage;
+
+import document.WebPage;
 
 public class HtmlProcessor {
 

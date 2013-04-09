@@ -12,7 +12,7 @@ import contentalignment.Cluster;
 import contentalignment.EntityExtractor;
 import contentalignment.Segment;
 import contentalignment.SegmentationFactory;
-import contentalignment.WebPage;
+import document.SegmentBasedWebPage;
 
 
 public class SegmentPage {
