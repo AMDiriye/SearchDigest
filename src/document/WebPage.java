@@ -26,6 +26,7 @@ public class WebPage{
 	
 	public WebPage(Document doc){
 		this.doc = doc;
+		title = doc.title();
 	}
 	
 	public void setSummary(String summary){
@@ -48,41 +49,26 @@ public class WebPage{
 		this.media = media;	
 	}
 
-	public void addAllClusters(List<Cluster> _segments){
-		Elements segments;
-		segments.addAll(_segments);
-	}
-	
-	public void addAllSegments(List<Segment> _segments)
-	{
-		for(Segment segment : _segments){
-			Cluster cluster = new Cluster();
-			cluster.addSegment(segment);
-			segments.add(cluster);
-		}
-	}
-	
-	/*for (Element src : media) {
-		if (src.tagName().equals("img"))
-			print(" * %s: <%s> %sx%s (%s)",
-					src.tagName(), src.attr("abs:src"), src.attr("width"), src.attr("height"),
-					trim(src.attr("alt"), 20));
-	}
-
-
-	print("\nLinks: (%d)", links.size());
-	for (Element link : links) {
-		print(" * a: <%s>  (%s)", link.attr("abs:href"), trim(link.text(), 35));
-	}*/
-
-	private String trim(String s, int width) {
-		if (s.length() > width)
-			return s.substring(0, width-1) + ".";
-		else
-			return s;
-	}
-
 	public void addStructure(Elements structure) {
 		this.structure = structure;
 	}
+
+	public void setWebPageStructure(WebPageStructure webPageStructure) {
+		this.webPageStructure = webPageStructure;
+		
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public String getSummary() {
+		return summary;
+	}
+
+	public String getLinks() {
+		links
+		
+	}
+
 }
