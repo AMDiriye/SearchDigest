@@ -1,5 +1,7 @@
 package document;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
 
 import org.jsoup.nodes.Document;
@@ -16,16 +18,14 @@ public class WebPage{
 	String summary;
 	
 	//Document properties
-	Elements links;
-	Elements media;
-	Elements structure;
-	
 	WebPageStructure webPageStructure;
 	WebPageSections webPageSections;
 	WebPageEntities webPageEntities;
+	WebPageMedia	webPageMedia;
 	
 	public WebPage(Document doc){
 		this.doc = doc;
+		url = doc.baseUri();
 		title = doc.title();
 	}
 	
@@ -41,21 +41,13 @@ public class WebPage{
 		return doc;
 	}
 
-	public void setLinks(Elements links) {
-		this.links = links;
-	}
-
-	public void setMedia(Elements media) {
-		this.media = media;	
-	}
-
-	public void addStructure(Elements structure) {
-		this.structure = structure;
-	}
-
 	public void setWebPageStructure(WebPageStructure webPageStructure) {
 		this.webPageStructure = webPageStructure;
 		
+	}
+	
+	public void setWebPageSegments(WebPageSections webPageSections) {
+		this.webPageSections = webPageSections;
 	}
 
 	public String getTitle() {
@@ -67,8 +59,33 @@ public class WebPage{
 	}
 
 	public String getLinks() {
-		links
-		
+		return webPageStructure.toString();
+	}
+
+	public String getURL() {
+		return url;
+	}
+	
+	public WebPageStructure getWebPageStructure() {
+		return webPageStructure;
+	}
+	
+	public WebPageSections getWebPageSegments() {
+		return webPageSections;
+	}
+	
+	public String getDomainName() {
+	    URI uri;
+	    String domain = "";
+	    
+		try {
+			uri = new URI(url);
+			domain = uri.getHost();
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
+		}
+	    
+	    return domain.startsWith("www.") ? domain.substring(4) : domain;
 	}
 
 }

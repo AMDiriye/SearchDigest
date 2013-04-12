@@ -10,7 +10,7 @@ import contentalignment.Segment;
 
 public class WebPageSections {
 
-	List<Cluster> segments;
+	public List<Cluster> segments;
 	
 	public WebPageSections(){
 		segments = new ArrayList<Cluster>();
@@ -36,5 +36,9 @@ public class WebPageSections {
 		}
 	}
 	
+	
+	public List<Cluster> getSegments(){
+		return segments;
+	}
 	
 }

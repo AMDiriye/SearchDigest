@@ -18,7 +18,7 @@ import org.jsoup.select.Elements;
 
 import utilities.Utilities;
 import contentsegmentation.SegmentValidator;
-import document.EntityBasedWebPage;
+
 
 public class SegmentationFactory {
 
@@ -29,9 +29,13 @@ public class SegmentationFactory {
 	
 	
 	
-	public SegmentationFactory(String url)
-	{ 
-		doc = Utilities.getDoc(url);
+	public SegmentationFactory(String url){ 
+		this(Utilities.getDoc(url));
+	}
+
+	
+	public SegmentationFactory(Document doc){
+		this.doc = doc;
 		Elements _elements = doc.select("h1,h2,h3,h4,h5,h6");
 		_elements.size();
 		docElements = doc.select("body");
@@ -45,7 +49,8 @@ public class SegmentationFactory {
 		
 		makeSegments();
 	}
-
+	
+	
 	private void makeSegments()
 	{
 		List<Node> nodes = new ArrayList<Node>();

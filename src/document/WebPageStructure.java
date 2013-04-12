@@ -23,13 +23,22 @@ public class WebPageStructure {
 		subHeadings.add(subHeading);
 	}
 	
-	class Link{
-		String url;
-		String text;
+	public String toString(){
+		String content = "";
 		
-		public Link(String url, String text){
-			this.url = url;
-			this.text = url;
+		for(String subHeading: subHeadings){
+			content += subHeading+"\n";
 		}
+		
+		for(Link link : links){
+			content += link.text+"\n";
+		}
+		
+		return content;
 	}
+	
+	public List<Link> getLinks(){
+		return links;
+	}
+	
 }
