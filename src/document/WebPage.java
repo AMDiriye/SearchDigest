@@ -62,6 +62,7 @@ public class WebPage{
 		return webPageStructure.toString();
 	}
 
+<<<<<<< HEAD
 	public String getURL() {
 		return url;
 	}
@@ -69,6 +70,9 @@ public class WebPage{
 	public WebPageStructure getWebPageStructure() {
 		return webPageStructure;
 	}
+=======
+	
+>>>>>>> Edits
 	
 	public WebPageSections getWebPageSegments() {
 		return webPageSections;
