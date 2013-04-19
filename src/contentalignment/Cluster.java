@@ -68,11 +68,7 @@ public class Cluster {
 
 
 	private boolean isSameType(Node node){
-
-		if(node instanceof Element && ((Element) node).text().contains("Tutorials:")){
-			System.out.println("!!!!!!!!!!!!!!----tutorials");
-		}
-		
+	
 		if(state == 0){
 			
 			Node node2 =  segments.get(0).node;
@@ -155,10 +151,8 @@ public class Cluster {
 					
 					if(length > 0)
 						return true;
-
 				}
 			}
-			
 		}
 		return false;
 	}
@@ -219,6 +213,16 @@ public class Cluster {
 
 	public String getText() {
 		return text;
+	}
+	
+	public String getSegmentText(){
+		String segmentText = "---";
+		
+		for(Segment segment : segments){
+			segmentText += segment.getText()+"\n --- \n";
+		}
+		
+		return segmentText;
 	}
 
 }

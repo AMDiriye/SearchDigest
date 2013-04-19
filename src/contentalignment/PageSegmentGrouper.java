@@ -8,19 +8,19 @@ import org.jsoup.nodes.Node;
 import org.jsoup.nodes.TextNode;
 import org.jsoup.select.Elements;
 
-public class EntityExtractor {
+public class PageSegmentGrouper {
 
 
 	List<Segment> webPageSegments;
 	List<Node> webPageHeadings;
 	List<Cluster> clusters;
 
-	public EntityExtractor(List<Segment> webPageSegments, Document doc){
+	public PageSegmentGrouper(List<Segment> webPageSegments, Document doc){
 		this.webPageSegments = webPageSegments;
 		this.webPageHeadings = new ArrayList<Node>();
 		this.clusters = new ArrayList<Cluster>();
 		findHeadings(doc);
-		segmentContent();
+		groupSegments();
 	}
 
 
@@ -37,11 +37,11 @@ public class EntityExtractor {
 
 
 	/** Take webpage content and do the following:
-	 *   1)identfy wheer soft segments are
+	 *   1)identify where soft segments are
 	 *   2)compute  score based on distribution of terms and similarity
-	 *   3)move segments ariynd
+	 *   3)move segments around
 	 */
-	private void segmentContent(){
+	private void groupSegments(){
 
 		Cluster cluster = new Cluster();
 		boolean isSameCluster;

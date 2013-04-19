@@ -14,7 +14,7 @@ import org.jsoup.nodes.Node;
 
 import contentminer.ComparisonEngine;
 import contentminer.WebPageMiner;
-import document.EntityBasedWebPage;
+
 
 import utilities.DataWriter;
 import utilities.HtmlProcessor;

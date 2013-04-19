@@ -6,7 +6,7 @@ import java.util.Map.Entry;
 
 import contentalignment.AlignmentEngine;
 import contentalignment.Cluster;
-import contentalignment.EntityExtractor;
+import contentalignment.PageSegmentGrouper;
 import contentalignment.Segment;
 import contentalignment.SegmentationFactory;
 import document.SegmentBasedWebPage;
@@ -23,7 +23,7 @@ public class AlignPages {
 		SegmentBasedWebPage[] webPages = new SegmentBasedWebPage[args.length];
 		SegmentationFactory segmentFactory = null;
 		AlignmentEngine alignmentEngine;
-		EntityExtractor entityExtractor;
+		PageSegmentGrouper entityExtractor;
 
 		for(int i=0; i<args.length; i++)
 		{

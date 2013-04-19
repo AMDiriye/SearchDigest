@@ -5,7 +5,7 @@ import namedentities.EntityFactory;
 import namedentities.NamedEntity;
 
 import contentalignment.Cluster;
-import contentalignment.EntityExtractor;
+import contentalignment.PageSegmentGrouper;
 import contentalignment.SegmentationFactory;
 
 

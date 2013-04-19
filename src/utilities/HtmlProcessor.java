@@ -32,15 +32,15 @@ public class HtmlProcessor {
 	public static WebPage addDOMHighlighting(WebPage webPage){
 
 
-		Elements style = webPage.doc.select("style");
+		Elements style = webPage.getDoc().select("style");
 		String cssStyle = ".highlight{padding:1px !important;} .highlight:hover{border-style:dotted !important; border-color:grey !important; border-width:1px !important;padding:0px !important;}"; 
 
 		if(style.size() != 0)
 			style.prepend(cssStyle);
 		else {
-			webPage.doc.select("head").prepend("<style>"+cssStyle+"</style");
+			webPage.getDoc().select("head").prepend("<style>"+cssStyle+"</style");
 		}
-		Elements elements = webPage.doc.select("body");
+		Elements elements = webPage.getDoc().select("body");
 
 		for(Element element : elements){
 			//if(node instanceof TextNode)

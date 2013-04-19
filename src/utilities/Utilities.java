@@ -3,8 +3,12 @@ package utilities;
 import index.InverseFreq;
 import index.InverseSegmentFreq;
 
+import java.io.BufferedReader;
+import java.io.DataInputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -30,6 +34,7 @@ import org.jsoup.safety.Whitelist;
 
 import contentalignment.Cluster;
 import contentalignment.Segment;
+import document.WebPage;
 
 
 public class Utilities {
@@ -87,6 +92,7 @@ public class Utilities {
 		return similarity/Math.min(entity1.size(),entity2.size());
 	}
 
+	//TODO: Fix cosine similarity
 	public static double cosineSimilarity(List<String> entity1, List<String> entity2){
 		double similarity = 0.0;
 
@@ -100,6 +106,23 @@ public class Utilities {
 		return 1-Math.cos(similarity / Math.sqrt((entity1.size() * entity2.size())));
 	}
 
+	public static double cosineSimilarity(List<String> terms, List<Double> termCounts, List<String> stemmedTerms, List<Double> stemmedTermCounts) {
+		double cosSim = 0.0;
+		int pos = 0;
+		
+		for(String term : terms){
+			int termIndex = stemmedTerms.indexOf(term);
+			if(termIndex != -1){
+				cosSim += termCounts.get(pos)*stemmedTermCounts.get(termIndex);
+			}
+			
+			pos++;
+		}
+		
+		return 1-Math.cos(cosSim / Math.sqrt((terms.size() * stemmedTerms.size())));
+	}
+	
+	
 	public static double jaccardSimilarity(List<String> entity1, List<String> entity2){
 		double similarity = 0.0;
 
@@ -134,7 +157,6 @@ public class Utilities {
 
 	}
 
-
 	//can sometimes find terms inside the middle of words
 	private static double getTFIDF(String term, String line){
 
@@ -150,12 +172,32 @@ public class Utilities {
 
 	}
 
-
 	public double compareDocs()
 	{
 		return 0.0;
 	}
 
+	public static String getFileContent(String filePath){
+		FileInputStream fstream;
+		String content = "";
+		
+		try {
+			fstream = new FileInputStream(filePath);
+			DataInputStream in = new DataInputStream(fstream);
+			BufferedReader br = new BufferedReader(new InputStreamReader(in));
+			String tempString;
+			//Read File Line By Line
+			while ((tempString = br.readLine()) != null){
+				content +=tempString;
+			}
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return content;
+	}
+	
 	public static void openFileInBrowser(String fileName){
 		try {
 			java.awt.Desktop.getDesktop().browse(new File(fileName).toURI());
@@ -180,7 +222,6 @@ public class Utilities {
 
 		return doc;
 	}
-
 
 	public static List<double[]> getDistributions(Cluster segment, Cluster segment2) {
 		List<double[]> distributions = new ArrayList<double[]>();
@@ -295,9 +336,7 @@ public class Utilities {
 		return result/2.4;  
 	}    
 
-
-	public static double euclideanDistance(List<String> entity1, List<String> entity2)
-	{
+	public static double euclideanDistance(List<String> entity1, List<String> entity2){
 		double similarity = 0.0;	
 
 		Set<String> allTermDocs = new HashSet<String>();
@@ -314,7 +353,6 @@ public class Utilities {
 		return Math.sqrt(similarity);
 	}
 
-
 	private static class ValueComparator<K, V extends Comparable<V>> implements Comparator<K> {
 
 		Map<K, V> map;
@@ -329,12 +367,7 @@ public class Utilities {
 		}
 	}
 
-
-
 	public static boolean isValidNode(Node node){
-
-		System.out.println(node.toString());
-
 		if(node instanceof TextNode)
 			return true;
 
@@ -344,6 +377,17 @@ public class Utilities {
 
 
 		return true;
+	}
+
+	public static int findWebPageRelationship(WebPage webPage, WebPage webPage2) {
+		
+		if(webPage2.getURL().contains(webPage.getURL())){
+				return 1;
+		}
+		else if(webPage.getURL().contains(webPage2.getURL())){
+				return -1;
+		}
+		else return 0;
 	}
 
 }

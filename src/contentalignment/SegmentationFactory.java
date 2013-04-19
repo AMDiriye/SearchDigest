@@ -27,8 +27,6 @@ public class SegmentationFactory {
 	Document doc;
 	int pos = 0;
 	
-	
-	
 	public SegmentationFactory(String url){ 
 		this(Utilities.getDoc(url));
 	}

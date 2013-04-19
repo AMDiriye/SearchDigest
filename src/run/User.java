@@ -14,8 +14,8 @@ public class User {
 	public void addQuerySet(String queries){
 		String[] singleQueries = queries.split("[,]");	
 		
-		addQueries(Arrays.c(singleQueries,0));
-		addQueries();
+		//addQueries(Arrays.c(singleQueries,0));
+		//addQueries();
 		
 	}
 	

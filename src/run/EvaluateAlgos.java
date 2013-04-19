@@ -321,7 +321,7 @@ public class EvaluateAlgos {
 		return posBestCluster;
 	}
 
-
+	//Makes data objects for the XML files for the test collection
 	public  static Data makeData(String filePath, boolean extractEntities){
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 		Document dom = null;
@@ -331,8 +331,6 @@ public class EvaluateAlgos {
 			DocumentBuilder db = dbf.newDocumentBuilder();
 			//parse using builder to get DOM representation of the XML file
 			dom = db.parse(filePath);
-			System.out.println(dom.getChildNodes().getLength());
-
 
 		}catch(ParserConfigurationException pce) {
 			pce.printStackTrace();

@@ -9,10 +9,10 @@ import utilities.Utilities;
 
 import contentalignment.AlignmentEngine;
 import contentalignment.Cluster;
-import contentalignment.EntityExtractor;
+import contentalignment.PageSegmentGrouper;
 import contentalignment.Segment;
 import contentalignment.SegmentationFactory;
-import document.SegmentBasedWebPage;
+
 
 
 public class SegmentPage {
@@ -23,7 +23,7 @@ public class SegmentPage {
 	public static void main(String[] args) {
 		
 		SegmentationFactory segmentFactory = new SegmentationFactory("http://athletics.cmu.edu/sports/msoc/2012-13/roster");
-		EntityExtractor entityExtractor = new EntityExtractor(segmentFactory.getSegments(), segmentFactory.getDoc());
+		PageSegmentGrouper entityExtractor = new PageSegmentGrouper(segmentFactory.getSegments(), segmentFactory.getDoc());
 		
 		List<Cluster> clusters = entityExtractor.getCluster();
 		Document doc = HtmlProcessor.addDOMHighlighting(segmentFactory.getDoc(), clusters);
@@ -36,6 +36,6 @@ public class SegmentPage {
 			System.out.println();
 		}
 		
-	}
+	} 
 
 }

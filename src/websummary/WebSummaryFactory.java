@@ -1,4 +1,4 @@
-package websummaryelements;
+package websummary;
 
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -22,7 +22,7 @@ public class WebSummaryFactory {
 		webPage = addWebPageSummarization(webPage);
 		webPage = addWebPageLinks(webPage);
 		webPage = addWebPageMedia(webPage);
-		webPage = addWebPageStructure(webPage);
+		//webPage = addWebPageStructure(webPage);
 		
 		return webPage;
 	}
@@ -35,8 +35,6 @@ public class WebSummaryFactory {
 		return webpage;
 	}
 
-	
-
 	private WebPage addWebPageLinks(WebPage webpage){
 
 		Document doc = webpage.getDoc();
@@ -47,7 +45,11 @@ public class WebSummaryFactory {
 		WebPageStructure webPageStructure = new WebPageStructure();
 		
 		for (Element link : links) {
-			webPageStructure.addLink(link.attr("abs:href"), link.text());
+			String text ="";
+			if(link.childNodes().size()>0){
+				text = link.childNode(0).toString();
+			}
+			webPageStructure.addLink(link.attr("abs:href"), text);
 		}
 		
 		for (Element subHeading : subHeadings) {
@@ -58,8 +60,6 @@ public class WebSummaryFactory {
 		
 		return webpage;
 	}
-	
-
 	
 	private WebPage addWebPageMedia(WebPage webpage){
 
@@ -78,9 +78,7 @@ public class WebSummaryFactory {
 	
 	//TODO: Need to add way of extracting structure based on segments
 	private  WebPage addWebPageStructure(WebPage webpage){
-		
-		
-		return webpage;
+			return webpage;
 	}
 
 	private WebPage addWebPageSegmentation(WebPage webPage) {
@@ -114,7 +112,6 @@ public class WebSummaryFactory {
 		
 		return pageSummarization;
 	}
-
 
 	public static String makePageStructurization(WebPage webpage){
 
