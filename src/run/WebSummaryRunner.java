@@ -78,10 +78,10 @@ public class WebSummaryRunner {
 			HistoryVisualizer historyViz = new HistoryVisualizer();
 			historyViz.processHistory(webPages);
 			webTaskContent += historyViz.getProcessedHistory();
-		
+			break;
 			//Find related URLs
-			GraphExtender ge = new GraphExtender(webPages);
-			List<String> newLinks = ge.getNewLinksGenerated();
+			//GraphExtender ge = new GraphExtender(webPages);
+			//List<String> newLinks = ge.getNewLinksGenerated();
 			
 			//for(String newLink : newLinks){
 			//	if(!isHTML(newLink))

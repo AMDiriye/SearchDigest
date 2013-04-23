@@ -1,5 +1,5 @@
 /* General tags */
-body {color:#404040; font:80% Verdana,Tahoma,Arial,sans-serif; line-height:1.3em; margin:0 auto; padding:0;}
+body {color:#404040; font:80% Arial,sans-serif; line-height:1.3em; margin:0 auto; padding:0;}
 a {color:#d36e1a; font-weight:700; text-decoration:none;}
 a:hover {text-decoration:underline;}
 a img {border:0;}
@@ -14,7 +14,7 @@ blockquote p {margin:0;}
 h1 {color:#d36e1a; font-size:3.6em; letter-spacing:-3px;}
 h1 a {color:#d36e1a; text-transform:none;}
 h2 { color:#d36e1a; font-size:1.4em; letter-spacing:-1px; margin:10px 5px 10px; padding:0 2px 2px 5px;}
-h3 {/*border-bottom:1px solid #dadada;*/ color:#d36e1a; font-size:1.2em; font-weight:700; margin:10px 0 8px; padding:1px 2px 2px 3px;}
+h3 {/*border-bottom:1px solid #dadada;*/  color:#d36e1a; font-size:1.2em; font-weight:700; margin:10px 0 8px; padding:1px 2px 2px 3px;}
 
 /* Main wrap */
 #wrap {color:#404040; margin:40px; padding:0; width:970px;}
@@ -35,13 +35,17 @@ h3 {/*border-bottom:1px solid #dadada;*/ color:#d36e1a; font-size:1.2em; font-we
 /* Main content */
 #content {float: left;-moz-box-shadow: 0 0 5px #888;-webkit-box-shadow: 0 0 5px#888;box-shadow: 0 0 5px #888; line-height:1.5em; margin:0; padding:0; text-align:left; width:750px;margin-top: 25px;margin-left: 200px;}
 #contentalt {float:left; line-height:1.5em; margin-right:20px; padding:0; text-align:left; width:750px;}
-#content h3,#contentalt h3 {margin:10px 0 8px;}
-#innerContent{ width:90%;border:1px solid #bababa; padding:10px;margin: 20px;}
+#content h3,#contentalt h3 {margin-left: 15px; margin-bottom: -10px;}
+#innerContent{ width:90%;border:1px solid #bababa; padding:10px;margin: 20px;float:left;-webkit-box-shadow: 0 0 5px#888;
+box-shadow: 0 0 5px #888}
+#innerContent ul{list-style-type: none;}
+#innerContent div{ width: 100px; height: 200px; overflow: scroll;font-size: 9pt; }
 #headerDiv{border-bottom:1px solid #dadada; color:#d36e1a; }
 /* Footer */
 #footer {border-top:4px solid #dadada; clear:both; color:gray; font-size:0.9em; line-height:1.6em; margin:0 auto; padding:8px 0; text-align:right;}
 #footer p {margin:0; padding:0;}
 #footer a {color:#808080;}
+
 
 /* Additional classes */
 .box {background:#4088b8; border:1px solid #c8c8c8; color:#fff; font-size:0.9em; line-height:1.4em; padding:10px 10px 10px 13px;}
@@ -57,3 +61,7 @@ h3 {/*border-bottom:1px solid #dadada;*/ color:#d36e1a; font-size:1.2em; font-we
 .gray {color:gray;}
 .photo {background:#fff; border:1px solid #bababa; padding:10px;}
 #sidebar strong{color:gray;}
+.hubPages{padding: 10px;margin: 20px;float: left;width: 500px;height: 150px; overflow: scroll; }
+span#title{font-family: arial, sans-serif; color: #12c;}
+span#url{font-family: arial, sans-serif; color: #093;}
+.star{background: url('star_display.png') no-repeat top left; padding-left: 18px;}

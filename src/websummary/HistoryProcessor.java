@@ -25,8 +25,8 @@ public class HistoryProcessor {
 	public void process() {
 		//create the history items and add to list
 		findHubPages();
-		//createPageClusters();
-		//createPageAlignment();
+		createPageClusters();
+		createPageAlignment();
 		//extractEntities();
 		//extractQueries();
 		
