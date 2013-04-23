@@ -1,9 +1,19 @@
 package run;
 
+import java.io.BufferedReader;
+import java.io.DataInputStream;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 import utilities.DataWriter;
+import utilities.GraphExtender;
 import utilities.Utilities;
 import websummary.HistoryVisualizer;
 import websummary.WebSummaryFactory;
+import websummary.WebTask;
 import document.WebPage;
 
 public class WebSummaryRunner {
@@ -13,31 +23,107 @@ public class WebSummaryRunner {
 	 */
 	public static void main(String[] args) {
 		
-		args=new String[]{"http://research.microsoft.com/en-us/um/people/pauben",
-			"http://research.microsoft.com/en-us/um/people/ryenw/",
-			"http://research.microsoft.com/en-us/um/people/sdumais/",
-			"http://research.microsoft.com/en-us/people/sdumais/",
-			"http://research.microsoft.com/en-us/people/sdumais/",
-			"http://research.microsoft.com/en-us/",
-			"http://research.microsoft.com/en-us/labs/",
-			"http://research.microsoft.com/en-us/groups/adapt/"};
-
-		WebPage[] webPages = new WebPage[args.length];
+		String webTaskContent = "";
 		
-		for(int i=0;i<args.length;i++){
-			WebPage webPage = new WebPage(Utilities.getDoc(args[i]));
-			WebSummaryFactory webSummaryFactory = new WebSummaryFactory();
-			webPage = webSummaryFactory.addWebPageProperties(webPage);
-			webPages[i] = webPage;
+		//Create webtasks 
+		List<WebTask> webTasks = new ArrayList<WebTask>();
+		String URLs ="";
+		try {
+			FileInputStream fstream = new FileInputStream("./data/TaskData.txt");
+			DataInputStream in = new DataInputStream(fstream);
+			BufferedReader br = new BufferedReader(new InputStreamReader(in));
+			String line;
+			WebTask webTask = null;
+			
+			//Read File Line By Line
+			while ((line = br.readLine()) != null){
+				
+				if(line.trim().length() == 0){
+					if(webTask !=null){
+						webTasks.add(webTask);
+					}
+					webTask = null;
+				}
+				else{
+					if(webTask !=null){
+						webTask.addURL(line);
+					}
+					else{
+						webTask = new WebTask(line);
+					}
+				}
+			}
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
-		HistoryVisualizer historyViz = new HistoryVisualizer(webPages);
-		historyViz.processHistory();
+		WebPage[] webPages = null;
+		List<WebPage> newWebPages = new ArrayList<WebPage>();
 		
-		DataWriter.writeFile("../html/webSummary.html", historyViz.getProcessedHistory());
-		Utilities.openFileInBrowser("html/webSummary.html");
+		//Iterate through webtasks 
+		for(WebTask webtask : webTasks){
+			webPages =  new WebPage[webtask.getNumURLs()];
+			
+			for(int i=0;i<webtask.getNumURLs();i++){
+				//System.out.println(webtask.getURLAt(i));
+				WebPage webPage = new WebPage(Utilities.getDoc(webtask.getURLAt(i)));
+				webPage = Utilities.addTermInfo(webPage);
+				WebSummaryFactory webSummaryFactory = new WebSummaryFactory();
+				webPage = webSummaryFactory.addWebPageProperties(webPage);
+				webPages[i] = webPage;
+			}
+			
+			HistoryVisualizer historyViz = new HistoryVisualizer();
+			historyViz.processHistory(webPages);
+			webTaskContent += historyViz.getProcessedHistory();
+		
+			//Find related URLs
+			GraphExtender ge = new GraphExtender(webPages);
+			List<String> newLinks = ge.getNewLinksGenerated();
+			
+			//for(String newLink : newLinks){
+			//	if(!isHTML(newLink))
+			//		continue;
+			//	newWebPages.add(new WebPage(Utilities.getDoc(newLink)));
+			//}
+		}
+		
+		
+		//Do something with newLinkDocs
+		//newWebPages
+		
+		
+		
+		//Get content from template
+		FileInputStream fstream;
+		String templateContent="";
+		
+		try {
+			fstream = new FileInputStream("./html/webSummarytemplate.html");
+			DataInputStream in = new DataInputStream(fstream);
+			BufferedReader br = new BufferedReader(new InputStreamReader(in));
+			String tempString;
+			//Read File Line By Line
+			while ((tempString = br.readLine()) != null){
+				templateContent +=tempString;
+			}
 
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		//Add template data
+		DataWriter.writeFile("../html/webSummary.html", templateContent+webTaskContent+"<//div><//body><//html>");
+		Utilities.openFileInBrowser("html/webSummary.html");
 	}
 	
 
+	private static boolean isHTMLPage(String url){
+		if(url.contains(".wmv")||url.contains(".mp"))
+			return false;
+		return true;
+	}
 }

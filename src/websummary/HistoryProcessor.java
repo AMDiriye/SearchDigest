@@ -25,13 +25,13 @@ public class HistoryProcessor {
 	public void process() {
 		//create the history items and add to list
 		findHubPages();
-		createPageClusters();
-		createPageAlignment();
-		extractEntities();
-		extractQueries();
+		//createPageClusters();
+		//createPageAlignment();
+		//extractEntities();
+		//extractQueries();
 		
 		//reorder based on importance
-		reorderHistory();
+		//reorderHistory();
 	}
 
 	private void findHubPages() {
@@ -58,10 +58,6 @@ public class HistoryProcessor {
 	}
 	
 	private void extractQueries(){
-		// TODO Auto-generated method stub	
-	}
-	
-	private void reorderHistory() {
 		// TODO Auto-generated method stub	
 	}
 

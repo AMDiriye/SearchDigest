@@ -10,32 +10,35 @@ import document.WebPageEntity;
 
 public class HistoryVisualizer {
 	
-	WebPage[] webPages;
 	String webSummary;
-	
-	public HistoryVisualizer(WebPage[] webPages){
-		this.webPages = webPages;
-		webSummary = "";
-	}
+	String startDiv = "<div id=\"innerContent\">";
+	String endDiv = "<\\div>";
+	String title;
 
-	public void processHistory() {
+
+	public void processHistory(WebPage[] webPages) {
+		webSummary = "";
 		HistoryProcessor historyProcessor = new HistoryProcessor(webPages);
 		historyProcessor.process();
+		title = createTitle(webPages);
 	}
 
+	private String createTitle(WebPage[] webPages){
+		//TODO need to create title;
+		return "untitled";
+	}
 	
 	private String createAlignedContentCard(List<Cluster> alignedContent){
-		String content="\n----AlignedContent Card----\n";
+		String content="";
 		
 		for(Cluster cluster : alignedContent){
-			content +=cluster.getSegmentText()+"\n-x-x-x-x-x--x-x-x-x-x-\n";
+			content +=cluster.getSegmentText()+"\n";
 		}		
-		return content;
+		return startDiv+content+endDiv;
 	}
 	
 	private String createWebPageEntitiesContentCard(WebPageEntity webPageEntities){
-		String webPageEntityCard = "----WebPageEntity Card----\n";
-		return webPageEntityCard+"\n ------- \n"+webPageEntities.toString()+"\n ------- \n";
+		return startDiv+webPageEntities.toString()+endDiv;
 		
 	}
 	
@@ -45,18 +48,19 @@ public class HistoryVisualizer {
 	 */
 	private String createWebPageClusterCard(List<WebPageCluster> webPageClusters){
 		
-		String webPageClusterContent = "----WebPageCluster Card----\n";
+		String webPageClusterContent = "";
 		
 		for(WebPageCluster webPageCluster : webPageClusters){
 			webPageClusterContent += "\n WebPageCluster \n"+webPageCluster+"\n ------- \n";
 		}
-		return "\n ------- \n"+webPageClusterContent+"\n ------- \n";
+		return startDiv+webPageClusterContent+endDiv;
 		
 	}
 	
 	
 	public String getProcessedHistory() {
-		return webSummary;
+		
+		return "<div id=\"content\" class=\"photo\"><h2>"+title+"<\\h2>"+webSummary+"<\\div>";
 	}
 
 }

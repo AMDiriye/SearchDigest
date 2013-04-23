@@ -52,6 +52,7 @@ public class WebPage{
 	}
 	
 	public String getContent() {
+		
 		return doc.text();
 	}
 
@@ -103,12 +104,16 @@ public class WebPage{
 	}
 
 	
-	public String getLinks() {
-		return webPageStructure.toString();
+	public List<Link> getLinks() {
+		return webPageStructure.getLinks();
 	}
 
 	public String getURL() {
 		return url;
+	}
+	
+	public List<String> getStemmedTerms(){
+		return stemmedTerms;
 	}
 	
 	public WebPageStructure getWebPageStructure() {
@@ -133,6 +138,10 @@ public class WebPage{
 	    return domain.startsWith("www.") ? domain.substring(4) : domain;
 	}
 
+	@Override
+	public String toString(){
+		return title+"\n No. inLink: "+numInLink+"\n"+url+"\n"+summary;
+	}
 	
 
 }

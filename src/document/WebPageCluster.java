@@ -15,8 +15,14 @@ public class WebPageCluster {
 	public WebPageCluster(WebPage webPage){
 		cluster = new ArrayList<WebPage>();
 		centroid = new WebPageCentroid();
-		centroid.termCounts = webPage.stemmedTermCounts;
-		centroid.terms = webPage.stemmedTerms;
+		
+		List<String> terms = new ArrayList<String>();
+		terms.addAll(webPage.stemmedTerms);
+		List<Double> termCounts = new ArrayList<Double>();
+		termCounts.addAll(webPage.stemmedTermCounts);
+		
+		centroid.termCounts = termCounts; 
+		centroid.terms = terms;
 	}
 	
 	//TODO: add new cosineSim function
@@ -37,8 +43,8 @@ public class WebPageCluster {
 				centroid.termCounts.set(index, termCount+webPageTermCount);
 			}
 			else{
-				centroid.terms.add(term);
-				centroid.termCounts.add(webPage.getTermCount(term));
+				centroid.addTerm(term);
+				centroid.addTermCount(webPage.getTermCount(term));
 			}
 			
 		}
@@ -92,7 +98,7 @@ public class WebPageCluster {
 	}
 	
 	
-	class WebPageCentroid{
+	public class WebPageCentroid{
 		List<String> terms;
 		List<Double> termCounts;
 		
@@ -101,6 +107,11 @@ public class WebPageCluster {
 			termCounts = new ArrayList<Double>();
 		}
 		
+		public void addTermCount(Double termCount) {
+			termCounts.add(termCount);
+			
+		}
+
 		public void addDoc(String docText){
 			String[] docTerms = docText.split(" ");
 			
@@ -118,9 +129,9 @@ public class WebPageCluster {
 			}
 		}
 		
-		private void addTerm(String term){
-			
-		}
+		public void addTerm(String term){
+			terms.add(term);
+		}	
 	}
 	
 }

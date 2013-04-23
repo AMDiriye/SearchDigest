@@ -38,10 +38,10 @@ public class WebPageStructure {
 	}
 	
 	public List<Link> getLinks(){
-		System.out.println("****");
+		/*System.out.println("****");
 		for(Link link : links){
-			System.out.println(link.url+"\n");
-		}
+			System.out.println(link.url);
+		}*/
 		return links;
 	}
 	

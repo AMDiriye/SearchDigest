@@ -390,6 +390,36 @@ public class Utilities {
 		else return 0;
 	}
 
+	public static WebPage addTermInfo(WebPage webPage){
+		
+		String docContent = webPage.getDoc().text();
+		docContent = Utilities.removeStopWords(docContent);
+		docContent = Utilities.stem(docContent);
+		
+		HashSet<String> uniqueDocTerms =  new LinkedHashSet<String>(Arrays.asList(docContent.split("[\\s]")));
+		String[] allDocTerms = docContent.split("[\\s]");
+		
+		webPage.setStemmedTerms(Arrays.asList(uniqueDocTerms.toArray(new String[]{})));
+		Double[] termFreq = new Double[uniqueDocTerms.size()];
+		
+		int pos=0;
+		for(int i=0;i<allDocTerms.length;i++){
+			int posOfTerm = webPage.getStemmedTerms().indexOf(allDocTerms[i]);
+			
+			if(termFreq[posOfTerm] != null){
+				
+				termFreq[posOfTerm] = new Double(termFreq[posOfTerm].intValue()+1);
+			}
+			else{
+				termFreq[pos] = new Double(1);
+				pos++;
+			}		
+		}
+		webPage.setStemmedTermCounts(Arrays.asList(termFreq));
+		return webPage;
+	}
+	
+
 }
 
 

@@ -37,7 +37,6 @@ public class HubLabeller {
 				}
 			}
 		}
-		
 	}
 	
 	private boolean isLinkContained(List<Link> links, String webPageURL){
@@ -58,7 +57,7 @@ public class HubLabeller {
 			for(int j=0;j<reOrderedWebPages.size();j++){
 				if(webPages[i].getNumInLink() > reOrderedWebPages.get(j).getNumInLink()){
 					reOrderedWebPages.add(j, webPages[i]);
-					continue;
+					break;
 				}
 			}
 			if(!reOrderedWebPages.contains(webPages[i]))
