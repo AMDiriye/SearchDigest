@@ -36,8 +36,7 @@ h3 {/*border-bottom:1px solid #dadada;*/  color:#d36e1a; font-size:1.2em; font-w
 #content {float: left;-moz-box-shadow: 0 0 5px #888;-webkit-box-shadow: 0 0 5px#888;box-shadow: 0 0 5px #888; line-height:1.5em; margin:0; padding:0; text-align:left; width:750px;margin-top: 25px;margin-left: 200px;}
 #contentalt {float:left; line-height:1.5em; margin-right:20px; padding:0; text-align:left; width:750px;}
 #content h3,#contentalt h3 {margin-left: 15px; margin-bottom: -10px;}
-#innerContent{ width:90%;border:1px solid #bababa; padding:10px;margin: 20px;float:left;-webkit-box-shadow: 0 0 5px#888;
-box-shadow: 0 0 5px #888}
+#innerContent{ width:90%;border:1px solid #bababa; padding:10px;margin: 20px;float:left;}
 #innerContent ul{list-style-type: none;}
 #innerContent div{ width: 100px; height: 200px; overflow: scroll;font-size: 9pt; }
 #headerDiv{border-bottom:1px solid #dadada; color:#d36e1a; }

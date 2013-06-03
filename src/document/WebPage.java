@@ -27,7 +27,7 @@ public class WebPage{
 	
 	//Document properties
 	WebPageStructure webPageStructure;
-	WebPageSections webPageSections;
+	WebPageSection webPageSections;
 	WebPageEntities webPageEntities;
 	WebPageMedia webPageMedia;
 	
@@ -52,7 +52,6 @@ public class WebPage{
 	}
 	
 	public String getContent() {
-		
 		return doc.text();
 	}
 
@@ -79,7 +78,7 @@ public class WebPage{
 		numInLink++;
 	}
 	
-	public void setWebPageSegments(WebPageSections webPageSections) {
+	public void setWebPageSegments(WebPageSection webPageSections) {
 		this.webPageSections = webPageSections;
 	}
 	
@@ -120,7 +119,7 @@ public class WebPage{
 		return webPageStructure;
 	}
 	
-	public WebPageSections getWebPageSegments() {
+	public WebPageSection getWebPageSegments() {
 		return webPageSections;
 	}
 	

@@ -13,10 +13,9 @@ import document.WebPageCluster;
 public class HistoryProcessor {
 
 	WebPage[] webPages;
-	//List<Object> processHistory;
 	List<WebPageCluster> webPageClusters;
 	WebPageEntity webPageEntities;
-	List<Cluster> alignedContent;
+	List<List<Cluster>> alignedContent;
 	
 	public HistoryProcessor(WebPage[] webPages) {
 		this.webPages = webPages;
@@ -25,7 +24,7 @@ public class HistoryProcessor {
 	public void process() {
 		//create the history items and add to list
 		findHubPages();
-		createPageClusters();
+		//createPageClusters();
 		createPageAlignment();
 		//extractEntities();
 		//extractQueries();
@@ -44,12 +43,26 @@ public class HistoryProcessor {
 	private void createPageClusters(){
 		ClusterFactory clusterFactory = new ClusterFactory(webPages);
 		clusterFactory.clusterWebPagesBySimilarity();
+		//ClusterFactory clusterFactory = new ClusterFactory();
+		//clusterFactory.setWebPages(webPages);
+		//clusterFactory.clusterWebPagesByURL();
 		webPageClusters = clusterFactory.getWebPageClusters();
 	}
 	
 	private void createPageAlignment(){
-		AlignmentFactory alignmentFactory = new AlignmentFactory(webPages);
-		alignedContent = alignmentFactory.getAlignedWebPages();
+		//First find groups of pages to align
+		alignedContent = new ArrayList<List<Cluster>>();
+		ClusterFactory clusterFactory = new ClusterFactory();
+		clusterFactory.setWebPages(webPages);
+		clusterFactory.clusterWebPagesByURL();
+		List<WebPageCluster> tempWebPageClusters = clusterFactory.getWebPageClusters();
+		
+		//Align groups of pages
+		for(WebPageCluster webPageCluster : tempWebPageClusters){
+			AlignmentFactory alignmentFactory = new AlignmentFactory(webPageCluster.getWebPages().toArray(new WebPage[]{}));
+			alignedContent.add(alignmentFactory.getAlignedWebPages());
+		}
+		
 	}
 	
 	private void extractEntities(){

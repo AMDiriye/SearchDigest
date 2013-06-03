@@ -30,6 +30,11 @@ public class WebPageCluster {
 		return Utilities.cosineSimilarity(centroid.terms,centroid.termCounts, webPage.stemmedTerms,webPage.stemmedTermCounts);
 	}
 	
+	//TODO: Compare effectiveness of centroid and single webpage
+	public double getURLSimilarity(WebPage webPage){
+		return Utilities.computeURLSimilarity(cluster.get(0).url,webPage.url);
+	}
+	
 	public void addWebPage(WebPage webPage){
 		cluster.add(webPage);
 		
@@ -48,6 +53,10 @@ public class WebPageCluster {
 			}
 			
 		}
+	}
+	
+	public List<WebPage> getWebPages(){
+		return cluster;
 	}
 	
 	public void clearWebPage(){

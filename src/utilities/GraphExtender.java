@@ -46,7 +46,7 @@ public class GraphExtender {
 				//finds most similar webPage
 				for(WebPage _webPage : webpages){
 					
-					double tempSim = computeURLSimilarity(link.getURL(),_webPage.getURL());
+					double tempSim = Utilities.computeURLSimilarity(link.getURL(),_webPage.getURL());
 					
 					if(tempSim>maxSim && tempSim > MIN_LINK_SIM && !urlGraph.isSourceMember(link.getURL())){
 						maxSim = tempSim;
@@ -87,32 +87,6 @@ public class GraphExtender {
 		return bestLinks.subList(0, size);
 	}
 	
-	
-	private double computeURLSimilarity(String url1, String url2){
-		
-		double count = 0.0;
-		
-		String[] urltokens1 = url1.split("[//]");
-		String[] urltokens2 = url2.split("[//]");
-		
-		for(int i=0;i<urltokens1.length;i++){
-			for(int j=0;j<urltokens2.length;j++){
-				String urltoken1 = lowerCaseAndTrim(urltokens1[i]);
-				String urltoken2 = lowerCaseAndTrim(urltokens2[j]);
-				if(urltoken1.equals(urltoken2)){
-					count++;
-				}
-			}
-		}
-		
-		double maxLength = urltokens2.length < urltokens1.length?urltokens1.length:urltokens2.length;
-		
-		return (count/maxLength);
-	}
-
-	private String lowerCaseAndTrim(String str){
-		return str.toLowerCase().trim();
-	}
 	
 	public List<String> getNewLinksGenerated(){
 		return newLinks;

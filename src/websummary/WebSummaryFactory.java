@@ -12,7 +12,9 @@ import utilities.Utilities;
 import net.sf.classifier4J.summariser.SimpleSummariser;
 import document.Link;
 import document.WebPage;
-import document.WebPageSections;
+import document.WebPageSection;
+
+
 import document.WebPageStructure;
 
 public class WebSummaryFactory {
@@ -86,7 +88,7 @@ public class WebSummaryFactory {
 
 	private WebPage addWebPageSegmentation(WebPage webPage) {
 		SegmentationFactory segmentFactory = new SegmentationFactory(webPage.getDoc());
-		WebPageSections webPageSections = new WebPageSections();
+		WebPageSection webPageSections = new WebPageSection();
 
 		webPageSections.addAllSegments(segmentFactory.getSegments());
 		webPage.setWebPageSegments(webPageSections);
@@ -100,7 +102,7 @@ public class WebSummaryFactory {
 		pageSegmentation += webPage.getTitle();
 
 		for(Cluster segment : webPage.getWebPageSegments().segments){
-			pageSegmentation += segment.getProcessedText()+"\n --------- \n";
+			pageSegmentation += segment.getSegmentText()+"\n --------- \n";
 		}
 
 		return pageSegmentation;

@@ -1,5 +1,7 @@
 package run;
 
+import index.InverseDocumentFreq;
+
 import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.FileInputStream;
@@ -60,7 +62,6 @@ public class WebSummaryRunner {
 		}
 		
 		WebPage[] webPages = null;
-		List<WebPage> newWebPages = new ArrayList<WebPage>();
 		
 		//Iterate through webtasks 
 		for(WebTask webtask : webTasks){
@@ -74,6 +75,16 @@ public class WebSummaryRunner {
 				webPage = webSummaryFactory.addWebPageProperties(webPage);
 				webPages[i] = webPage;
 			}
+			
+			InverseDocumentFreq idf = new InverseDocumentFreq();
+			
+			for(WebPage webPage : webPages){
+				
+				String stemmedTerms = Utilities.stem(Utilities.removeStopWords(webPage.getContent().replaceAll("[\\.\\/-]", " ")));
+				idf.addDocument(stemmedTerms);
+			}
+			
+			Utilities.inverseDocFreq = idf;
 			
 			HistoryVisualizer historyViz = new HistoryVisualizer();
 			historyViz.processHistory(webPages);

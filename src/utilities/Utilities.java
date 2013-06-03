@@ -1,6 +1,6 @@
 package utilities;
 
-import index.InverseFreq;
+import index.InverseDocumentFreq;
 import index.InverseSegmentFreq;
 
 import java.io.BufferedReader;
@@ -21,6 +21,8 @@ import java.util.Set;
 import java.util.TreeMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import org.apache.commons.lang3.*;
+
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Comment;
@@ -41,8 +43,9 @@ public class Utilities {
 
 	static Stemmer stemmer  = new Stemmer();
 	static StopWordCollection stopWordCollection = StopWordCollection.getInstance();
-	public static InverseFreq isf;
-
+	public static InverseSegmentFreq isf;
+	public static InverseDocumentFreq inverseDocFreq;
+	
 	public static String[] getTopKTerms(String text){
 		ArrayList<String> entities = new ArrayList<String>();
 		ArrayList<String> entityCount = new ArrayList<String>();
@@ -92,20 +95,39 @@ public class Utilities {
 		return similarity/Math.min(entity1.size(),entity2.size());
 	}
 
-	//TODO: Fix cosine similarity
-	public static double cosineSimilarity(List<String> entity1, List<String> entity2){
-		double similarity = 0.0;
-
-
-		for(String term : entity1)
-		{
-			if(term.trim().length() != 0)
-				similarity += getTFIDF(term, entity2.toString());
+	public static double cosineSimilarity(String[] doc1, String[] doc2){
+		
+		double sumOfTerms = 0.0;
+		List<String> terms = new ArrayList<String>(Arrays.asList(doc1));
+		terms.retainAll( new ArrayList<String>(Arrays.asList(doc2)));
+		
+		for(String term : terms){
+				//Computes the top half of the cosine eqn
+				int termDoc1 = StringUtils.countMatches(Arrays.toString(doc1), term);
+				int termDoc2 = StringUtils.countMatches(Arrays.toString(doc2), term);
+				sumOfTerms += (Math.log(termDoc1)+1)*(Math.log(termDoc2)+1)*inverseDocFreq.getIDF(term);
 		}
-
-		return 1-Math.cos(similarity / Math.sqrt((entity1.size() * entity2.size())));
+		return sumOfTerms/(Math.sqrt(getLogTermFreq(doc1,false))*Math.sqrt(getLogTermFreq(doc2,true)));
 	}
 
+	private static double getLogTermFreq(String[] doc, boolean useIDF){
+		double logTermFreq = 0;
+		double indexTermFreq = 1;
+		Set<String> uniqueTerms = new HashSet<String>();
+		uniqueTerms.addAll(Arrays.asList(doc));
+
+		for(String term : uniqueTerms){
+			if(term.trim().length() == 0)
+				continue;
+				
+			if(useIDF){
+				indexTermFreq = inverseDocFreq.getIDF(term);
+			}
+			logTermFreq += Math.pow((Math.log(StringUtils.countMatches(Arrays.toString(doc), term))+1)*indexTermFreq,2);
+		}
+		return logTermFreq;
+	}
+	
 	public static double cosineSimilarity(List<String> terms, List<Double> termCounts, List<String> stemmedTerms, List<Double> stemmedTermCounts) {
 		double cosSim = 0.0;
 		int pos = 0;
@@ -118,7 +140,6 @@ public class Utilities {
 			
 			pos++;
 		}
-		
 		return 1-Math.cos(cosSim / Math.sqrt((terms.size() * stemmedTerms.size())));
 	}
 	
@@ -167,7 +188,7 @@ public class Utilities {
 		while (matcher.find())
 			tf++;
 		
-		double idf = isf.getIDF(term);
+		double idf = inverseDocFreq.getIDF(term);
 		return tf * idf;
 
 	}
@@ -247,7 +268,7 @@ public class Utilities {
 	private static double[] computeDistribution(List<String> termDoc, Cluster segment)
 	{
 		double[] distribution = new double[termDoc.size()];
-		String segmentText = segment.getProcessedText();
+		String segmentText = segment.getCleanText();
 
 		for(int i=0; i<distribution.length;i++)
 		{
@@ -420,6 +441,41 @@ public class Utilities {
 		return webPage;
 	}
 	
+	
+
+	public static double computeURLSimilarity(String url1, String url2){
+		
+		double count = 0.0;
+		
+		String[] urltokens1 = url1.split("[//]");
+		String[] urltokens2 = url2.split("[//]");
+		
+		for(int i=0;i<urltokens1.length;i++){
+			for(int j=0;j<urltokens2.length;j++){
+				String urltoken1 = lowerCaseAndTrim(urltokens1[i]);
+				String urltoken2 = lowerCaseAndTrim(urltokens2[j]);
+				if(urltoken1.equals(urltoken2)){
+					count++;
+				}
+			}
+		}
+		
+		double maxLength = urltokens2.length < urltokens1.length?urltokens1.length:urltokens2.length;
+		
+		return (count/maxLength);
+	}
+
+	private static String lowerCaseAndTrim(String str){
+		return str.toLowerCase().trim();
+	}
+	
+	 public static int factorial(int n) {
+	        int fact = 1; // this  will be the result
+	        for (int i = 1; i <= n; i++) {
+	            fact *= i;
+	        }
+	        return fact;
+	    }
 
 }
 

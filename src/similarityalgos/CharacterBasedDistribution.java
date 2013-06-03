@@ -11,7 +11,7 @@ import utilities.Utilities;
 public class CharacterBasedDistribution{
 
 	int textSize = 0;
-	double[] distribution;
+	public double[] distribution;
 
 	public CharacterBasedDistribution(String text){
 		distribution = new double[7];
@@ -94,7 +94,7 @@ public class CharacterBasedDistribution{
 		CharacterBasedDistribution doc3 = new CharacterBasedDistribution("I am interested in the development, improvement, and analysis of machine learning methods with a focus on systems that can aid in the automatic analysis of natural language as components of adaptive systems or information retrieval systems. My current focus is on contextual and personalized search. I am also actively engaged in enriched information retrieval, active sampling and learning, hierarchical and large-scale classification, and human computation and preferences. My past work has examined a variety of areas Ñ primarily ensemble methods, calibrating classifiers, search query classification and characterization, and redundancy and diversity, but also extending to transfer learning, machine translation, recommender systems, and knowledge bases. In addition to my research, I engage in a variety of professional service activities for the machine learning, data mining, and information retrieval communities.");
 		CharacterBasedDistribution doc4 = new CharacterBasedDistribution("I am interested in algorithms and interfaces for improved information retrieval, as well as general issues in human-computer interaction. I joined Microsoft Research in July 1997. I work on a wide variety of information access and management issues, including: personal information management, web search, question answering, information retrieval, text categorization, collaborative filtering, interfaces for improved search and navigation, and user/task modeling.");
 		System.out.println(Utilities.jsDivergence(doc1.distribution,doc3.distribution));
-		System.out.println(Utilities.jsDivergence(doc1.distribution,doc2.distribution));
+		System.out.println(Utilities.jsDivergence(doc2.distribution,doc1.distribution));
 		System.out.println(Utilities.jsDivergence(doc4.distribution,doc1.distribution));
 		System.out.println(Utilities.jsDivergence(doc2.distribution,doc3.distribution));
 		System.out.println(Utilities.jsDivergence(doc2.distribution,doc4.distribution));

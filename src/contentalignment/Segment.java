@@ -25,16 +25,15 @@ public class Segment {
 	Node node;
 	String label;
 	
-	public Segment(String text, Node node)
-	{
+	public Segment(String text, Node node){
 		this.text = text;
 		this.node = node;
-		stopWordLessText = Utilities.removeStopWords(text);
+		stopWordLessText = Utilities.removeStopWords(text.replaceAll("[\\.\\/-]", " ")).trim();
 		size = stopWordLessText.split("[\\s]").length;
 
 	    processedTerms = Utilities.stem(stopWordLessText);
 		cleanTextList = new ArrayList<String>();
-		cleanTextList.addAll(Arrays.asList(processedTerms.split("[\\s]")));
+		cleanTextList.addAll(Arrays.asList(processedTerms.split(" ")));
 
 		HashSet set = new HashSet();
 		set.add(stopWordLessText);
@@ -73,10 +72,10 @@ public class Segment {
 	@Override
 	public String toString(){
 		if(node == null)
-			return text;
+			return text+" ";
 		else if(node instanceof Element)
-			return ((Element) node).text();
-		else return node.toString();
+			return ((Element) node).text()+" ";
+		else return node.toString()+" ";
 
 	}
 }

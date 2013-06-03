@@ -25,7 +25,7 @@ public class HistoryVisualizer {
 		webSummary += createHubPagesCard(historyProcessor.webPages);
 		webSummary += createAlignedContentCard(historyProcessor.alignedContent);
 		//webSummary += createWebPageEntitiesContentCard(historyProcessor.webPageEntities);
-		webSummary += createWebPageClusterCard(historyProcessor.webPageClusters);
+		//webSummary += createWebPageClusterCard(historyProcessor.webPageClusters);
 	}
 
 	private String createTitle(WebPage[] webPages){
@@ -33,22 +33,25 @@ public class HistoryVisualizer {
 		return "";
 	}
 	
-	private String createAlignedContentCard(List<Cluster> alignedContent){
+	private String createAlignedContentCard(List<List<Cluster>> alignedContent){
 		String content="";
 		
-		for(Cluster cluster : alignedContent){
-			String segmentContent ="";
-			for(Segment segment : cluster.getSegments()){
-				segmentContent+="------*-------"+segment.getText();
+		for(List<Cluster> clusters : alignedContent){
+			String clusterContent="";
+			for(Cluster  cluster : clusters){
+				String segmentContent ="";
+				for(Segment segment : cluster.getSegments()){
+					segmentContent+="<p>"+segment.getText()+"</p>";
+					}
+				clusterContent+=segmentContent+"\n";
 			}
-			content +=startDiv+segmentContent+endDiv+"\n";
+			content +=startDiv+clusterContent+endDiv+"\n";
 		}		
 		return "<h3>Useful Segments</h3>"+startDiv+content+endDiv;
 	}
 	
 	private String createWebPageEntitiesContentCard(WebPageEntity webPageEntities){
-		return startDiv+webPageEntities.toString()+endDiv;
-		
+		return startDiv+webPageEntities.toString()+endDiv;		
 	}
 	
 	/**
