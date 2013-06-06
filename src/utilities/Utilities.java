@@ -52,8 +52,6 @@ public class Utilities {
 
 		text = stem(removeStopWords(text));
 		String[] terms = text.split("[\\s]");
-
-
 		//Count occurrences
 		Map<String, Integer> map = new HashMap<String, Integer>();
 

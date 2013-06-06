@@ -82,6 +82,7 @@ public class WebSummaryRunner {
 				
 				String stemmedTerms = Utilities.stem(Utilities.removeStopWords(webPage.getContent().replaceAll("[\\.\\/-]", " ")));
 				idf.addDocument(stemmedTerms);
+
 			}
 			
 			Utilities.inverseDocFreq = idf;

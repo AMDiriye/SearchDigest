@@ -49,8 +49,10 @@ public class InverseDocumentFreq {
 		if(index >= termFreq.size()){
 			throw new Error();
 		}
-		if(index == -1)
+		if(index == -1){
 			System.out.println("--"+term);
+			return 0;
+		}
 		double idf = (((double)numDocs)/(termFreq.get(index)));
 		return Math.abs(Math.log(idf)+1);
 	}

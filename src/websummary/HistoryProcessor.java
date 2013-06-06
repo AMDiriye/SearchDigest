@@ -16,6 +16,7 @@ public class HistoryProcessor {
 	List<WebPageCluster> webPageClusters;
 	WebPageEntity webPageEntities;
 	List<List<Cluster>> alignedContent;
+	AlignmentFactory alignmentFactory;
 	
 	public HistoryProcessor(WebPage[] webPages) {
 		this.webPages = webPages;
@@ -59,7 +60,7 @@ public class HistoryProcessor {
 		
 		//Align groups of pages
 		for(WebPageCluster webPageCluster : tempWebPageClusters){
-			AlignmentFactory alignmentFactory = new AlignmentFactory(webPageCluster.getWebPages().toArray(new WebPage[]{}));
+			alignmentFactory = new AlignmentFactory(webPageCluster.getWebPages().toArray(new WebPage[]{}));
 			alignedContent.add(alignmentFactory.getAlignedWebPages());
 		}
 		

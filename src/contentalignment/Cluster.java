@@ -24,8 +24,10 @@ public class Cluster {
 	List<Double> pageLocations;
 	int state = 0;
 	String text;
+	String url;
 	
 	public Cluster(){
+		this.url = url;
 		this.segments = new ArrayList<Segment>();
 		this.terms = new ArrayList<String>();
 		this.clusters = new ArrayList<Cluster>();
@@ -61,7 +63,6 @@ public class Cluster {
 		
 		return simMax + (1-(locationSim/((double)webPageSections.size())))*simMax;
 	}
-	
 	
 	public void addSegment(Segment segment){
 		segments.add(segment);
@@ -270,7 +271,6 @@ public class Cluster {
 	public List<String> getCleanTextList() {
 		return terms;
 	}
-
 //	public String getProcessedText(){
 //		return processedTerms;
 //	}
@@ -307,6 +307,12 @@ public class Cluster {
 		}
 		
 		return segmentText;
+	}
+
+	public void setSegmentAlignedFlag() {
+		for(WebPageSection webPageSection : webPageSections){
+			webPageSection.aligned();
+		}
 	}
 
 }

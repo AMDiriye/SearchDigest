@@ -12,14 +12,20 @@ import document.WebPageSection;
 public class AlignmentFactory {
 
 	List<Cluster> alignedWebPages;
-
+	String url;
+	List<List<WebPageSection>> segmentedWebPages;
+	
 	public AlignmentFactory(WebPage[] webPages){
+		
+		if(webPages.length == 1)
+			this.url = webPages[0].getURL();
+		
 		alignWebPages(webPages);
 	}
 
 	private void alignWebPages(WebPage[] webPages){
 
-		List<List<WebPageSection>> segmentedWebPages = new ArrayList<List<WebPageSection>>();
+		segmentedWebPages = new ArrayList<List<WebPageSection>>();
 
 		for(WebPage webPage : webPages){
 			SegmentationFactory segmentFactory = new SegmentationFactory(webPage.getDoc());
@@ -34,7 +40,7 @@ public class AlignmentFactory {
 	private List<Cluster> alignDocs(List<List<WebPageSection>> docs){
 
 		List<Cluster> alignedContent = new ArrayList<Cluster>();
-
+		
 		//iterates through each doc
 		for(int i=0; i< docs.size(); i++){
 			System.out.println("Processing "+(i+1)+" of "+docs.size());
@@ -47,9 +53,11 @@ public class AlignmentFactory {
 				WebPageSection segment = doc.get(j);
 
 				if(i == 0){
+					
 					Cluster tempCluster = new Cluster();
 					tempCluster.addWebPageSection(0, segment);
 					alignedContent.add(tempCluster);
+					
 				}
 				else{
 
@@ -63,7 +71,8 @@ public class AlignmentFactory {
 					}
 					else{
 						rowsUnavailable.add(new Integer(bestCluster));
-						alignedContent.get(bestCluster).addWebPageSection(i, segment);					
+						alignedContent.get(bestCluster).setSegmentAlignedFlag();
+						alignedContent.get(bestCluster).addWebPageSection(i, segment);
 					}
 				}
 			}
@@ -78,7 +87,7 @@ public class AlignmentFactory {
 		for(int i = 0;i < clusters.size(); i++){
 
 			double tempSimVal = clusters.get(i).getSimilarity(cluster);
-			if(tempSimVal > bestSimVal && !rowsUnavailable.contains(new Integer(i)) && tempSimVal > 0.5){
+			if(tempSimVal > bestSimVal && !rowsUnavailable.contains(new Integer(i)) && tempSimVal > 0.25){
 				bestSimVal = tempSimVal;
 				posBestCluster = i;
 			}

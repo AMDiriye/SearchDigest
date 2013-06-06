@@ -4,7 +4,6 @@ http://research.microsoft.com/en-us/um/people/sumitb/
 http://research.microsoft.com/en-us/people/ankannan/
 http://research.microsoft.com/en-us/um/people/dmax/
 http://research.microsoft.com/en-us/um/people/alicez/
-http://research.microsoft.com/en-us/people/alexac/
 http://research.microsoft.com/en-us/um/people/sdumais/
 http://research.microsoft.com/en-us/um/people/pauben/
 

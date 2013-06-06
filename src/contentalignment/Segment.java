@@ -30,7 +30,6 @@ public class Segment {
 		this.node = node;
 		stopWordLessText = Utilities.removeStopWords(text.replaceAll("[\\.\\/-]", " ")).trim();
 		size = stopWordLessText.split("[\\s]").length;
-
 	    processedTerms = Utilities.stem(stopWordLessText);
 		cleanTextList = new ArrayList<String>();
 		cleanTextList.addAll(Arrays.asList(processedTerms.split(" ")));
