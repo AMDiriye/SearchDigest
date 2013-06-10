@@ -23,39 +23,33 @@ public class HistoryVisualizer {
 		webSummary = "";
 		HistoryProcessor historyProcessor = new HistoryProcessor(webPages);
 		historyProcessor.process();
-		title = createTitle(webPages); 
-		webSummary += createHubPagesCard(historyProcessor.webPages);
-		webSummary += createAlignedContentCard(historyProcessor.alignedContent);
-		webSummary += createWebPageSummaryCard(historyProcessor,webPages);
+		webSummary += createHubPagesCard(historyProcessor.domains);
+		//webSummary += createAlignedContentCard(historyProcessor.alignedContent);
+		webSummary += createWebPageSummaryCard(webPages);
 		//webSummary += createWebPageEntitiesContentCard(historyProcessor.webPageEntities);
 		//webSummary += createWebPageClusterCard(historyProcessor.webPageClusters);
 	}
 
-	private String createTitle(WebPage[] webPages){
-		//TODO need to create title;
-		return "";
-	}
 
-	private String  createWebPageSummaryCard(HistoryProcessor historyProcessor, WebPage[] webPages){
+	private String  createWebPageSummaryCard( WebPage[] webPages){
 		String content = "";
 
-		List<Cluster> segmentedPages = historyProcessor.alignmentFactory.alignedWebPages;
-
-		for(Cluster segmentedPage: segmentedPages){
+		for(WebPage webPage : webPages){
 			int count =0;
 			String clusterContent ="";
-			if(segmentedPage.getWebPageSections().size() > 1){
-				for(WebPageSection webPageSection: segmentedPage.getWebPageSections()){
-					String webPageContent = webPageSection.toString();
-					if(webPageContent.length() >0)
-						clusterContent += "<li>***"+webPageContent.substring(0, Math.min(webPageContent.length(),100))+"...</li>";
+			if(webPage.getSegmentedWebPage().size() > 1){
+				clusterContent += "<img width=\"75px\" src=\""+webPage.getImg()+"\">";
+				for(WebPageSection webPageSection: webPage.getSegmentedWebPage()){
+					
+					if(webPageSection.isAligned())
+						clusterContent += "<li>***"+webPageSection.toString().substring(0, Math.min(webPageSection.getText().length(),100))+"...</li>";
 				}
 
 				content += "-----------<br\\><ul>"+clusterContent+"</ul>";
 			}
 		}
 
-		return "<h3></h3>"+startDiv+content+endDiv;
+		return "<h3>WebPage Summaries</h3>"+startDiv+content+endDiv;
 	}
 
 	private String createAlignedContentCard(List<List<Cluster>> alignedContent){
@@ -91,15 +85,14 @@ public class HistoryVisualizer {
 			webPageClusterContent += startDiv+"\n WebPageCluster \n"+webPageCluster+"\n ------- \n"+endDiv;
 		}
 		return "<h3>Recommended Clusters</h3>"+startDiv+webPageClusterContent+endDiv;
-
 	}
 
-	private String createHubPagesCard(WebPage[] webPages){
+	private String createHubPagesCard(String[] webPages){
 
 		String hubPageString="<ul>";
 
-		for(WebPage webPage : webPages){
-			hubPageString += "<li><span class=\"star\" id=\"title\">"+webPage.getTitle()+"</span>&nbsp;<span id=\"url\">"+webPage.getURL()+"</span></li>";
+		for(String webPage : webPages){
+			hubPageString += "<li><span class=\"star\" id=\"title\">"+webPage+"</span>&nbsp;<span id=\"url\">"+"</span></li>";
 		}
 		hubPageString +="</ul>";
 		return "<h3>Important Pages</h3><div id=\"innerContent\" class=\"hubPages\">"+hubPageString+endDiv;

@@ -70,6 +70,7 @@ public class WebSummaryRunner {
 			for(int i=0;i<webtask.getNumURLs();i++){
 				//System.out.println(webtask.getURLAt(i));
 				WebPage webPage = new WebPage(Utilities.getDoc(webtask.getURLAt(i)));
+				webPage.setImg(Utilities.findUserPic(webPage.getDoc().select("img"),webPage.getTitle()));
 				webPage = Utilities.addTermInfo(webPage);
 				WebSummaryFactory webSummaryFactory = new WebSummaryFactory();
 				webPage = webSummaryFactory.addWebPageProperties(webPage);

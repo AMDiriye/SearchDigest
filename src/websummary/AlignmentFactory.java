@@ -31,6 +31,7 @@ public class AlignmentFactory {
 			SegmentationFactory segmentFactory = new SegmentationFactory(webPage.getDoc());
 			PageSegmentGrouper pageSegmentGrouper = new PageSegmentGrouper(segmentFactory.getSegments(), segmentFactory.getDoc());
 			List<WebPageSection> segmentedWebPage = pageSegmentGrouper.getCluster();
+			webPage.setWebPageSegments(segmentedWebPage);
 			segmentedWebPages.add(segmentedWebPage);
 		}	
 		alignedWebPages = alignDocs(segmentedWebPages);

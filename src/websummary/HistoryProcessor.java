@@ -13,6 +13,7 @@ import document.WebPageCluster;
 public class HistoryProcessor {
 
 	WebPage[] webPages;
+	String[] domains;
 	List<WebPageCluster> webPageClusters;
 	WebPageEntity webPageEntities;
 	List<List<Cluster>> alignedContent;
@@ -25,6 +26,7 @@ public class HistoryProcessor {
 	public void process() {
 		//create the history items and add to list
 		findHubPages();
+		findDomains();
 		//createPageClusters();
 		createPageAlignment();
 		//extractEntities();
@@ -32,6 +34,21 @@ public class HistoryProcessor {
 		
 		//reorder based on importance
 		//reorderHistory();
+	}
+
+	//Find domain of all links on pages
+	private void findDomains() {
+		List<String> _domains = new ArrayList<String>();
+		List<Double> count = new ArrayList<Double>();
+		
+		for(WebPage webPage : webPages){
+			String[] url = webPage.getURL().split("[/]"); 
+			int posOfWebPage = webPage.getURL().indexOf(url[url.length-1]);
+			String topDomainName = webPage.getURL().substring(0,posOfWebPage);
+			_domains.add(topDomainName);
+		}
+		
+		domains = _domains.toArray(new String[]{});
 	}
 
 	private void findHubPages() {

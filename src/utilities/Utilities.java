@@ -33,6 +33,7 @@ import org.jsoup.nodes.Entities.EscapeMode;
 import org.jsoup.nodes.TextNode;
 import org.jsoup.safety.Cleaner;
 import org.jsoup.safety.Whitelist;
+import org.jsoup.select.Elements;
 
 import contentalignment.Cluster;
 import contentalignment.Segment;
@@ -465,6 +466,36 @@ public class Utilities {
 
 	private static String lowerCaseAndTrim(String str){
 		return str.toLowerCase().trim();
+	}
+	
+	public static String findUserPic(Elements imgs, String title){
+		String imgURL= imgs.first().absUrl("src");
+		int count = 0;
+		for(Element element : imgs){
+			String tempImgURL = element.absUrl("src");
+			int tempCount = similarity(tempImgURL,title); 
+			if(tempCount>count){
+				imgURL = element.absUrl("src");
+				count = tempCount;
+			}
+		}
+		//System.out.println("img selected: "+imgURL);
+		return imgURL;
+	}
+	
+	private static int similarity(String imgURL, String content){
+		int count = 0;
+		String[] imgURLArray = imgURL.split("[//]");
+		String fileName = imgURLArray[imgURLArray.length-1].split("[.]")[0].toLowerCase();
+		//System.out.println(fileName);
+		content = removeStopWords(content).toLowerCase();
+		List<String> contentTerms = Arrays.asList(content.split("[\\s]"));
+		
+		for(String contentTerm : contentTerms){
+			if(contentTerm.contains(fileName))
+				count++;
+		}
+		return count;
 	}
 	
 	 public static int factorial(int n) {

@@ -25,8 +25,8 @@ public class HubLabeller {
 				List<Link> webPage2Links = webpage2.getWebPageStructure().getLinks();
 				
 				System.out.println("-------------");
-				System.out.println(webpage1.getURL());
-				System.out.println(webpage2.getURL());
+				System.out.println("page 1: "+webpage1.getURL());
+				System.out.println("page 2: "+webpage2.getURL());
 				
 				if(isLinkContained(webPage1Links,webpage2.getURL().trim())){
 					webpage2.incrementNumInLink();

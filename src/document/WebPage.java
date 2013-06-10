@@ -19,11 +19,13 @@ public class WebPage{
 	String url;
 	String title;
 	String summary;
+	String img;
 	List<String> stemmedTerms;
 	List<Double> stemmedTermCounts;
 	Date timeOfVisit;
 	boolean isHubPage;
 	int numInLink;
+	List<WebPageSection> segmentedWebPage;
 	
 	//Document properties
 	WebPageStructure webPageStructure;
@@ -65,6 +67,10 @@ public class WebPage{
 		return (index == -1) ?new Double(0) : stemmedTermCounts.get(index);
 		
 	}	
+	
+	public void setImg(String img){
+		this.img = img;
+	}
 	
 	public void setInLinks(int numInLink){
 		this.numInLink = numInLink;
@@ -140,6 +146,18 @@ public class WebPage{
 	@Override
 	public String toString(){
 		return title+"\n No. inLink: "+numInLink+"\n"+url+"\n"+summary;
+	}
+
+	public List<WebPageSection> getSegmentedWebPage(){
+		return segmentedWebPage;
+	} 
+	
+	public void setWebPageSegments(List<WebPageSection> segmentedWebPage) {
+		this.segmentedWebPage = segmentedWebPage;	
+	}
+
+	public String getImg() {
+		return img;
 	}
 	
 
