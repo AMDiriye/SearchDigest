@@ -43,8 +43,19 @@ public class HistoryProcessor {
 		for(WebPage webPage : webPages){
 			String[] url = webPage.getURL().split("[/]"); 
 			int posOfWebPage = webPage.getURL().indexOf(url[url.length-1]);
-			String topDomainName = webPage.getURL().substring(0,posOfWebPage);
-			_domains.add(topDomainName);
+			String topDomainName = webPage.getDomainName();//webPage.getURL().substring(0,posOfWebPage);
+			
+			if(!_domains.contains(topDomainName)){
+				_domains.add(topDomainName);
+				count.add(new Double(1));
+			}
+			else{
+				int pos = _domains.indexOf(topDomainName);
+				Double d = count.get(pos);
+				d++;
+				count.set(pos, d);
+			}
+			
 		}
 		
 		domains = _domains.toArray(new String[]{});

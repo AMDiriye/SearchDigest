@@ -60,7 +60,6 @@ public class HistoryVisualizer {
 					if(webPageSection.isAligned())
 						clusterContent += "<li>***"+webPageSection.toString().substring(0, Math.min(webPageSection.getText().length(),100))+"...</li>";
 				}
-
 				content += "-----------<br\\><ul>"+clusterContent+"</ul>";
 			}
 		}
