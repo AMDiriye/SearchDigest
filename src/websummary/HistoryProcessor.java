@@ -31,7 +31,6 @@ public class HistoryProcessor {
 		createPageAlignment();
 		//extractEntities();
 		//extractQueries();
-		
 		//reorder based on importance
 		//reorderHistory();
 	}

@@ -13,7 +13,7 @@ public class GraphExtender {
 	WebPage[] webpages;
 	URLGraph urlGraph;
 	List<String> newLinks;
-	final double MIN_LINK_SIM = 0.666; 
+	final double MIN_LINK_SIM = 0; 
 	
 	
 	public GraphExtender(WebPage[] webpages){
@@ -31,7 +31,7 @@ public class GraphExtender {
 		}
 	}
 	
-	private void  findNewLinks(){
+	private void findNewLinks(){
 	
 		for(WebPage webPage : webpages){
 			List<Link> webPageLinks = urlGraph.getLinks(webPage.getURL());

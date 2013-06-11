@@ -24,7 +24,8 @@ public class WebSummaryFactory {
 		webPage = addWebPageSummarization(webPage);
 		webPage = addWebPageLinks(webPage);
 		webPage = addWebPageMedia(webPage);
-		//webPage = addWebPageStructure(webPage);
+		webPage = addWebPageStructure(webPage);
+		webPage = addWebPageSegmentation(webPage);
 		return webPage;
 	}
 

@@ -3,6 +3,8 @@ package websummary;
 import java.util.Arrays;
 import java.util.List;
 
+import utilities.GraphExtender;
+
 import contentalignment.Cluster;
 import contentalignment.Segment;
 
@@ -28,6 +30,20 @@ public class HistoryVisualizer {
 		webSummary += createWebPageSummaryCard(webPages);
 		//webSummary += createWebPageEntitiesContentCard(historyProcessor.webPageEntities);
 		//webSummary += createWebPageClusterCard(historyProcessor.webPageClusters);
+		webSummary += createRelatedGraphPages(webPages);
+	}
+
+
+	private String createRelatedGraphPages(WebPage[] webPages) {
+		String content = "";
+		
+		GraphExtender extender = new GraphExtender(webPages);
+		List<String> links = extender.getNewLinksGenerated();
+		
+		for(String link : links)
+			System.out.println("link->"+link);
+		
+		return content;
 	}
 
 
