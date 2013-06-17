@@ -1,22 +1,76 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<!-- saved from url=(0039)http://www.andrew.cmu.edu/user/adiriye/ -->
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	
+<!-- saved from url=(0064)http://www.webdeveloperjuice.com/demos/jquery/simple-slide.html# -->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Web Summary</title>
 
-	<link rel="stylesheet" type="text/css" href="1024px.css" title="1024px" media="screen,projection">
-	<title>Web Task Summaries</title>
-<style type="text/css"></style></head>
+
+<link rel="stylesheet" type="text/css" href="1024px.css">
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js">
+<script type="text/javascript" async="" src="ga.js"></script><script type="text/javascript" src="jquery.min.js"></script><style type="text/css"></style>
+<script type="text/JavaScript">
+$(document).ready(function (){
+	
+	$(".moreDetails").click(function(){
+    var id = $(this).attr("id");
+	$("#txt-"+id).css('display', '');
+
+	if($(this).text()=='Less...'){
+   		$(this).text("More...");
+   		$("#txt-"+id).slideToggle();
+   	}
+	else{
+   		$(this).text("Less...");
+	}
+  });
+
+
+
+	$('#button a').click(function(){
+		event.preventDefault();
+		var integer = $(this).attr('rel');
+		var buttonClass = $(this).parent().attr('class');
+		$('.'+buttonClass+' .cover').animate({left:-160*(parseInt(integer)-1)})  /*----- Width of div mystuff (here 160) ------ */
+		$('.'+buttonClass+' a').each(function(){
+		$(this).removeClass('active');
+			if($(this).hasClass('button'+integer)){
+				$(this).addClass('active')}
+		});
+	});	
+});
+
+</script> 
+
+<style>
+	html{text-align:center;}
+	body{width:950px;margin:0 auto;font-family:trebuchet ms;text-align:left}
+	#myslide {width:160px;overflow:hidden;position: relative;height:80px;margin-bottom:20px}
+
+	#myslide .cover{
+		width:480px; /*------- class mystuff width * number of mystuff divs (160 * 3 = 480)---------- */
+		position: absolute;
+		height:80px;
+	}
+
+	#myslide .mystuff {width:160px;float:left;padding:0px 0;}
+
+	.button1,.button2,.button3{background:#999;padding:6px;display:block;float:left;margin-right:5px;}
+	.active{background:#111;padding:6px;display:block;float:left;outline:none;}
+	.clear{clear:both;}
+	.moreDetails{
+		width: 50px;
+		background-color: rgb(233, 233, 233);
+		text-decoration: underline;
+		cursor: pointer;
+	}
+
+</style>
+
+</head>
 
 <body>
-<div id="wrap">
+		
+<div style="clear:both;margin:10px 0;"></div>
+<h1>Web Summary</h1>
 
-	<div id="header">
-		<h1>Web Task Summaries</h1>
-	</div>
-	<div id="sidebar" >
-		<p><strong>Menu</strong></p>
-		<p><a href=#>Task Summary 1</a></p>
-		<p><a href=#>Task Summary 2</a></p>
+
 	
-	</div>
-

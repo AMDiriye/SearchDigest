@@ -26,6 +26,7 @@ public class WebSummaryFactory {
 		webPage = addWebPageMedia(webPage);
 		webPage = addWebPageStructure(webPage);
 		webPage = addWebPageSegmentation(webPage);
+		//webPage = addWebPageHTMLLinks(webPage);
 		return webPage;
 	}
 
@@ -45,18 +46,31 @@ public class WebSummaryFactory {
 		Document doc = webpage.getDoc();
 
 		Elements links = doc.select("a[href]");
-		Elements subHeadings = webpage.getDoc().select("h1,h2,h3,h4,h5,h6");
 
 		WebPageStructure webPageStructure = new WebPageStructure();
 
 		for (Element link : links) {
+			String linkURL = link.attr("abs:href").toLowerCase();
+			
+			if(linkURL.contains(".pdf")||linkURL.contains(".ps")){
+				webpage.addPDFLink(link);
+				//System.out.println("PDF->"+link.attr("abs:href"));
+			}
+			else if(linkURL.contains(".htm")||linkURL.contains(".asp")||linkURL.contains(".php")){
+				System.out.println(" -> "+link.text());
+				String text = link.text();
+				link.text(text);
+				webpage.addHTMLLink("<a href=\""+linkURL+"\">"+link.text()+"</a>");
+			}
+			
 			String text ="";
 			if(link.childNodes().size()>0){
 				text = link.childNode(0).toString();
 			}
-			webPageStructure.addLink(link.attr("abs:href"), text);
+			webPageStructure.addLink(link.attr("abs:href"), link.text());
 		}
 
+		Elements subHeadings = webpage.getDoc().select("h1,h2,h3,h4,h5,h6");
 		for (Element subHeading : subHeadings) {
 			webPageStructure.addSubHeadings(subHeading.text());
 		}
@@ -70,14 +84,26 @@ public class WebSummaryFactory {
 
 		Document doc = webpage.getDoc();
 		Elements media = doc.select("[src]");
-		//	webpage.setMedia(media);
-		/*for (Element src : media) {
-		if (src.tagName().equals("img"))
-			print(" * %s: <%s> %sx%s (%s)",
-					src.tagName(), src.attr("abs:src"), src.attr("width"), src.attr("height"),
-					trim(src.attr("alt"), 20));
+
+		for (Element src : media) {
+			if (src.tagName().equals("img")){
+				webpage.addImgLink(src);
+				//System.out.println("Pic->"+src.attr("abs:src"));
+			}
 		}	
-		 */
+
+		return webpage;
+	}
+	
+	private WebPage addWebPageHTMLLinks(WebPage webpage){
+
+		Document doc = webpage.getDoc();
+		Elements htmlLinks = doc.select("a[href]");
+
+		for (Element src : htmlLinks) {
+				//webpage.addHTMLLink(src);
+				System.out.println("Link->"+htmlLinks.attr("abs:src"));
+		}	
 		return webpage;
 	}
 

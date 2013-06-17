@@ -56,6 +56,8 @@ public class AlignmentFactory {
 				if(i == 0){
 					
 					Cluster tempCluster = new Cluster();
+					segment.setPos(alignedContent.size());
+					tempCluster.setPos(alignedContent.size());
 					tempCluster.addWebPageSection(0, segment);
 					alignedContent.add(tempCluster);
 					
@@ -73,11 +75,14 @@ public class AlignmentFactory {
 					else{
 						rowsUnavailable.add(new Integer(bestCluster));
 						alignedContent.get(bestCluster).setSegmentAlignedFlag();
+						alignedContent.get(bestCluster).setPos(bestCluster);
+						segment.setPos(bestCluster);
 						alignedContent.get(bestCluster).addWebPageSection(i, segment);
 					}
 				}
 			}
 		}
+		Cluster.numAlignments = alignedContent.size();
 		return alignedContent;
 	}
 

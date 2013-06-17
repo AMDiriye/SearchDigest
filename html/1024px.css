@@ -4,7 +4,7 @@ a {color:#d36e1a; font-weight:700; text-decoration:none;}
 a:hover {text-decoration:underline;}
 a img {border:0;}
 p {margin:5px 0px 5px 10px;padding-left:2px;}
-ul,ol,dl,li {font-size:9pt; margin:0 0px 8px 0px;padding-left:2px;}
+ul,ol,dl,li {list-style-type: none;font-size:9pt; margin:0 0px 8px 0px;padding-left:2px;}
 ul ul,ol ol {margin:4px 0 4px 35px;}
 blockquote {border:1px solid #dadada; font-size:0.9em; margin:20px 10px; padding:8px;}
 blockquote p {margin:0;}
@@ -39,7 +39,7 @@ h3 {/*border-bottom:1px solid #dadada;*/  color:#d36e1a; font-size:1.2em; font-w
 #innerContent{ width:90%;border:1px solid #bababa; padding:10px;margin: 20px;float:left;-webkit-box-shadow: 0 0 5px#888;
 box-shadow: 0 0 5px #888}
 #innerContent ul{list-style-type: none;}
-#innerContent div{ width: 100px; height: 200px; overflow: scroll;font-size: 9pt; }
+#innerContent div{font-size: 9pt; }
 #headerDiv{border-bottom:1px solid #dadada; color:#d36e1a; }
 /* Footer */
 #footer {border-top:4px solid #dadada; clear:both; color:gray; font-size:0.9em; line-height:1.6em; margin:0 auto; padding:8px 0; text-align:right;}
@@ -65,3 +65,15 @@ box-shadow: 0 0 5px #888}
 span#title{font-family: arial, sans-serif; color: #12c;}
 span#url{font-family: arial, sans-serif; color: #093;}
 .star{background: url('star_display.png') no-repeat top left; padding-left: 18px;}
+
+
+
+/*Pic slider*/
+#myslide {width:160px;overflow:hidden;position: relative;height:170px;margin-bottom:20px}
+#myslide .cover{width:480px; /*------- class mystuff width * number of mystuff divs (160 * 3 = 480)---------- */
+position: absolute;height:160px;}
+#myslide .mystuff {width:160px;float:left;padding:0px 0;}
+#button{height: 15px;}
+.button1,.button2,.button3{background:#999;padding:6px;display:block;float:left;margin-right:5px;}
+.active{background:#111;padding:6px;display:block;float:left;outline:none;}
+.clear{clear:both;}

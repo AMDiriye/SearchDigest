@@ -18,6 +18,7 @@ public class WebPageSection{
 	double[] characterDistribution;
 	String text;
 	boolean isAligned;
+	int pos;
 	
 	public WebPageSection(){
 		segments = new ArrayList<Cluster>();
@@ -121,6 +122,14 @@ public class WebPageSection{
 	@Override
 	public String toString(){
 		return text;
+	}
+
+	public void setPos(int pos) {
+		this.pos = pos;
+	}
+	
+	public int getPos(){
+		return pos;
 	}
 	
 }

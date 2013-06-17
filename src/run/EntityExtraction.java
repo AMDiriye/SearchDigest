@@ -15,7 +15,7 @@ public class EntityExtraction {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		args = "http://research.microsoft.com/en-us/um/people/alicez/#pubs".split("[,]");
+		args = "http://www.wikihow.com/Unclog-a-Bathtub-Drain".split("[,]");
 		SegmentationFactory segmentFactory = new SegmentationFactory(args[0]);
 		List<NamedEntity> namedEntities = EntityFactory.generateEntities(segmentFactory.getDoc().text());
 		

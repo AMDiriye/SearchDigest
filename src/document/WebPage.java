@@ -2,10 +2,12 @@ package document;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import utilities.Utilities;
@@ -27,6 +29,11 @@ public class WebPage{
 	int numInLink;
 	List<WebPageSection> segmentedWebPage;
 	
+	//Links
+	public List<String> htmlLinks;
+	public List<Element> pdfLinks;
+	public List<Element> imgLinks;
+	
 	//Document properties
 	WebPageStructure webPageStructure;
 	WebPageSection webPageSections;
@@ -39,6 +46,9 @@ public class WebPage{
 		title = doc.title();
 		isHubPage = false;
 		numInLink = 0;
+		htmlLinks = new ArrayList<String>();
+		pdfLinks = new ArrayList<Element>();
+		imgLinks = new ArrayList<Element>();
 	}
 	
 	public void setStemmedTerms(List<String> stemmedTerms){
@@ -71,6 +81,19 @@ public class WebPage{
 	public void setImg(String img){
 		this.img = img;
 	}
+	
+	public void addImgLink(Element imgLink){
+		imgLinks.add(imgLink);
+	}
+	
+	public void addHTMLLink(String htmlLink){
+		htmlLinks.add(htmlLink);
+	}
+	
+	public void addPDFLink(Element pdfLink){
+		pdfLinks.add(pdfLink);
+	}
+	
 	
 	public void setInLinks(int numInLink){
 		this.numInLink = numInLink;
@@ -159,6 +182,5 @@ public class WebPage{
 	public String getImg() {
 		return img;
 	}
-	
 
 }

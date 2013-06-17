@@ -29,10 +29,18 @@ public class HistoryProcessor {
 		findDomains();
 		//createPageClusters();
 		createPageAlignment();
+		createDeepLinks();
 		//extractEntities();
 		//extractQueries();
 		//reorder based on importance
 		//reorderHistory();
+	}
+
+	private void createDeepLinks() {
+		
+		for(WebPage webPage : webPages){
+			DeepLinkMiner dlm = new DeepLinkMiner(webPage);
+		}
 	}
 
 	//Find domain of all links on pages

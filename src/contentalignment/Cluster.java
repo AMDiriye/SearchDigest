@@ -25,6 +25,8 @@ public class Cluster {
 	int state = 0;
 	String text;
 	String url;
+	int pos;
+	public static int numAlignments;
 	
 	public Cluster(){
 		this.url = url;
@@ -308,7 +310,15 @@ public class Cluster {
 		
 		return segmentText;
 	}
+	
+	public void setPos(int pos){
+		this.pos = pos;
+	}
 
+	public int getPos(){
+		return pos;
+	}
+	
 	public void setSegmentAlignedFlag() {
 		for(WebPageSection webPageSection : webPageSections){
 			webPageSection.aligned();

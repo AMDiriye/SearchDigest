@@ -68,7 +68,8 @@ public class WebSummaryRunner {
 			webPages =  new WebPage[webtask.getNumURLs()];
 			
 			for(int i=0;i<webtask.getNumURLs();i++){
-				//System.out.println(webtask.getURLAt(i));
+				
+				System.out.println(webtask.getURLAt(i));
 				WebPage webPage = new WebPage(Utilities.getDoc(webtask.getURLAt(i)));
 				webPage.setImg(Utilities.findUserPic(webPage.getDoc().select("img"),webPage.getTitle()));
 				webPage = Utilities.addTermInfo(webPage);
@@ -120,7 +121,7 @@ public class WebSummaryRunner {
 			String tempString;
 			//Read File Line By Line
 			while ((tempString = br.readLine()) != null){
-				templateContent +=tempString;
+				templateContent +=tempString+"\n";
 			}
 
 		} catch (Exception e) {
@@ -129,7 +130,7 @@ public class WebSummaryRunner {
 		}
 		
 		//Add template data
-		DataWriter.writeFile("../html/webSummary.html", templateContent+webTaskContent+"<//div><//body><//html>");
+		DataWriter.writeFile("../html/webSummary.html", templateContent+webTaskContent+"</div></body></html>");
 		Utilities.openFileInBrowser("html/webSummary.html");
 	}
 	
