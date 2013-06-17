@@ -12,18 +12,21 @@ public class TextProcessor {
 	String[] dates;
 	String[] emails;
 	String[] phoneNumbers;
+	String[] numbers;
+	String[] letters;
 
 	public TextProcessor(){}
 
 	public void process(String text){
 		phoneNumbers = processPhoneNumber(text);
+		percentages = processNumbers(text);
 		emails = processEmail(text);
 		dates = processDate(text);
 		money = processMoney(text);
 		percentages = processPercentage(text);
+		letters = processLetters(text);
+		numbers = processNumbers(text);
 	}
-
-
 	
 	private String[] processPercentage(String text) {
 		return getMatchingItems("[-]?[0-9]+[.]?[/]?[0-9]*[\\s]*([%]|(percent))",
@@ -44,9 +47,17 @@ public class TextProcessor {
 	private String[] processPhoneNumber(String text) {
 		return getMatchingItems("\\d{3}-\\d{3}-\\d{4}", text);
 	}
+	
+	private String[] processNumbers(String text) {
+		return getMatchingItems("[\\d]", text);
+	}
 
 	private String[] processEmail(String text){
 		return getMatchingItems("\\b[\\w.%-]+@(.)+\\.[A-Za-z]{2,4}\\b", text);
+	}
+	
+	private String[] processLetters(String text){
+		return getMatchingItems("[A-Za-z]", text);
 	}
 
 	private String[] getMatchingItems(String regex, String text){
@@ -79,6 +90,14 @@ public class TextProcessor {
 	
 	public String[] getPercentages(){
 		return percentages;
+	}
+
+	public String[] getNumbers() {
+		return numbers;
+	}
+	
+	public String[] getLetters() {
+		return letters;
 	}
 	
 }

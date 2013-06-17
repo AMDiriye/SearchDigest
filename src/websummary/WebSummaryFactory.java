@@ -72,6 +72,7 @@ public class WebSummaryFactory {
 
 		Elements subHeadings = webpage.getDoc().select("h1,h2,h3,h4,h5,h6");
 		for (Element subHeading : subHeadings) {
+			//System.out.println("Headings: "+subHeading.text());
 			webPageStructure.addSubHeadings(subHeading.text());
 		}
 

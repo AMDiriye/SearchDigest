@@ -13,6 +13,7 @@ import java.util.List;
 import utilities.DataWriter;
 import utilities.GraphExtender;
 import utilities.Utilities;
+import websummary.FeatureExtractor;
 import websummary.HistoryVisualizer;
 import websummary.WebSummaryFactory;
 import websummary.WebTask;
@@ -102,6 +103,14 @@ public class WebSummaryRunner {
 			//		continue;
 			//	newWebPages.add(new WebPage(Utilities.getDoc(newLink)));
 			//}
+		}
+		
+		FeatureExtractor fex = new FeatureExtractor(webPages);
+		fex.extract();
+		List<String> features = fex.getFeatures();
+		
+		for(String str : features){
+			System.out.println(str);
 		}
 		
 		
