@@ -18,14 +18,13 @@ public class TextProcessor {
 	public TextProcessor(){}
 
 	public void process(String text){
-		phoneNumbers = processPhoneNumber(text);
-		percentages = processNumbers(text);
-		emails = processEmail(text);
-		dates = processDate(text);
+		//phoneNumbers = processPhoneNumber(text);
+		//emails = processEmail(text);
+		//dates = processDate(text);
 		money = processMoney(text);
-		percentages = processPercentage(text);
-		letters = processLetters(text);
-		numbers = processNumbers(text);
+		//percentages = processPercentage(text);
+		//letters = processLetters(text);
+		//numbers = processNumbers(text);
 	}
 	
 	private String[] processPercentage(String text) {
@@ -35,8 +34,10 @@ public class TextProcessor {
 
 
 	private String[] processMoney(String text) {
-		return getMatchingItems("[$|¥|£|€]?[\\d]{1,3}(,[\\s]?[\\d]{3})*(.[\\s]*[\\d]{2})?[\\s]*" +
-				"((pound)|(dollar)|(euro)|[$]|[¥]|[£]|[€])", text);
+		return getMatchingItems("[$|¥|£|€][\\d][\\d]*(,[\\s]?[\\d]{3})*(.[\\s]*[\\d]*)?((pound)|(dollar)|(euro)|[$]|[¥]|[£]|[€])?", text);
+				
+		//return getMatchingItems("[$|¥|£|€]?[\\d]{1,3}(,[\\s]?[\\d]{3})*(.[\\s]*[\\d]{2})?[\\s]*" +
+		//		"((pound)|(dollar)|(euro)|[$]|[¥]|[£]|[€])", text);
 	}
 
 
@@ -67,6 +68,7 @@ public class TextProcessor {
 		
 		while (m.find()) {
 			items.add(m.group());
+			System.out.println(m.group());
 		}
 		
 		return items.toArray(new String[]{});
