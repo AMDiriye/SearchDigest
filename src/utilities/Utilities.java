@@ -231,7 +231,7 @@ public class Utilities {
 		Document doc = null;
 
 		try {
-
+			
 			doc = Jsoup.connect(url).timeout(0).get();
 			//doc= new Cleaner(Whitelist.relaxed()).clean(Jsoup.connect(url).get());
 			//doc.outputSettings().prettyPrint(false);

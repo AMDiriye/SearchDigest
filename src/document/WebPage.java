@@ -51,6 +51,16 @@ public class WebPage{
 		imgLinks = new ArrayList<Element>();
 	}
 	
+	public WebPage(String content){
+		isHubPage = false;
+		numInLink = 0;
+		htmlLinks = new ArrayList<String>();
+		pdfLinks = new ArrayList<Element>();
+		imgLinks = new ArrayList<Element>();
+	}
+	
+	
+	
 	public void setStemmedTerms(List<String> stemmedTerms){
 		this.stemmedTerms = stemmedTerms;
 	}

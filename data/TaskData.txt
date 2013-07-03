@@ -1,11 +1,15 @@
-
 MSR
 http://research.microsoft.com/en-us/um/people/sumitb/
 http://research.microsoft.com/en-us/people/ankannan/
 http://research.microsoft.com/en-us/um/people/dmax/
-http://research.microsoft.com/en-us/um/people/alicez/
-http://research.microsoft.com/en-us/um/people/sdumais/
 http://research.microsoft.com/en-us/um/people/pauben/
+
+IMDB
+http://www.imdb.com/name/nm0000401/?ref_=sr_1
+http://www.imdb.com/name/nm0954225/?ref_=tt_cl_t2
+http://www.imdb.com/name/nm0000200/?ref_=tt_cl_t3
+http://www.imdb.com/name/nm0838000/?ref_=tt_cl_t4
+
 
 MSR
 http://research.microsoft.com/apps/pubs/default.aspx?id=170080

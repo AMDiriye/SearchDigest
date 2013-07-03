@@ -61,9 +61,9 @@ public class Cluster {
 		CharacterBasedDistribution doc2 = new CharacterBasedDistribution(text);
 		double characterSim =Utilities.jsDivergence(doc1.distribution,doc2.distribution);
 		
-		double simMax = Math.max(cosineSim,characterSim);
+		double simMax = cosineSim+characterSim;
 		
-		return simMax + (1-(locationSim/((double)webPageSections.size())))*simMax;
+		return simMax ;//+ (1-(locationSim/((double)webPageSections.size())))*simMax;
 	}
 	
 	public void addSegment(Segment segment){

@@ -1,5 +1,10 @@
 package run;
 
+import java.util.List;
+
+import namedentities.EntityFactory;
+import namedentities.NamedEntity;
+
 import org.jsoup.nodes.Document;
 
 import utilities.Utilities;
@@ -19,6 +24,12 @@ public class TextFinder {
 		
 		Text text = new Text(docText,0);
 		
+		//Named Entity Recogn
+		List<NamedEntity> namedEntities = EntityFactory.generateEntities(webPage.getContent());
+		
+		for(NamedEntity namedEntity : namedEntities){
+			System.out.println(namedEntity.getEntityValue() +" -- "+namedEntity.getType());
+		}
 		
 	}
 

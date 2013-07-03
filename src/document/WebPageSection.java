@@ -131,5 +131,10 @@ public class WebPageSection{
 	public int getPos(){
 		return pos;
 	}
+
+	public void setIsAligned(boolean b) {
+		this.isAligned = b;
+		
+	}
 	
 }

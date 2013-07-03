@@ -14,6 +14,7 @@ public class AlignmentFactory {
 	List<Cluster> alignedWebPages;
 	String url;
 	List<List<WebPageSection>> segmentedWebPages;
+	public static List<Cluster> alignedContent = new ArrayList<Cluster>();
 	
 	public AlignmentFactory(WebPage[] webPages){
 		
@@ -40,8 +41,6 @@ public class AlignmentFactory {
 	//Aligns webpages of webpagesections together
 	private List<Cluster> alignDocs(List<List<WebPageSection>> docs){
 
-		List<Cluster> alignedContent = new ArrayList<Cluster>();
-		
 		//iterates through each doc
 		for(int i=0; i< docs.size(); i++){
 			System.out.println("Processing "+(i+1)+" of "+docs.size());
@@ -53,33 +52,34 @@ public class AlignmentFactory {
 
 				WebPageSection segment = doc.get(j);
 
-				if(i == 0){
+			//	if(i == 0){
 					
-					Cluster tempCluster = new Cluster();
+				/*	Cluster tempCluster = new Cluster();
 					segment.setPos(alignedContent.size());
 					tempCluster.setPos(alignedContent.size());
 					tempCluster.addWebPageSection(0, segment);
 					alignedContent.add(tempCluster);
-					
-				}
-				else{
+					*/
+			//	}
+				//else{
 
 					int bestCluster = findBestCluster(segment, alignedContent,rowsUnavailable);
 
 					if(bestCluster == -1){
-						Cluster tempCluster = new Cluster();
-						tempCluster.addWebPageSection(0, segment);
-						alignedContent.add(tempCluster);
-						rowsUnavailable.add(new Integer(alignedContent.size()-1));
+						//Cluster tempCluster = new Cluster();
+						//tempCluster.addWebPageSection(0, segment);
+						//alignedContent.add(tempCluster);
+						//rowsUnavailable.add(new Integer(alignedContent.size()-1));
 					}
 					else{
 						rowsUnavailable.add(new Integer(bestCluster));
 						alignedContent.get(bestCluster).setSegmentAlignedFlag();
 						alignedContent.get(bestCluster).setPos(bestCluster);
+						segment.setIsAligned(true);
 						segment.setPos(bestCluster);
 						alignedContent.get(bestCluster).addWebPageSection(i, segment);
 					}
-				}
+				//}
 			}
 		}
 		Cluster.numAlignments = alignedContent.size();
@@ -93,7 +93,7 @@ public class AlignmentFactory {
 		for(int i = 0;i < clusters.size(); i++){
 
 			double tempSimVal = clusters.get(i).getSimilarity(cluster);
-			if(tempSimVal > bestSimVal && !rowsUnavailable.contains(new Integer(i)) && tempSimVal > 0.25){
+			if(tempSimVal > bestSimVal && !rowsUnavailable.contains(new Integer(i)) ){
 				bestSimVal = tempSimVal;
 				posBestCluster = i;
 			}
